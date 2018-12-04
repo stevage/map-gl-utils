@@ -1,3 +1,8 @@
+/*
+Generates the list of paint and layout properties from the Mapbox-GL-JS style spec.
+Should be run when new properties are added to that spec.
+*/
+
 const v8 = require('@mapbox/mapbox-gl-style-spec/reference/v8.json');
 const fs = require('fs');
 const out = {

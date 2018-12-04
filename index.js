@@ -7,7 +7,7 @@ function isPaintProp(prop) {
     return allProps.paints.indexOf(prop) >= 0;
 }
 
-const Utils = function(map) {
+const Utils = function(map, directlyIntegrate = false) {
     Object.assign(this, {
         hoverPointer(layers) {
             if (typeof layers === 'string') {
@@ -28,9 +28,9 @@ const Utils = function(map) {
                 ...options
             });
             return id;
-        }, setProp(layer, prop, value) {
+        }, setProperty(layer, prop, value) {
             if (typeof prop === 'object') {
-                Object.keys(prop).forEach(k => this.setProp(layer, k, prop[k]));
+                Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
             } else {
                 const kprop = kebabCase(prop);
                 const fn = isPaintProp(kprop) ? 'setPaintProperty' : 'setLayoutProperty';
@@ -40,6 +40,9 @@ const Utils = function(map) {
     });
     
     map.U = this;
+    if (directlyIntegrate) {
+        Object.assign(map, this);
+    }
 }
 
 module.exports = Utils;
