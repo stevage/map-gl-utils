@@ -6,77 +6,65 @@ function mockMap() {
         setLayoutProperty: jest.fn()
     };
 }
-test('Attaches itself to map object', () => {
-    const map = {};
-    const U = new utils(map);
-    expect(map.U).toBe(U);    
+describe('Initialisation', () => {
+    test('Attaches itself to map object', () => {
+        const map = mockMap();
+        const U = new utils(map);
+        expect(map.U).toBe(U);
+        expect(map.setProperty).toBe(undefined); 
+    });
+    test('Provides hoverPointer function', () => {
+        const map = mockMap();
+        const U = new utils(map);
+        expect(typeof U.hoverPointer).toBe('function');    
+    });
+    test('Attaches methods directly to map instance if requested', () => {
+        const map = mockMap();
+        const U = new utils(map, true);
+        expect(map.U).toBe(U);
+        expect(typeof map.U.setProperty).toBe('function'); 
+        expect(typeof map.setProperty).toBe('function'); 
+    });
 });
-
-test('Provides hoverPointer function', () => {
-    const map = {};
-    const U = new utils(map);
-    expect(typeof U.hoverPointer).toBe('function');    
-});
-
-describe('setProp', () => {
+describe('setProperty', () => {
     test('Correctly picks setPaintProperty for line-color', () => {
         const map = mockMap();
         const U = new utils(map);
-        U.setProp('mylayer', 'lineColor', 'red');
-        expect(map.setPaintProperty.mock.calls.length).toBe(1);
-        expect(map.setPaintProperty.mock.calls[0][0]).toBe('mylayer');
-        expect(map.setPaintProperty.mock.calls[0][1]).toBe('line-color');
-        expect(map.setPaintProperty.mock.calls[0][2]).toBe('red');
-        expect(map.setLayoutProperty.mock.calls.length).toBe(0);
+        U.setProperty('mylayer', 'lineColor', 'red');
+        expect(map.setPaintProperty).toBeCalledWith('mylayer', 'line-color', 'red');
+        expect(map.setLayoutProperty).not.toBeCalled();
     });
     test('Correctly picks setLayoutProperty for icon-size', () => {
         const map = mockMap();    
         const U = new utils(map);
-        U.setProp('mylayer', 'icon-size', 3);
-        expect(map.setPaintProperty.mock.calls.length).toBe(0);
-        expect(map.setLayoutProperty.mock.calls[0][0]).toBe('mylayer');
-        expect(map.setLayoutProperty.mock.calls[0][1]).toBe('icon-size');
-        expect(map.setLayoutProperty.mock.calls[0][2]).toBe(3);
-        expect(map.setLayoutProperty.mock.calls.length).toBe(1);
+        U.setProperty('mylayer', 'icon-size', 3);
+        expect(map.setPaintProperty).not.toBeCalled();
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'icon-size', 3);
     });
     test('Handles multiple properties correctly', () => {
         const map = mockMap();    
         const U = new utils(map);
-        U.setProp('mylayer', {
+        U.setProperty('mylayer', {
             'font-size': 12,
             'text-color': 'blue',
         });
-        expect(map.setPaintProperty.mock.calls.length).toBe(1);
-        expect(map.setPaintProperty.mock.calls[0][0]).toBe('mylayer');
-        expect(map.setPaintProperty.mock.calls[0][1]).toBe('text-color');
-        expect(map.setPaintProperty.mock.calls[0][2]).toBe('blue');
-        expect(map.setLayoutProperty.mock.calls.length).toBe(1);
-        expect(map.setLayoutProperty.mock.calls[0][0]).toBe('mylayer');
-        expect(map.setLayoutProperty.mock.calls[0][1]).toBe('font-size');
-        expect(map.setLayoutProperty.mock.calls[0][2]).toBe(12);
+        expect(map.setPaintProperty).toBeCalledWith('mylayer', 'text-color', 'blue');
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'font-size', 12);
     });
     test('Supports multiple properties in camel case', () => {
         const map = mockMap();    
         const U = new utils(map);
-        U.setProp('mylayer', {
+        U.setProperty('mylayer', {
             fontSize: 12,
             textColor: 'blue',
         });
-        expect(map.setPaintProperty.mock.calls.length).toBe(1);
-        expect(map.setPaintProperty.mock.calls[0][0]).toBe('mylayer');
-        expect(map.setPaintProperty.mock.calls[0][1]).toBe('text-color');
-        expect(map.setPaintProperty.mock.calls[0][2]).toBe('blue');
-        expect(map.setLayoutProperty.mock.calls.length).toBe(1);
-        expect(map.setLayoutProperty.mock.calls[0][0]).toBe('mylayer');
-        expect(map.setLayoutProperty.mock.calls[0][1]).toBe('font-size');
-        expect(map.setLayoutProperty.mock.calls[0][2]).toBe(12);
+        expect(map.setPaintProperty).toBeCalledWith('mylayer', 'text-color', 'blue');
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'font-size', 12);
     });
     test('Supports a single property in camel case', () => {
         const map = mockMap();    
         const U = new utils(map);
-        U.setProp('mylayer', 'fontSize', 12);
-        expect(map.setLayoutProperty.mock.calls[0][0]).toBe('mylayer');
-        expect(map.setLayoutProperty.mock.calls[0][1]).toBe('font-size');
-        expect(map.setLayoutProperty.mock.calls[0][2]).toBe(12);
+        U.setProperty('mylayer', 'fontSize', 12);
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'font-size', 12);
     });
 });
