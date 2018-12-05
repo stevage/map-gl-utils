@@ -22,5 +22,6 @@
     "index.test.js",
     "make.js",
     "keys.json"
-  ]
+  ],
+  "keywords": ["mapbox", "mapbox-gl-js", "utility", "geojson", "style","layers","maps"]
 }
