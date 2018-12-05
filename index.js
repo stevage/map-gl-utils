@@ -31,24 +31,32 @@ const Utils = function(map, directlyIntegrate = false) {
             }); 
         }, 
         add(id, source, type, props) {
-            map.addLayer({
+            return map.addLayer({
                 id,
                 source,
                 type,
                 ...this.properties(props)
             });
-        },
-        
-        addLine(source, options) {
-            const id = options.id || `${source}-line`;
-            map.addLayer({
-                id,
-                type: 'line',
-                source,
-                ...options
-            });
-            return id;
-        }, setProperty(layer, prop, value) {
+        }, addLine(id, source, options) {
+            return this.add(id, source, 'line', options);
+        }, addFill(id, source, options) {
+            return this.add(id, source, 'fill', options);
+        }, addCircle(id, source, options) {
+            return this.add(id, source, 'circle', options);
+        }, addSymbol(id, source, options) {
+            return this.add(id, source, 'symbol', options);
+        }, addVideo(id, source, options) {
+            return this.add(id, source, 'video', options);
+        }, addRaster(id, source, options) {
+            return this.add(id, source, 'raster', options);
+        }, addFillExtrusion(id, source, options) {
+            return this.add(id, source, 'fill-extrusion', options);
+        }, addHeatmap(id, source, options) {
+            return this.add(id, source, 'heatmap', options);
+        }, addHillshade(id, source, options) {
+            return this.add(id, source, 'hillshade', options);
+        }, 
+        setProperty(layer, prop, value) {
             if (typeof prop === 'object') {
                 Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
             } else {
