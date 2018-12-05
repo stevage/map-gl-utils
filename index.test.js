@@ -7,7 +7,7 @@ function mockMap() {
         loaded: jest.fn(() => true),
         getSource: jest.fn(() => ({
             setData: jest.fn()
-        }))
+        })), addSource: jest.fn()
     };
 }
 
@@ -17,6 +17,7 @@ beforeEach(() => {
     U = utils.init(map);
 });
 
+const geojson = { type: 'FeatureCollection', features: [] };
 
 describe('Initialisation', () => {
     test('Attaches itself to map object', () => {
@@ -179,9 +180,31 @@ describe('addLine()', () => {
     });
 });
 
+describe('addGeoJSON', () => {
+    test('Adds a GeoJSON source', () => {
+        map.U.addGeoJSON('mysource', geojson);
+        expect(map.addSource).toBeCalledWith(
+            'mysource', {
+                type: 'geojson',
+                data: geojson
+            });
+    });
+    test('Supports an undefined source', () => {
+        map.U.addGeoJSON('mysource');
+        expect(map.addSource).toBeCalledWith(
+            'mysource', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: []
+                }
+            });
+    });
+});
+
+
 describe('update()', () => {
     test('Calls setData with correct source', () => {
-        const geojson = { type: 'FeatureCollection', features: [] };
         map.U.update('mysource', geojson);
         expect(map.getSource).toBeCalledWith('mysource')
         const source = map.getSource.mock.results[0].value;
