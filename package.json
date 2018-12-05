@@ -31,5 +31,8 @@
     "style",
     "layers",
     "maps"
-  ]
+  ], "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
+  }
 }
