@@ -4,7 +4,10 @@ function mockMap() {
         setPaintProperty: jest.fn(),
         setLayoutProperty: jest.fn(),
         addLayer: jest.fn(),
-        loaded: jest.fn(() => true)
+        loaded: jest.fn(() => true),
+        getSource: jest.fn(() => ({
+            setData: jest.fn()
+        }))
     };
 }
 
@@ -175,6 +178,18 @@ describe('addLine()', () => {
         });
     });
 });
+
+describe('update()', () => {
+    test('Calls setData with correct source', () => {
+        const geojson = { type: 'FeatureCollection', features: [] };
+        map.U.update('mysource', geojson);
+        expect(map.getSource).toBeCalledWith('mysource')
+        const source = map.getSource.mock.results[0].value;
+        expect(source.setData).toBeCalledWith(geojson);
+    });
+});
+
+
 
 describe('onLoad()', () => {
     test('Fires immediately if needed', () => {
