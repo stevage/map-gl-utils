@@ -14,6 +14,7 @@
     "jest": "^23.6.0"
   },
   "dependencies": {
+    "@mapbox/expression-jamsession": "^0.4.2",
     "kebab-case": "^1.0.0"
   }
 }

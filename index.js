@@ -2,6 +2,8 @@ module.exports = function addTo(map) {
 }
 const kebabCase = require('kebab-case');
 const allProps = require('./keys.json');
+const jamSession = require('@mapbox/expression-jamsession');
+
 
 function isPaintProp(prop) {
     return allProps.paints.indexOf(prop) >= 0;
@@ -17,7 +19,14 @@ function whichProp(prop) {
     return 'other';
 }
 
-const Utils = function(map, directlyIntegrate = false) {
+function utils(...args) {
+    if (args[0] && Array.isArray(args[0]) && args[0].raw) {
+        // We're being used as a tagged template
+        return jamSession.formulaToExpression(args[0].raw[0]);
+    } // else what?
+}
+
+utils.init = function(map, directlyIntegrate = false) {
     Object.assign(this, {
         hoverPointer(layers) {
             if (typeof layers === 'string') {
@@ -94,6 +103,7 @@ const Utils = function(map, directlyIntegrate = false) {
     if (directlyIntegrate) {
         Object.assign(map, this);
     }
+    return this;
 }
 
-module.exports = Utils;
+module.exports = utils;

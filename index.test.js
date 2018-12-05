@@ -12,7 +12,7 @@ function mockMap() {
 let map, U;
 beforeEach(() => {
     map = mockMap();
-    U = new utils(map);
+    U = utils.init(map);
 });
 
 
@@ -27,7 +27,7 @@ describe('Initialisation', () => {
     test('Attaches methods directly to map instance if requested', () => {
         // shadowing global map/U
         const map = mockMap();
-        const U = new utils(map, true);
+        const U = utils.init(map, true);
         expect(map.U).toBe(U);
         expect(typeof map.U.setProperty).toBe('function'); 
         expect(typeof map.setPaintProperty).toBe('function'); 
@@ -160,5 +160,24 @@ describe('onLoad()', () => {
         const cb = jest.fn();
         map.U.onLoad(cb);
         expect(cb).toBeCalled();
+    });
+});
+
+describe('Jam Session expressions', () => {
+    test('Detects and parses a Jam Session string', () => {
+        expect(U`2 + 2`).toEqual(['+', 2, 2]);
+    });
+    test('Supports Jam Session in a layer definition', () => {
+        map.U.addLine('myline', 'mysource', {
+            lineWidth: U`get("width") + 3`
+        });
+        expect(map.addLayer).toBeCalledWith({
+            id: 'myline',
+            source: 'mysource',
+            type: 'line',
+            paint: {
+                'line-width': ['+', ['get', 'width'], 3]
+            }
+        });
     });
 });
