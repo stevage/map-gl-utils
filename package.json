@@ -1,6 +1,6 @@
 {
   "name": "mapbox-gl-utils",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,8 @@
     "style",
     "layers",
     "maps"
-  ], "jest": {
+  ],
+  "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
   }
