@@ -1,9 +1,6 @@
-module.exports = function addTo(map) {
-}
 const kebabCase = require('kebab-case');
 const allProps = require('./keys.json');
 const jamSession = require('@mapbox/expression-jamsession');
-
 
 function isPaintProp(prop) {
     return allProps.paints.indexOf(prop) >= 0;
@@ -22,8 +19,24 @@ function whichProp(prop) {
 function utils(...args) {
     if (args[0] && Array.isArray(args[0]) && args[0].raw) {
         // We're being used as a tagged template
-        return jamSession.formulaToExpression(args[0].raw[0]);
+        try {
+            return jamSession.formulaToExpression(args[0].raw[0]);
+        } catch (e) {
+            console.log('whoa');
+            console.error(e);
+        }
     } // else what?
+}
+
+function parseSource(source) {
+    if (String(source).match('\.(geo)?json') || source.type === 'Feature' || source.type === 'FeatureCollection') {
+        return {
+            type: 'geojson',
+            data: source
+        }
+    } else {
+        return source;
+    }
 }
 
 utils.init = function(map, directlyIntegrate = false) {
@@ -42,7 +55,7 @@ utils.init = function(map, directlyIntegrate = false) {
         add(id, source, type, props) {
             return map.addLayer({
                 id,
-                source,
+                source: parseSource(source),
                 type,
                 ...this.properties(props)
             });
