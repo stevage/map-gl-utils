@@ -19,17 +19,12 @@ function whichProp(prop) {
 function utils(...args) {
     if (args[0] && Array.isArray(args[0]) && args[0].raw) {
         // We're being used as a tagged template
-        try {
-            return jamSession.formulaToExpression(args[0].raw[0]);
-        } catch (e) {
-            console.log('whoa');
-            console.error(e);
-        }
+        return jamSession.formulaToExpression(args[0].raw[0]);
     } else throw 'Mapbox-gl-utils unexpectedly called as a function.'
 }
 
 function parseSource(source) {
-    if (String(source).match('\.(geo)?json') || source.type === 'Feature' || source.type === 'FeatureCollection') {
+    if (String(source).match(/\.(geo)?json/) || source.type === 'Feature' || source.type === 'FeatureCollection') {
         return {
             type: 'geojson',
             data: source
