@@ -58,6 +58,12 @@ map.U.addLine('mylines', 'mysource', {
 // Like on('load') but fires immediately if map already loaded.
 map.U.onLoad(callback)
 
+// Simpler way to create GeoJSON source:
+map.u.addGeoJSON('mysource', geojson);
+
+// Or create a GeoJSON source with initially blank data:
+map.u.addGeoJSON('mysource');
+
 // Simpler way to update source data:
 map.U.update('mysource', data);
 

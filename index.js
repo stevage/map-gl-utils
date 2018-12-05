@@ -77,7 +77,12 @@ utils.init = function(map, directlyIntegrate = false) {
             return this.add(id, source, 'heatmap', options);
         }, addHillshade(id, source, options) {
             return this.add(id, source, 'hillshade', options);
-        }, 
+        },  addGeoJSON(id, geojson = { type: 'FeatureCollection', features: [] }) {
+            return map.addSource(id, {
+                type: 'geojson',
+                data: geojson
+            });
+        },
         setProperty(layer, prop, value) {
             if (typeof prop === 'object') {
                 Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
