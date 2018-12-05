@@ -1,5 +1,4 @@
 const utils = require('./index');
-
 function mockMap() {
     return {
         setPaintProperty: jest.fn(),
@@ -137,6 +136,28 @@ describe('add()', () => {
             paint: {
                 'line-width': 3
             }, minzoom: 3
+        });
+    });
+
+    test('Supports sneaky geojson by URL', () => {
+        map.U.add('mylayer', 'myfile.geojson', 'line');
+        expect(map.addLayer).toBeCalledWith({
+            id: 'mylayer',
+            source: { type: 'geojson', data: 'myfile.geojson' },
+            type: 'line'
+        });
+    });
+    test('Supports sneaky geojson inline', () => {
+        const geojson = {
+            type: 'FeatureCollection',
+            features: [
+            ]
+        };
+        map.U.add('mylayer', geojson, 'line');
+        expect(map.addLayer).toBeCalledWith({
+            id: 'mylayer',
+            source: { type: 'geojson', data: geojson },
+            type: 'line'
         });
     });
 });
