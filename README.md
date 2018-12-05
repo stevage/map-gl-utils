@@ -23,6 +23,19 @@ map.U.setProperty('mylayer', {
     lineColor: 'red'
 });
 
+// Or mix style and non-style properties
+map.addLayer(map.U.properties({
+    id: 'mylayer',
+    source: 'mysource',
+    type: 'line',
+    lineWidth: 3,
+    lineCap: 'round',
+    minzoom: 11
+});
+
+// More streamlined way to add map layers:
+map.U.add('mylayer', 'mysource', 'line', { lineWidth: 3, minzoom: 11 });
+
 // If you don't mind mixing namespaces, you can integrate the functions directly onto the map object:
 
 require(mapbox-gl-utils)(map, true);

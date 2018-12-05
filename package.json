@@ -1,7 +1,7 @@
 {
   "name": "mapbox-gl-utils",
   "version": "0.1.0",
-  "description": "",
+  "description": "Utility functions for Mapbox-GL-JS",
   "main": "index.js",
   "scripts": {
     "test": "jest",
