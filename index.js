@@ -25,7 +25,7 @@ function utils(...args) {
             console.log('whoa');
             console.error(e);
         }
-    } // else what?
+    } else throw 'Mapbox-gl-utils unexpectedly called as a function.'
 }
 
 function parseSource(source) {
@@ -103,7 +103,9 @@ utils.init = function(map, directlyIntegrate = false) {
             }
             Object.assign(out, which.other);
             return out;
-        }, onLoad(cb) {
+        }, update(source, data) {
+            map.getSource(source).setData(data);
+        },onLoad(cb) {
             if (map.loaded()) {
                 cb();
             } else {

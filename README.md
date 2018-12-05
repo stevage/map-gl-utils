@@ -58,6 +58,9 @@ map.U.addLine('mylines', 'mysource', {
 // Like on('load') but fires immediately if map already loaded.
 map.U.onLoad(callback)
 
+// Simpler way to update source data:
+map.U.update('mysource', data);
+
 // If you don't mind mixing namespaces, you can integrate the functions directly onto the map object:
 
 const U = require('mapbox-gl-utils').init(map, true);

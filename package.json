@@ -16,5 +16,10 @@
   "dependencies": {
     "@mapbox/expression-jamsession": "^0.4.2",
     "kebab-case": "^1.0.0"
-  }
+  }, "files": [
+    "index.js",
+    "index.test.js",
+    "make.js",
+    "keys.json"
+  ]
 }
