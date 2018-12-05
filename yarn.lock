@@ -18,6 +18,13 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@mapbox/expression-jamsession@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@mapbox/expression-jamsession/-/expression-jamsession-0.4.2.tgz#5bdf3612e886ce3965c9bf4d43e86b7269d8bcf0"
+  integrity sha512-wyDUqs1Hs90jQAmxtLhfrEnooVKx/EmR5En3LARe+a3i4fO7NmQjoVTg+JMJDBsK2a3V5gZ+nTA5X10KIKxMqg==
+  dependencies:
+    jsep "^0.3.3"
+
 "@mapbox/jsonlint-lines-primitives@~2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@mapbox/jsonlint-lines-primitives/-/jsonlint-lines-primitives-2.0.2.tgz#ce56e539f83552b58d10d672ea4d6fc9adc7b234"
@@ -2053,6 +2060,11 @@ jsdom@^11.5.1:
     whatwg-url "^6.4.1"
     ws "^5.2.0"
     xml-name-validator "^3.0.0"
+
+jsep@^0.3.3:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/jsep/-/jsep-0.3.4.tgz#55ebd4400c5c5861cb1ff949a7a4cd97fcaacaa0"
+  integrity sha512-ovGD9wE+wvudIIYxZGrRcZCxNyZ3Cl1N7Bzyp7/j4d/tA0BaUwcVM9bu0oZaSrefMiNwv6TwZ9X15gvZosteCQ==
 
 jsesc@^1.3.0:
   version "1.3.0"

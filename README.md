@@ -1,10 +1,10 @@
-### Mapbox-gl-utils
+### Mapbox-GL-Utils
 
-Utility functions for Mapbox-GL-JS.
+Utility functions and syntactic sugar for Mapbox-GL-JS.
 
 ```js
 // Adds U property to map, containing these methods.
-require(mapbox-gl-utils)(map);
+const U = require('mapbox-gl-utils').init(map);
 
 // Use the mouse 'finger' cursor when hovering over this layer.
 map.U.hoverPointer('mylayer'); 
@@ -41,6 +41,11 @@ map.U.add('mylayer', 'mysource', 'line', { lineWidth: 3, minzoom: 11 });
 // And even more streamlined:
 map.U.addLine('mylines', 'mysource', { lineWidth: 3, minzoom: 11 });
 map.U.addCircle('mycircles', 'mysource', { circleStrokeColor: 'red' });
+
+// Seamlessly incorporate [Jam Session](https://github.com/mapbox/expression-jamsession) expressions:
+map.U.addLine('mylines', 'mysource', { 
+    lineWidth: U`get("size") + 3`
+};
 
 // Like on('load') but fires immediately if map already loaded.
 map.U.onLoad(callback)
