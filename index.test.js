@@ -139,3 +139,17 @@ describe('add()', () => {
         });
     });
 });
+
+describe('addLine()', () => {
+    test('Adds line type with no style props', () => {
+        map.U.addLine('mylayer', 'things', { lineWidth: 3, minzoom: 3 });
+        expect(map.addLayer).toBeCalledWith({
+            id: 'mylayer',
+            type: 'line',
+            source: 'things',
+            paint: {
+                'line-width': 3
+            }, minzoom: 3
+        });
+    });
+});
