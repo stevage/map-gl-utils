@@ -1,6 +1,6 @@
 {
   "name": "mapbox-gl-utils",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,8 @@
   "dependencies": {
     "@mapbox/expression-jamsession": "^0.4.2",
     "kebab-case": "^1.0.0"
-  }, "files": [
+  },
+  "files": [
     "index.js",
     "index.test.js",
     "make.js",
