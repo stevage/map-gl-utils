@@ -4,7 +4,8 @@ function mockMap() {
     return {
         setPaintProperty: jest.fn(),
         setLayoutProperty: jest.fn(),
-        addLayer: jest.fn()
+        addLayer: jest.fn(),
+        loaded: jest.fn(() => true)
     };
 }
 
@@ -151,5 +152,13 @@ describe('addLine()', () => {
                 'line-width': 3
             }, minzoom: 3
         });
+    });
+});
+
+describe('onLoad()', () => {
+    test('Fires immediately if needed', () => {
+        const cb = jest.fn();
+        map.U.onLoad(cb);
+        expect(cb).toBeCalled();
     });
 });
