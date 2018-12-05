@@ -1,6 +1,6 @@
 {
   "name": "mapbox-gl-utils",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,13 @@
     "make.js",
     "keys.json"
   ],
-  "keywords": ["mapbox", "mapbox-gl-js", "utility", "geojson", "style","layers","maps"]
+  "keywords": [
+    "mapbox",
+    "mapbox-gl-js",
+    "utility",
+    "geojson",
+    "style",
+    "layers",
+    "maps"
+  ]
 }
