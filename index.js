@@ -81,6 +81,12 @@ const Utils = function(map, directlyIntegrate = false) {
             }
             Object.assign(out, which.other);
             return out;
+        }, onLoad(cb) {
+            if (map.loaded()) {
+                cb();
+            } else {
+                map.on('load', cb);
+            }
         }
     });
     
