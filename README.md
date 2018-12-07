@@ -6,9 +6,6 @@ Utility functions and syntactic sugar for Mapbox-GL-JS.
 // Adds U property to map, containing these methods.
 const U = require('mapbox-gl-utils').init(map);
 
-// Use the mouse 'finger' cursor when hovering over this layer.
-map.U.hoverPointer('mylayer'); 
-
 // Set a property without worrying about whether it's a paint or layout property.
 map.U.setProperty('mylayer', 'line-width', 3);
 
@@ -35,6 +32,12 @@ map.addLayer(map.U.properties({
     filter: ['==', 'status', 'confirmed']
 }));
 
+// Or even:
+map.U.setTextSize('mylayer', 12);
+
+// Or multiple layers at once:
+map.U.setLineWidth(['mylayer', 'mylayer-highlight'], 4);
+
 // More streamlined way to add map layers:
 map.U.add('mylayer', 'mysource', 'line', { lineWidth: 3, minzoom: 11 });
 
@@ -54,6 +57,9 @@ const U = require('mapbox-gl-utils').init(map);
 map.U.addLine('mylines', 'mysource', { 
     lineWidth: U`get("size") + 3`
 };
+
+// Use the mouse 'finger' cursor when hovering over this layer.
+map.U.hoverPointer('mylayer'); 
 
 // Like on('load') but fires immediately if map already loaded.
 map.U.onLoad(callback)

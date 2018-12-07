@@ -34,7 +34,20 @@ function parseSource(source) {
     }
 }
 
+const all = (things, f) =>
+    Array.isArray(things) ? things.forEach(f) : f(things);
+
 utils.init = function(map, directlyIntegrate = false) {
+    const U = this;
+    function makeSetProp(prop, setPropFunc) {
+        const funcName = 'set' + prop[0].toUpperCase() + kebabCase.reverse(prop).slice(1);
+        U[funcName] = function(layers, value) {
+            all(layers, layer =>
+                map[setPropFunc](layer, prop, value)
+            );
+        };
+    };
+
     Object.assign(this, {
         hoverPointer(layers) {
             if (typeof layers === 'string') {
@@ -78,14 +91,16 @@ utils.init = function(map, directlyIntegrate = false) {
                 data: geojson
             });
         },
-        setProperty(layer, prop, value) {
-            if (typeof prop === 'object') {
-                Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
-            } else {
-                const kprop = kebabCase(prop);
-                const fn = isPaintProp(kprop) ? 'setPaintProperty' : 'setLayoutProperty';
-                map[fn](layer, kprop , value);
-            }
+        setProperty(layers, prop, value) {
+            all(layers, layer => {
+                if (typeof prop === 'object') {
+                    Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
+                } else {
+                    const kprop = kebabCase(prop);
+                    const fn = isPaintProp(kprop) ? 'setPaintProperty' : 'setLayoutProperty';
+                    map[fn](layer, kprop , value);
+                }
+            });
         }, properties(props) {
             if (!props) {
                 return undefined;
@@ -105,15 +120,32 @@ utils.init = function(map, directlyIntegrate = false) {
             return out;
         }, update(source, data) {
             map.getSource(source).setData(data);
-        },onLoad(cb) {
+        }, show(layers) {
+            all(layers, layer => 
+                map.setLayoutProperty(layer, 'visibility', 'visible')
+            );
+        }, hide(layers) {
+            all(layers, layer => 
+                map.setLayoutProperty(layer, 'visibility', 'none')
+            );
+        }, toggle(layers, state) {
+            all(layers, layer => 
+                map.setLayoutProperty(layer, 'visibility', state ? 'visible' : 'none')
+            );
+        }, onLoad(cb) {
             if (map.loaded()) {
                 cb();
             } else {
                 map.on('load', cb);
             }
+        }, lockOrientation() {
+            // Hmm, we can't remove the rotation control.
+            map.touchZoomRotate.disable();
+            map.dragRotate.disable();
         }
     });
-    
+    allProps.paints.forEach(prop => makeSetProp(prop, 'setPaintProperty'));
+    allProps.layouts.forEach(prop => makeSetProp(prop, 'setLayoutProperty'));
     map.U = this;
     if (directlyIntegrate) {
         Object.assign(map, this);

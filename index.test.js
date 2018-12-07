@@ -72,6 +72,22 @@ describe('setProperty()', () => {
     });
 });
 
+describe('Streamlined setFoo()', () => {
+    test('Supports setLineWidth', () => {
+        map.U.setLineWidth('mylayer', 3);
+        expect(map.setPaintProperty).toBeCalledWith('mylayer', 'line-width', 3);
+    });
+    test('Supports setTextSize', () => {
+        map.U.setTextSize('mylayer', 14);
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'text-size', 14);
+    });
+    test('Supports multiple layers', () => {
+        map.U.setTextSize(['layer1', 'layer2'], 14);
+        expect(map.setLayoutProperty).toBeCalledWith('layer1', 'text-size', 14);
+        expect(map.setLayoutProperty).toBeCalledWith('layer2', 'text-size', 14);
+    });
+});
+
 describe('properties()', () => {
     test('Handles multiple mixed properties', () => {
         const style = U.properties({
@@ -219,6 +235,26 @@ describe('onLoad()', () => {
         const cb = jest.fn();
         map.U.onLoad(cb);
         expect(cb).toBeCalled();
+    });
+});
+
+describe('show(), hide(), toggle()', () => {
+    test('Show a layer', () => {
+        map.U.show('mylayer');
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'visibility', 'visible');
+    });
+    test('Show two layers', () => {
+        map.U.show(['layer1','layer2']);
+        expect(map.setLayoutProperty).toBeCalledWith('layer1', 'visibility', 'visible');
+        expect(map.setLayoutProperty).toBeCalledWith('layer1', 'visibility', 'visible');
+    });
+    test('Hide a layer', () => {
+        map.U.hide('mylayer');
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'visibility', 'none');
+    });
+    test('Toggle a layer on', () => {
+        map.U.toggle('mylayer', true);
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'visibility', 'visible');
     });
 });
 
