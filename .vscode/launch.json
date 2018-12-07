@@ -7,6 +7,17 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Test",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "test"
+            ],
+            "port": 9229
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Make",
             "program": "${workspaceFolder}/make.js"
         }
