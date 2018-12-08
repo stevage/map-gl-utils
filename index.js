@@ -34,19 +34,30 @@ function parseSource(source) {
     }
 }
 
-const all = (things, f) =>
-    Array.isArray(things) ? things.forEach(f) : f(things);
+// Magically turn a function that works on one layer into one that works on array of layers.
+const arrayify = f => (things, ...args) =>
+    Array.isArray(things)
+        ? things.forEach(t => f(t, ...args)) 
+        : f(things, ...args);
+
+
+function upperCamelCase(s) {
+    return s[0].toUpperCase() + kebabCase.reverse(s).slice(1);
+}
 
 utils.init = function(map, directlyIntegrate = false) {
     const U = this;
     function makeSetProp(prop, setPropFunc) {
-        const funcName = 'set' + prop[0].toUpperCase() + kebabCase.reverse(prop).slice(1);
-        U[funcName] = function(layers, value) {
-            all(layers, layer =>
-                map[setPropFunc](layer, prop, value)
-            );
-        };
+        const funcName = 'set' + upperCamelCase(prop);
+        U[funcName] = arrayify((layer, value) =>
+            map[setPropFunc](layer, prop, value)
+        );
     };
+
+    function makeAddLayer(layerType) {
+        const funcName = 'add' + upperCamelCase(layerType);
+        U[funcName] = (id, source, options) => U.add(id, source, layerType, options);
+    }
 
     Object.assign(this, {
         hoverPointer(layers) {
@@ -64,41 +75,21 @@ utils.init = function(map, directlyIntegrate = false) {
                 type,
                 ...this.properties(props)
             });
-        }, addLine(id, source, options) {
-            return this.add(id, source, 'line', options);
-        }, addFill(id, source, options) {
-            return this.add(id, source, 'fill', options);
-        }, addCircle(id, source, options) {
-            return this.add(id, source, 'circle', options);
-        }, addSymbol(id, source, options) {
-            return this.add(id, source, 'symbol', options);
-        }, addVideo(id, source, options) {
-            return this.add(id, source, 'video', options);
-        }, addRaster(id, source, options) {
-            return this.add(id, source, 'raster', options);
-        }, addFillExtrusion(id, source, options) {
-            return this.add(id, source, 'fill-extrusion', options);
-        }, addHeatmap(id, source, options) {
-            return this.add(id, source, 'heatmap', options);
-        }, addHillshade(id, source, options) {
-            return this.add(id, source, 'hillshade', options);
         },  addGeoJSON(id, geojson = { type: 'FeatureCollection', features: [] }) {
             return map.addSource(id, {
                 type: 'geojson',
                 data: geojson
             });
         },
-        setProperty(layers, prop, value) {
-            all(layers, layer => {
-                if (typeof prop === 'object') {
-                    Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
-                } else {
-                    const kprop = kebabCase(prop);
-                    const fn = isPaintProp(kprop) ? 'setPaintProperty' : 'setLayoutProperty';
-                    map[fn](layer, kprop , value);
-                }
-            });
-        }, properties(props) {
+        setProperty: arrayify((layer, prop, value) => {
+            if (typeof prop === 'object') {
+                Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
+            } else {
+                const kprop = kebabCase(prop);
+                const fn = isPaintProp(kprop) ? 'setPaintProperty' : 'setLayoutProperty';
+                map[fn](layer, kprop , value);
+            }
+        }), properties(props) {
             if (!props) {
                 return undefined;
             }
@@ -117,19 +108,13 @@ utils.init = function(map, directlyIntegrate = false) {
             return out;
         }, update(source, data) {
             map.getSource(source).setData(data);
-        }, show(layers) {
-            all(layers, layer => 
-                map.setLayoutProperty(layer, 'visibility', 'visible')
-            );
-        }, hide(layers) {
-            all(layers, layer => 
-                map.setLayoutProperty(layer, 'visibility', 'none')
-            );
-        }, toggle(layers, state) {
-            all(layers, layer => 
-                map.setLayoutProperty(layer, 'visibility', state ? 'visible' : 'none')
-            );
-        }, onLoad(cb) {
+        }, show: arrayify(layer => 
+            map.setLayoutProperty(layer, 'visibility', 'visible')
+        ), hide: arrayify(layer => 
+            map.setLayoutProperty(layer, 'visibility', 'none')
+        ), toggle: arrayify((layer, state) =>
+            map.setLayoutProperty(layer, 'visibility', state ? 'visible' : 'none')
+        ), onLoad(cb) {
             if (map.loaded()) {
                 cb();
             } else {
@@ -144,6 +129,10 @@ utils.init = function(map, directlyIntegrate = false) {
     // Turn every property into a 'setTextSize()', 'setLineColor()' etc.
     allProps.paints.forEach(prop => makeSetProp(prop, 'setPaintProperty'));
     allProps.layouts.forEach(prop => makeSetProp(prop, 'setLayoutProperty'));
+
+    ['line','fill','circle','symbol','video','raster','fill-extrusion','heatmap','hillshade']
+        .forEach(sourceType => makeAddLayer(sourceType))
+    
     map.U = this;
     if (directlyIntegrate) {
         Object.assign(map, this);
