@@ -8,11 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Test",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": [
-                "run",
-                "test"
-            ],
+            "runtimeExecutable": "jest",
             "port": 9229
         },
         {
