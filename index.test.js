@@ -77,7 +77,7 @@ describe('setProperty()', () => {
     });
 });
 
-describe('Streamlined setFoo()', () => {
+describe('Streamlined setFoo() for layers', () => {
     test('Supports setLineWidth', () => {
         map.U.setLineWidth('mylayer', 3);
         expect(map.setPaintProperty).toBeCalledWith('mylayer', 'line-width', 3);
@@ -223,6 +223,17 @@ describe('addGeoJSON', () => {
                     type: 'FeatureCollection',
                     features: []
                 }
+            });
+    });
+});
+
+describe('Streamlined addVector', () => {
+    test('addVector()', () => {
+        map.U.addVector('mysource', { data: 'mapbox://foo.blah' });
+        expect(map.addSource).toBeCalledWith(
+            'mysource', {
+                type: 'vector',
+                data: 'mapbox://foo.blah'
             });
     });
 });

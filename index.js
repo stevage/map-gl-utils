@@ -59,6 +59,14 @@ utils.init = function(map, directlyIntegrate = false) {
         U[funcName] = (id, source, options) => U.add(id, source, layerType, options);
     }
 
+    function makeAddSource(sourceType) {
+        const funcName = 'add' + upperCamelCase(sourceType);
+        U[funcName] = (id, options) => map.addSource(id, { 
+            type: sourceType, 
+            ...options
+        });
+    }
+
     Object.assign(this, {
         hoverPointer(layers) {
             map.on('mousemove',e => {
@@ -131,7 +139,11 @@ utils.init = function(map, directlyIntegrate = false) {
     allProps.layouts.forEach(prop => makeSetProp(prop, 'setLayoutProperty'));
 
     ['line','fill','circle','symbol','video','raster','fill-extrusion','heatmap','hillshade']
-        .forEach(sourceType => makeAddLayer(sourceType))
+        .forEach(layerType => makeAddLayer(layerType));
+
+    ['vector','raster','raster-dem','image','video'] // geojson taken care of
+        .forEach(sourceType => makeAddSource(sourceType));
+
     
     map.U = this;
     if (directlyIntegrate) {
