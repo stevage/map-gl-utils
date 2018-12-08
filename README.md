@@ -1,6 +1,14 @@
 ### Mapbox-GL-Utils
 
-Utility functions and syntactic sugar for Mapbox-GL-JS.
+Mapbox-GL-Utils adds a number of itility functions and syntactic sugar to a Mapbox-GL-JS map instance. If you write a lot of Mapbox-GL-JS code, you may appreciate the more concise form, and simpler API.
+
+Major features:
+
+* Paint, layout and other properties are all merged.
+* All properties can be expressed as camelCase rather than kebab-case.
+* Layer operations can act on an array of layers, not just one.
+* Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircle()`, `setCircleRadius()`
+* Some other convenience functions: `show()`, `onLoad()`, `update()`, `hoverPointer()`
 
 ```js
 // Adds U property to map, containing these methods.
@@ -65,17 +73,36 @@ map.U.hoverPointer('mylayer');
 map.U.onLoad(callback)
 
 // Simpler way to create GeoJSON source:
-map.u.addGeoJSON('mysource', geojson);
+map.U.addGeoJSON('mysource', geojson);
 
 // Or create a GeoJSON source with initially blank data:
-map.u.addGeoJSON('mysource');
+map.U.addGeoJSON('mysource');
 
 // Simpler way to update source data:
 map.U.update('mysource', data);
 
-// If you don't mind mixing namespaces, you can integrate the functions directly onto the map object:
+// Easier to remember way to turn layers on and off:
+map.U.show('mylayer');
+map.U.hide('mylayer');
+map.U.toggle(['mylayer', 'myotherlayer'], isVisible);
 
+// If you don't mind mixing namespaces, you can integrate the functions directly onto the map object.
+// This is probably a terrible idea.
 const U = require('mapbox-gl-utils').init(map, true);
 map.setProperty('mylayer', 'lineWidth', 3);
 ```
+
+### Contrived example
+```js
+map.U.onload(() => {
+    map.U.addGeoJSON('towns');
+    map.U.addCircle('small-towns', 'towns', { circleColor: 'green', filter: U`"size" == "small"`});
+    map.U.addCircle('large-towns', 'towns', { circleColor: 'red', filter: U`"size" == "large"`});
+    map.U.setData('towns', townData);
+    map.U.setCircleRadius(['small-towns', 'large-towns'], 12);
+    map.U.hoverPointer(['small-towns', 'large-towns']);
+});
+
+```
+
 
