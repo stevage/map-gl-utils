@@ -50,12 +50,9 @@ utils.init = function(map, directlyIntegrate = false) {
 
     Object.assign(this, {
         hoverPointer(layers) {
-            if (typeof layers === 'string') {
-                layers = [layers];
-            }
             map.on('mousemove',e => {
                 const f = map.queryRenderedFeatures(e.point, {
-                    layers: layers
+                    layers: Array.isArray(layers) ? layers : [layers]
                 });
                 map.getCanvas().style.cursor = f.length ? 'pointer' : '';
             }); 
@@ -144,6 +141,7 @@ utils.init = function(map, directlyIntegrate = false) {
             map.dragRotate.disable();
         }
     });
+    // Turn every property into a 'setTextSize()', 'setLineColor()' etc.
     allProps.paints.forEach(prop => makeSetProp(prop, 'setPaintProperty'));
     allProps.layouts.forEach(prop => makeSetProp(prop, 'setLayoutProperty'));
     map.U = this;
