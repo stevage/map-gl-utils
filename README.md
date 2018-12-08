@@ -64,7 +64,7 @@ map.U.add('mylayer', geojson, 'line');
 const U = require('mapbox-gl-utils').init(map);
 map.U.addLine('mylines', 'mysource', { 
     lineWidth: U`get("size") + 3`
-};
+});
 
 // Use the mouse 'finger' cursor when hovering over this layer.
 map.U.hoverPointer('mylayer'); 

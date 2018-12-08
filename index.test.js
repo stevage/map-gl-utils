@@ -70,6 +70,11 @@ describe('setProperty()', () => {
         U.setProperty('mylayer', 'textSize', 12);
         expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'text-size', 12);
     });
+    test('Supports a single property on two layers in camel case', () => {
+        U.setProperty(['mylayer', 'otherlayer'], 'textSize', 12);
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'text-size', 12);
+        expect(map.setLayoutProperty).toBeCalledWith('otherlayer', 'text-size', 12);
+    });
 });
 
 describe('Streamlined setFoo()', () => {
@@ -80,6 +85,10 @@ describe('Streamlined setFoo()', () => {
     test('Supports setTextSize', () => {
         map.U.setTextSize('mylayer', 14);
         expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'text-size', 14);
+    });
+    test('Supports setFillExtrusionColor', () => {
+        map.U.setFillExtrusionColor('mylayer', 'yellow');
+        expect(map.setPaintProperty).toBeCalledWith('mylayer', 'fill-extrusion-color', 'yellow');
     });
     test('Supports multiple layers', () => {
         map.U.setTextSize(['layer1', 'layer2'], 14);
@@ -255,6 +264,11 @@ describe('show(), hide(), toggle()', () => {
     test('Toggle a layer on', () => {
         map.U.toggle('mylayer', true);
         expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'visibility', 'visible');
+    });
+    test('Toggle two layers on', () => {
+        map.U.toggle(['mylayer','otherlayer'], true);
+        expect(map.setLayoutProperty).toBeCalledWith('mylayer', 'visibility', 'visible');
+        expect(map.setLayoutProperty).toBeCalledWith('otherlayer', 'visibility', 'visible');
     });
 });
 
