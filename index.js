@@ -88,8 +88,27 @@ utils.init = function(map, directlyIntegrate = false) {
                 type: 'geojson',
                 data: geojson
             });
-        },
-        setProperty: arrayify((layer, prop, value) => {
+        }, addVector(id, props) {
+            if (typeof props === 'string') {
+                if (props.match(/\{z\}/)) {
+                    return map.addSource(id, {
+                        type: 'vector',
+                        tiles: [props]
+                    });
+                } else {
+                    // mapbox://, http://.../index.json
+                    return map.addSource(id, {
+                        type: 'vector',
+                        url: props
+                    });
+                }
+            } else {
+                return map.addSource(id, {
+                    type: 'vector',
+                    ...this.properties(props)
+                });
+            }
+        }, setProperty: arrayify((layer, prop, value) => {
             if (typeof prop === 'object') {
                 Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
             } else {
@@ -141,7 +160,7 @@ utils.init = function(map, directlyIntegrate = false) {
     ['line','fill','circle','symbol','video','raster','fill-extrusion','heatmap','hillshade']
         .forEach(layerType => makeAddLayer(layerType));
 
-    ['vector','raster','raster-dem','image','video'] // geojson taken care of
+    ['raster','raster-dem','image','video'] // vector, geojson taken care of
         .forEach(sourceType => makeAddSource(sourceType));
 
     

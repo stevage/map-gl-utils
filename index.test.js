@@ -228,12 +228,28 @@ describe('addGeoJSON', () => {
 });
 
 describe('Streamlined addVector', () => {
-    test('addVector()', () => {
-        map.U.addVector('mysource', { data: 'mapbox://foo.blah' });
+    test('addVector({url: "mapbox://..."})', () => {
+        map.U.addVector('mysource', { url: 'mapbox://foo.blah' });
         expect(map.addSource).toBeCalledWith(
             'mysource', {
                 type: 'vector',
-                data: 'mapbox://foo.blah'
+                url: 'mapbox://foo.blah'
+            });
+    });
+    test('addVector("mapbox://")', () => {
+        map.U.addVector('mysource', 'mapbox://foo.blah' );
+        expect(map.addSource).toBeCalledWith(
+            'mysource', {
+                type: 'vector',
+                url: 'mapbox://foo.blah'
+            });
+    });
+    test('addVector("http://tiles.example.com/tiles/{z}/{x}/{y}.pbf")', () => {
+        map.U.addVector('mysource', 'http://tiles.example.com/tiles/{z}/{x}/{y}.pbf' );
+        expect(map.addSource).toBeCalledWith(
+            'mysource', {
+                type: 'vector',
+                tiles: ['http://tiles.example.com/tiles/{z}/{x}/{y}.pbf']
             });
     });
 });
