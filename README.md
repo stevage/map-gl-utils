@@ -78,6 +78,11 @@ map.U.addGeoJSON('mysource', geojson);
 // Or create a GeoJSON source with initially blank data:
 map.U.addGeoJSON('mysource');
 
+// Simpler ways to create a vector tile source:
+map.U.addVector('mysource', 'mapbox://foo.blah');
+map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf');
+
+
 // Simpler way to update source data:
 map.U.update('mysource', data);
 
