@@ -142,10 +142,13 @@ utils.init = function(map, directlyIntegrate = false) {
         ), toggle: arrayify((layer, state) =>
             map.setLayoutProperty(layer, 'visibility', state ? 'visible' : 'none')
         ), onLoad(cb) {
-            if (map.loaded()) {
+            if (map.loaded() || this._loaded) {
                 cb();
             } else {
-                map.on('load', cb);
+                map.on('load', () => {
+                    this._loaded = true;
+                    cb();
+                });
             }
         }, lockOrientation() {
             // Hmm, we can't remove the rotation control.

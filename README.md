@@ -69,7 +69,7 @@ map.U.addLine('mylines', 'mysource', {
 // Use the mouse 'finger' cursor when hovering over this layer.
 map.U.hoverPointer('mylayer'); 
 
-// Like on('load') but fires immediately if map already loaded.
+// Like on('load') but fires immediately (and reliably) any time after map already loaded.
 map.U.onLoad(callback)
 
 // Simpler way to create GeoJSON source:
