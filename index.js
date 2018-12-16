@@ -32,7 +32,7 @@ function parseSource(source) {
     } else if (String(source).match(/^mapbox:\/\//)) {
         return {
             type: 'vector',
-            data: source
+            url: source
         }
     } else {
         return source;

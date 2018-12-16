@@ -190,11 +190,11 @@ describe('add()', () => {
             type: 'line'
         });
     });
-    test('Supports mapbox source inline', () => {
+    test('Supports Mapbox source inline', () => {
         map.U.add('mylayer', 'mapbox://myuser.aoeuaoeu', 'fill-extrusion');
         expect(map.addLayer).toBeCalledWith({
             id: 'mylayer',
-            source: { type: 'vector', data: 'mapbox://myuser.aoeuaoeu' },
+            source: { type: 'vector', url: 'mapbox://myuser.aoeuaoeu' },
             type: 'fill-extrusion'
         });
     });
