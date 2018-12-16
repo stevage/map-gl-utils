@@ -1,13 +1,14 @@
 const utils = require('./index');
 function mockMap() {
     return {
-        setPaintProperty: jest.fn(),
-        setLayoutProperty: jest.fn(),
-        addLayer: jest.fn(),
-        loaded: jest.fn(() => true),
+        setPaintProperty: jest.fn().mockName('setPaintProperty'),
+        setLayoutProperty: jest.fn().mockName('setLayoutProperty'),
+        addLayer: jest.fn().mockName('addLayer'),
+        loaded: jest.fn(() => true).mockName('loaded'),
         getSource: jest.fn(() => ({
             setData: jest.fn()
-        })), addSource: jest.fn()
+        })).mockName('getSource'), 
+        addSource: jest.fn().mockName('addSource')
     };
 }
 
@@ -187,6 +188,14 @@ describe('add()', () => {
             id: 'mylayer',
             source: { type: 'geojson', data: geojson },
             type: 'line'
+        });
+    });
+    test('Supports mapbox source inline', () => {
+        map.U.add('mylayer', 'mapbox://myuser.aoeuaoeu', 'fill-extrusion');
+        expect(map.addLayer).toBeCalledWith({
+            id: 'mylayer',
+            source: { type: 'vector', data: 'mapbox://myuser.aoeuaoeu' },
+            type: 'fill-extrusion'
         });
     });
 });

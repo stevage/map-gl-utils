@@ -29,6 +29,11 @@ function parseSource(source) {
             type: 'geojson',
             data: source
         }
+    } else if (String(source).match(/^mapbox:\/\//)) {
+        return {
+            type: 'vector',
+            data: source
+        }
     } else {
         return source;
     }

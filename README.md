@@ -60,6 +60,9 @@ map.U.add('mylayer', 'my.geojson', 'line');
 const geojson = { type: 'Feature', ... };
 map.U.add('mylayer', geojson, 'line');
 
+// Or add Mapbox-hosted vector data sources the same way
+map.U.add('mylayer', 'mapbox://myuser.aoeuaoeu12341234', 'line');
+
 // Seamlessly incorporate [Jam Session](https://github.com/mapbox/expression-jamsession) expressions:
 const U = require('mapbox-gl-utils').init(map);
 map.U.addLine('mylines', 'mysource', { 
