@@ -1,4 +1,4 @@
-### Mapbox-GL-Utils
+## Mapbox-GL-Utils
 
 Mapbox-GL-Utils adds a number of itility functions and syntactic sugar to a Mapbox-GL-JS map instance. If you write a lot of Mapbox-GL-JS code, you may appreciate the more concise form, and simpler API.
 
@@ -13,68 +13,36 @@ Major features:
 ```js
 // Adds U property to map, containing these methods.
 const U = require('mapbox-gl-utils').init(map);
+```
 
-// Set a property without worrying about whether it's a paint or layout property.
-map.U.setProperty('mylayer', 'line-width', 3);
+### Adding layers
 
-// Set several properties without worrying about whether they're paint or layout
-map.U.setProperty('mylayer', {
-    'text-size': 12,
-    'text-color': 'red'
-});
-
-// Also supports camelCase
-map.U.setProperty('mylayer', {
-    textSize: 12,
-    textColor: 'red'
-});
-
-// Or mix paint, layout, and other properties
-map.addLayer(map.U.properties({
-    id: 'mylayer',
-    source: 'mysource',
-    type: 'line',
-    lineWidth: 3,
-    lineCap: 'round',
-    minzoom: 11,
-    filter: ['==', 'status', 'confirmed']
-}));
-
-// Or even:
-map.U.setTextSize('mylayer', 12);
-
-// Or multiple layers at once:
-map.U.setLineWidth(['mylayer', 'mylayer-highlight'], 4);
-
-// More streamlined way to add map layers:
-map.U.add('mylayer', 'mysource', 'line', { lineWidth: 3, minzoom: 11 });
-
-// And even more streamlined:
-map.U.addLine('mylines', 'mysource', { lineWidth: 3, minzoom: 11 });
-map.U.addCircle('mycircles', 'mysource', { circleStrokeColor: 'red' });
-
-// Sneakily incorporate GeoJSONs by URL
-map.U.add('mylayer', 'my.geojson', 'line');
-
-// Or by data structure
-const geojson = { type: 'Feature', ... };
-map.U.add('mylayer', geojson, 'line');
-
-// Or add Mapbox-hosted vector data sources the same way
-map.U.add('mylayer', 'mapbox://myuser.aoeuaoeu12341234', 'line');
-
-// Seamlessly incorporate [Jam Session](https://github.com/mapbox/expression-jamsession) expressions:
-const U = require('mapbox-gl-utils').init(map);
+```js
+// Conveniently add a line feature, mixing paint, layout and other properties.
+// Notice you can use camelCase for all property names.
 map.U.addLine('mylines', 'mysource', { 
-    lineWidth: U`get("size") + 3`
+    lineWidth: 3, 
+    lineCap: 'round',
+    minzoom: 11 
 });
+map.U.addCircle('mycircles', 'mysource', { circleStrokeColor: 'red' });
+// Also addFill, addFillExtrusion, addRaster, addVideo, addSymbol, addHillshade, addHeatmap
 
-// Use the mouse 'finger' cursor when hovering over this layer.
-map.U.hoverPointer('mylayer'); 
+// You can sneakily create a datasource (with the same id), by passing in...
+// ...a URL to a GeoJSON
+map.U.addLine('mylayer', 'my.geojson');
 
-// Like on('load') but fires immediately (and reliably) any time after map already loaded.
-map.U.onLoad(callback)
+// ... a GeoJSON as a data structure
+const geojson = { type: 'Feature', ... };
+map.U.addLine('mylayer', geojson);
 
+// ...or a vector tile source hosted on Mapbox.
+map.U.addLine('mylayer', 'mapbox://myuser.aoeuaoeu12341234');
+```
+
+### Adding sources
+
+```js
 // Simpler way to create GeoJSON source:
 map.U.addGeoJSON('mysource', geojson);
 
@@ -85,6 +53,28 @@ map.U.addGeoJSON('mysource');
 map.U.addVector('mysource', 'mapbox://foo.blah');
 map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf');
 
+// There's also addRaster(), addRasterDem(), addImage(), addVideo()
+```
+
+### Setting properties and updating data
+
+```js
+// Every property has a setXxx() form:
+map.U.setTextSize('mylayer', 12);
+
+// And they all work on multiple layers at once:
+map.U.setLineWidth(['mylayer', 'mylayer-highlight'], 4);
+
+// There's also a more familiar `setProperty` form.
+map.U.setProperty('mylayer', 'line-width', 3);
+map.U.setProperty('mylayer', {
+    'text-size': 12,
+    'text-color': 'red'
+});
+map.U.setProperty('mylayer', {
+    textSize: 12,
+    textColor: 'red'
+});
 
 // Simpler way to update source data:
 map.U.update('mysource', data);
@@ -93,6 +83,33 @@ map.U.update('mysource', data);
 map.U.show('mylayer');
 map.U.hide('mylayer');
 map.U.toggle(['mylayer', 'myotherlayer'], isVisible);
+```
+
+### Other functions
+
+```js
+// Use the mouse 'finger' cursor when hovering over this layer.
+map.U.hoverPointer('mylayer'); 
+
+// Like on('load') but fires immediately (and reliably) any time after map already loaded.
+map.U.onLoad(callback)
+
+// `properties()` converts an object to a properties object accepted by Mapbox-GL-JS
+map.addLayer(map.U.properties({
+    id: 'mylayer',
+    source: 'mysource',
+    type: 'line',
+    lineWidth: 3,
+    lineCap: 'round',
+    minzoom: 11,
+    filter: ['==', 'status', 'confirmed']
+}));
+
+// Seamlessly incorporate [Jam Session](https://github.com/mapbox/expression-jamsession) expressions:
+const U = require('mapbox-gl-utils').init(map);
+map.U.addLine('mylines', 'mysource', { 
+    lineWidth: U`get("size") + 3`
+});
 
 // If you don't mind mixing namespaces, you can integrate the functions directly onto the map object.
 // This is probably a terrible idea.
