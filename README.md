@@ -92,7 +92,7 @@ map.U.toggle(['mylayer', 'myotherlayer'], isVisible);
 map.U.hoverPointer('mylayer'); 
 
 // Like on('load') but fires immediately (and reliably) any time after map already loaded.
-map.U.onLoad(callback)
+map.U.onLoad(callback);
 
 // `properties()` converts an object to a properties object accepted by Mapbox-GL-JS
 map.addLayer(map.U.properties({
@@ -123,10 +123,12 @@ map.U.onload(() => {
     map.U.addGeoJSON('towns');
     map.U.addCircle('small-towns', 'towns', { circleColor: 'green', filter: U`"size" == "small"`});
     map.U.addCircle('large-towns', 'towns', { circleColor: 'red', filter: U`"size" == "large"`});
-    map.U.setData('towns', townData);
     map.U.setCircleRadius(['small-towns', 'large-towns'], 12);
     map.U.hoverPointer(['small-towns', 'large-towns']);
+    // update the source layer when data is available
+    d3.json('http://example.com/towns.json', data => map.U.update('towns', data);
 });
+
 
 ```
 
