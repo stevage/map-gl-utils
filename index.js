@@ -50,7 +50,7 @@ function upperCamelCase(s) {
     return s[0].toUpperCase() + kebabCase.reverse(s).slice(1);
 }
 
-utils.init = function(map, directlyIntegrate = false) {
+utils.init = function(map) {
     const U = this;
     function makeSetProp(prop, setPropFunc) {
         const funcName = 'set' + upperCamelCase(prop);
@@ -170,12 +170,8 @@ utils.init = function(map, directlyIntegrate = false) {
 
     ['raster','raster-dem','image','video'] // vector, geojson taken care of
         .forEach(sourceType => makeAddSource(sourceType));
-
     
     map.U = this;
-    if (directlyIntegrate) {
-        Object.assign(map, this);
-    }
     return this;
 }
 
