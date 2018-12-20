@@ -97,7 +97,7 @@ utils.init = function(map) {
             });
         },  removeLayer: arrayify(layer => {
             const swallowError = (data => {
-                if (!data.error.match(/does not exist/)) {
+                if (!data.error.message.match(/does not exist/)) {
                     console.error(data.error)
                 }
             });
@@ -162,11 +162,18 @@ utils.init = function(map) {
             map.setLayoutProperty(layer, 'visibility', 'none')
         ), toggle: arrayify((layer, state) =>
             map.setLayoutProperty(layer, 'visibility', state ? 'visible' : 'none')
-        ), onLoad(cb) {
+        ), removeSource: arrayify(source => {
+            // remove layers that use this source first
+            const layers = map.getStyle().layers
+                .filter(l => l.source === source)
+                .map(l => l.id);
+            this.removeLayer(layers);
+            map.removeSource(source);
+        }), onLoad(cb) {
             if (map.loaded() || this._loaded) {
                 cb();
             } else {
-                map.on('load', () => {
+                map.once('load', () => {
                     this._loaded = true;
                     cb();
                 });
