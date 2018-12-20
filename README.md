@@ -65,7 +65,7 @@ map.U.setTextSize('mylayer', 12);
 // And they all work on multiple layers at once:
 map.U.setLineWidth(['mylayer', 'mylayer-highlight'], 4);
 
-// There's also a more familiar `setProperty` form.
+// There's also a more familiar setProperty() form.
 map.U.setProperty('mylayer', 'line-width', 3);
 map.U.setProperty('mylayer', {
     'text-size': 12,
@@ -94,7 +94,7 @@ map.U.hoverPointer('mylayer');
 // Like on('load') but fires immediately (and reliably) any time after map already loaded.
 map.U.onLoad(callback);
 
-// `properties()` converts an object to a properties object accepted by Mapbox-GL-JS
+// properties() converts an object to a properties object accepted by Mapbox-GL-JS
 map.addLayer(map.U.properties({
     id: 'mylayer',
     source: 'mysource',
@@ -110,11 +110,6 @@ const U = require('mapbox-gl-utils').init(map);
 map.U.addLine('mylines', 'mysource', { 
     lineWidth: U`get("size") + 3`
 });
-
-// If you don't mind mixing namespaces, you can integrate the functions directly onto the map object.
-// This is probably a terrible idea.
-const U = require('mapbox-gl-utils').init(map, true);
-map.setProperty('mylayer', 'lineWidth', 3);
 ```
 
 ### Contrived example

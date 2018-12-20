@@ -28,17 +28,6 @@ describe('Initialisation', () => {
     test('Provides hoverPointer function', () => {
         expect(typeof U.hoverPointer).toBe('function');    
     });
-    test('Attaches methods directly to map instance if requested', () => {
-        // shadowing global map/U
-        const map = mockMap();
-        const U = utils.init(map, true);
-        expect(map.U).toBe(U);
-        expect(typeof map.U.setProperty).toBe('function'); 
-        expect(typeof map.setPaintProperty).toBe('function'); 
-
-        expect(typeof map.setProperty).toBe('function'); 
-
-    });
 });
 describe('setProperty()', () => {
     test('Correctly picks setPaintProperty for line-color', () => {
