@@ -80,7 +80,14 @@ utils.init = function(map) {
                 });
                 map.getCanvas().style.cursor = f.length ? 'pointer' : '';
             }); 
-        }, 
+        }, clickLayer: arrayify((layer, cb) => {
+            map.on('click', layer, e => {
+                e.features = map.queryRenderedFeatures(e.point, {
+                    layers: [layer]
+                });
+                cb(e);
+            });
+        }),
         add(id, source, type, props) {
             return map.addLayer({
                 id,
@@ -88,7 +95,16 @@ utils.init = function(map) {
                 type,
                 ...this.properties(props)
             });
-        },  addGeoJSON(id, geojson = { type: 'FeatureCollection', features: [] }) {
+        },  removeLayer: arrayify(layer => {
+            const swallowError = (data => {
+                if (!data.error.match(/does not exist/)) {
+                    console.error(data.error)
+                }
+            });
+            map.once('error', swallowError);
+            map.removeLayer(layer);
+            map.off('error', swallowError);
+        }), addGeoJSON(id, geojson = { type: 'FeatureCollection', features: [] }) {
             return map.addSource(id, {
                 type: 'geojson',
                 data: geojson

@@ -1,14 +1,38 @@
 const utils = require('./index');
 function mockMap() {
-    return {
+    let map;
+    return map = {
+        _layers: [],
+        _handlers: {},
+        _fire: (event, data) => {
+            if (map._handlers[event]) {
+                map._handlers[event](data);
+            } else if (event === 'error') {
+                console.error(data.error);
+            }
+        },
         setPaintProperty: jest.fn().mockName('setPaintProperty'),
         setLayoutProperty: jest.fn().mockName('setLayoutProperty'),
-        addLayer: jest.fn().mockName('addLayer'),
+        addLayer: jest.fn(layer =>
+            map._layers.push(layer)
+            ).mockName('addLayer'),
+        removeLayer: jest.fn(layerId => {
+            if (!map._layers.find(l => l.id === layerId)) {
+                map._fire('error', {
+                    error: "The layer '" + layerId + "'hello' does not exist in the map's style and cannot be removed."
+                });
+            } else {
+                map._layers = map._layers.filter(l => l.id !== layerId);
+            }
+        }).mockName('removeLayer'),
         loaded: jest.fn(() => true).mockName('loaded'),
         getSource: jest.fn(() => ({
             setData: jest.fn()
         })).mockName('getSource'), 
-        addSource: jest.fn().mockName('addSource')
+        addSource: jest.fn().mockName('addSource'),
+        once: jest.fn((event, cb) => map._handlers[event] = cb ),
+        on: jest.fn((event, cb) => map._handlers[event] = cb),
+        off: jest.fn((event, cb) => map._handlers[event] = undefined)
     };
 }
 
@@ -297,6 +321,29 @@ describe('show(), hide(), toggle()', () => {
     });
 });
 
+describe('removeLayer()', () => {
+    test('Removes a layer. ', () => {
+        map.addLayer({ id: 'mylayer' });
+        map.U.removeLayer([ 'mylayer' ]);
+        expect(map.removeLayer).toBeCalledWith('mylayer');
+        expect(map._layers.length).toBe(0);
+    });
+    test('Regular removeLayer() throws error when layer doesn\'t exist, ', () => {
+        // this is just testing that our mocking works.
+        console.error = jest.fn();
+        map.removeLayer('mylayer');
+        expect(map.removeLayer).toBeCalledWith('mylayer');
+        expect(map._layers.length).toBe(0);
+        expect(console.error).toBeCalled();
+    });
+    test('Throws no errors when layer doesn\'t exist, ', () => {
+        console.error = jest.fn();
+        map.U.removeLayer([ 'mylayer' ]);
+        expect(map.removeLayer).toBeCalledWith('mylayer');
+        expect(map._layers.length).toBe(0);
+        expect(console.error).not.toBeCalled();
+    });
+});
 describe('Jam Session expressions', () => {
     test('Detects and parses a Jam Session string', () => {
         expect(U`2 + 2`).toEqual(['+', 2, 2]);
