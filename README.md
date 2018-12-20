@@ -1,14 +1,15 @@
 ## Mapbox-GL-Utils
 
-Mapbox-GL-Utils adds a number of itility functions and syntactic sugar to a Mapbox-GL-JS map instance. If you write a lot of Mapbox-GL-JS code, you may appreciate the more concise form, and simpler API.
+Mapbox-GL-Utils adds a number of utility functions and syntactic sugar to a Mapbox-GL-JS map instance. If you write a lot of Mapbox-GL-JS code, you may appreciate the more concise form, and simpler API.
 
 Major features:
 
-* Paint, layout and other properties are all merged.
+* No need to distinguish between paint, layout and other properties.
 * All properties can be expressed as camelCase rather than kebab-case.
 * Layer operations can act on an array of layers, not just one.
-* Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircle()`, `setCircleRadius()`
-* Some other convenience functions: `show()`, `onLoad()`, `update()`, `hoverPointer()`
+* Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircle()`, `setCircleRadius()`...
+* Some other convenience functions: `show()`, `onLoad()`, `update()`, `hoverPointer()`, `clickLayer()`
+* Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically)
 
 ```js
 // Adds U property to map, containing these methods.
