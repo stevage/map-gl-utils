@@ -105,6 +105,17 @@ map.addLayer(map.U.properties({
     filter: ['==', 'status', 'confirmed']
 }));
 
+// clickLayer() is like .on('click)', but can take an array and adds a 'features' member 
+// to the event, for what got clicked on.
+map.U.clickLayer(['towns', 'town-labels'], e => {
+    if (e.features) {
+        panel.selectedId = e.features[0].id;
+    }
+});
+
+// removeLayer() doesn't throw errors if the layers don't exist
+map.U.removeLayer(['towns','town-labels']);
+
 // Seamlessly incorporate [Jam Session](https://github.com/mapbox/expression-jamsession) expressions:
 const U = require('mapbox-gl-utils').init(map);
 map.U.addLine('mylines', 'mysource', { 
