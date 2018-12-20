@@ -19,7 +19,7 @@ function mockMap() {
         removeLayer: jest.fn(layerId => {
             if (!map._layers.find(l => l.id === layerId)) {
                 map._fire('error', {
-                    error: "The layer '" + layerId + "'hello' does not exist in the map's style and cannot be removed."
+                    error: { message: "The layer '" + layerId + "'hello' does not exist in the map's style and cannot be removed." }
                 });
             } else {
                 map._layers = map._layers.filter(l => l.id !== layerId);

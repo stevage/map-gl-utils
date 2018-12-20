@@ -15,7 +15,7 @@ Major features:
 const U = require('mapbox-gl-utils').init(map);
 ```
 
-### Adding layers
+### Adding and removing layers
 
 ```js
 // Conveniently add a line feature, mixing paint, layout and other properties.
@@ -38,9 +38,13 @@ map.U.addLine('mylayer', geojson);
 
 // ...or a vector tile source hosted on Mapbox.
 map.U.addLine('mylayer', 'mapbox://myuser.aoeuaoeu12341234');
+
+// removeLayer() doesn't throw errors if the layers don't exist
+map.U.removeLayer(['towns','town-labels']);
+
 ```
 
-### Adding sources
+### Adding and removing sources
 
 ```js
 // Simpler way to create GeoJSON source:
@@ -50,10 +54,12 @@ map.U.addGeoJSON('mysource', geojson);
 map.U.addGeoJSON('mysource');
 
 // Simpler ways to create a vector tile source:
+// There's also addRaster(), addRasterDem(), addImage(), addVideo()
 map.U.addVector('mysource', 'mapbox://foo.blah');
 map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf');
 
-// There's also addRaster(), addRasterDem(), addImage(), addVideo()
+// Automatically removes any layers using these sources
+map.U.removeSource(['buildings', 'roads']);
 ```
 
 ### Setting properties and updating data
@@ -112,9 +118,6 @@ map.U.clickLayer(['towns', 'town-labels'], e => {
         panel.selectedId = e.features[0].id;
     }
 });
-
-// removeLayer() doesn't throw errors if the layers don't exist
-map.U.removeLayer(['towns','town-labels']);
 
 // Seamlessly incorporate [Jam Session](https://github.com/mapbox/expression-jamsession) expressions:
 const U = require('mapbox-gl-utils').init(map);
