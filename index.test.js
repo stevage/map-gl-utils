@@ -276,6 +276,35 @@ describe('Streamlined addVector', () => {
     });
 });
 
+describe('Adding layers to a source', () => {
+    test('addVector().addLine(...)', () => {
+        map.U.addVector('mysource', 'mapbox://foo.blah')
+        .addLine('foo-line', {
+            sourceLayer: 'mylines',
+            lineColor: 'blue'
+        });
+        expect(map.addLayer).toBeCalledWith({
+            id: 'foo-line',
+            source: 'mysource',
+            'source-layer': 'mylines',
+            paint: { 'line-color': 'blue' },
+            type: 'line'
+        });
+    });
+    test('addVector().addLine(...).addLine()', () => {
+        map.U.addVector('mysource', 'mapbox://foo.blah')
+        .addLine('foo-line', {
+            sourceLayer: 'mylines',
+            lineColor: 'blue'
+        })
+        .addLine('foo-line2', {
+            sourceLayer: 'mylines',
+            lineColor: 'red'
+        });
+        expect(map.addLayer).toBeCalledTimes(2);
+    });
+});
+
 
 describe('update()', () => {
     test('Calls setData with correct source', () => {

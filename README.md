@@ -61,7 +61,17 @@ map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf');
 
 // Automatically removes any layers using these sources
 map.U.removeSource(['buildings', 'roads']);
+
+// You can also use the returned object to add layers conveniently:
+map.U.addVector('buildings', 'mapbox://some.buildings')
+    .addFillExtrusion('buildings-3d', {
+        fillExtrusionHeight: 100,
+        fillExtrusionColor: 'grey'
+    }).addLine('buildings-footprint', {
+        lineColor: 'lightblue'
+    });
 ```
+
 
 ### Setting properties and updating data
 

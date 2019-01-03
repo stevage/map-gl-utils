@@ -52,6 +52,7 @@ function upperCamelCase(s) {
 
 utils.init = function(map) {
     const U = this;
+    const layerTypes = ['line','fill','circle','symbol','video','raster','fill-extrusion','heatmap','hillshade'];
     function makeSetProp(prop, setPropFunc) {
         const funcName = 'set' + upperCamelCase(prop);
         U[funcName] = arrayify((layer, value) =>
@@ -59,17 +60,35 @@ utils.init = function(map) {
         );
     };
 
-    function makeAddLayer(layerType) {
+    function makeAddLayer(layerType, obj, fixedSource) {
         const funcName = 'add' + upperCamelCase(layerType);
-        U[funcName] = (id, source, options) => U.add(id, source, layerType, options);
+        if (fixedSource) {
+            obj[funcName] = (id, options) => U.add(id, fixedSource, layerType, options);
+        } else {
+            obj[funcName] = (id, source, options) => U.add(id, source, layerType, options);
+        }
+    }
+
+    function makeSource(id) {
+        // returns an object on which we can call .addLine() etc.
+        const out = {};
+        layerTypes.forEach(type => makeAddLayer(type, out, id));
+        return out;
+    }
+
+    function addSource(id, props) {
+        map.addSource(id, props);
+        return makeSource(id);
     }
 
     function makeAddSource(sourceType) {
         const funcName = 'add' + upperCamelCase(sourceType);
-        U[funcName] = (id, options) => map.addSource(id, { 
-            type: sourceType, 
-            ...options
-        });
+        U[funcName] = (id, options) => {
+            addSource(id, { 
+                type: sourceType, 
+                ...options
+            });
+        };
     }
 
     Object.assign(this, {
@@ -89,12 +108,13 @@ utils.init = function(map) {
             });
         }),
         add(id, source, type, props) {
-            return map.addLayer({
+            map.addLayer({
                 id,
                 source: parseSource(source),
                 type,
                 ...this.properties(props)
             });
+            return makeSource(source); // Could get very weird if source is not a string...
         },  removeLayer: arrayify(layer => {
             const swallowError = (data => {
                 if (!data.error.message.match(/does not exist/)) {
@@ -105,26 +125,26 @@ utils.init = function(map) {
             map.removeLayer(layer);
             map.off('error', swallowError);
         }), addGeoJSON(id, geojson = { type: 'FeatureCollection', features: [] }) {
-            return map.addSource(id, {
+            return addSource(id, {
                 type: 'geojson',
                 data: geojson
             });
         }, addVector(id, props) {
             if (typeof props === 'string') {
                 if (props.match(/\{z\}/)) {
-                    return map.addSource(id, {
+                    return addSource(id, {
                         type: 'vector',
                         tiles: [props]
                     });
                 } else {
                     // mapbox://, http://.../index.json
-                    return map.addSource(id, {
+                    return addSource(id, {
                         type: 'vector',
                         url: props
                     });
                 }
             } else {
-                return map.addSource(id, {
+                return addSource(id, {
                     type: 'vector',
                     ...this.properties(props)
                 });
@@ -188,8 +208,7 @@ utils.init = function(map) {
     allProps.paints.forEach(prop => makeSetProp(prop, 'setPaintProperty'));
     allProps.layouts.forEach(prop => makeSetProp(prop, 'setLayoutProperty'));
 
-    ['line','fill','circle','symbol','video','raster','fill-extrusion','heatmap','hillshade']
-        .forEach(layerType => makeAddLayer(layerType));
+    layerTypes.forEach(layerType => makeAddLayer(layerType, U));
 
     ['raster','raster-dem','image','video'] // vector, geojson taken care of
         .forEach(sourceType => makeAddSource(sourceType));
