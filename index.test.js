@@ -42,7 +42,17 @@ beforeEach(() => {
     U = utils.init(map);
 });
 
-const geojson = { type: 'FeatureCollection', features: [] };
+const geojson = { type: 'FeatureCollection', features: [
+    { 
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [144.95, -37.8]
+        }, properties: {
+            name: 'Melbourne'
+        }
+    }
+] };
 
 describe('Initialisation', () => {
     test('Attaches itself to map object', () => {
@@ -228,13 +238,22 @@ describe('addLine()', () => {
 });
 
 describe('addGeoJSON', () => {
-    test('Adds a GeoJSON source', () => {
+    test('Adds a GeoJSON source by data', () => {
         map.U.addGeoJSON('mysource', geojson);
         expect(map.addSource).toBeCalledWith(
             'mysource', {
                 type: 'geojson',
                 data: geojson
             });
+    });
+    test('Adds a GeoJSON source by URL', () => {
+        map.U.addGeoJSON('mysource', 'data/mything.geojson');
+        expect(map.addSource).toBeCalledWith(
+            'mysource', {
+                type: 'geojson',
+                data: 'data/mything.geojson'
+            }
+        );
     });
     test('Supports an undefined source', () => {
         map.U.addGeoJSON('mysource');
