@@ -188,7 +188,9 @@ utils.init = function(map) {
                 .filter(l => l.source === source)
                 .map(l => l.id);
             this.removeLayer(layers);
-            map.removeSource(source);
+            if (map.getSource(source)) {
+                map.removeSource(source);
+            }
         }), onLoad(cb) {
             if (map.loaded() || this._loaded) {
                 cb();
