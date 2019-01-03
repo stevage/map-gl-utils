@@ -63,7 +63,7 @@ map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf');
 map.U.removeSource(['buildings', 'roads']);
 
 // You can also use the returned object to add layers conveniently:
-map.U.addVector('buildings', 'mapbox://some.buildings')
+map.U.addGeoJSON('buildings', 'data/buildings.geojson')
     .addFillExtrusion('buildings-3d', {
         fillExtrusionHeight: 100,
         fillExtrusionColor: 'grey'
