@@ -92,14 +92,10 @@ utils.init = function(map) {
     }
 
     Object.assign(this, {
-        hoverPointer(layers) {
-            map.on('mousemove',e => {
-                const f = map.queryRenderedFeatures(e.point, {
-                    layers: Array.isArray(layers) ? layers : [layers]
-                });
-                map.getCanvas().style.cursor = f.length ? 'pointer' : '';
-            }); 
-        }, clickLayer: arrayify((layer, cb) => {
+        hoverPointer: arrayify(layer => {
+            map.on('mouseenter', layer, e => map.getCanvas().style.cursor = 'pointer' ); 
+            map.on('mouseleave', layer, e => map.getCanvas().style.cursor = '' ); 
+        }), clickLayer: arrayify((layer, cb) => {
             map.on('click', layer, e => {
                 e.features = map.queryRenderedFeatures(e.point, {
                     layers: [layer]
