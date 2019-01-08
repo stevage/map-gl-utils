@@ -324,7 +324,6 @@ describe('Adding layers to a source', () => {
     });
 });
 
-
 describe('update()', () => {
     test('Calls setData with correct source', () => {
         map.U.update('mysource', geojson);
@@ -333,8 +332,6 @@ describe('update()', () => {
         expect(source.setData).toBeCalledWith(geojson);
     });
 });
-
-
 
 describe('onLoad()', () => {
     test('Fires immediately if needed', () => {
