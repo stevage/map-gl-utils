@@ -120,10 +120,11 @@ utils.init = function(map) {
             map.once('error', swallowError);
             map.removeLayer(layer);
             map.off('error', swallowError);
-        }), addGeoJSON(id, geojson = { type: 'FeatureCollection', features: [] }) {
+        }), addGeoJSON(id, geojson = { type: 'FeatureCollection', features: [] }, props) {
             return addSource(id, {
                 type: 'geojson',
-                data: geojson
+                data: geojson,
+                ...props
             });
         }, addVector(id, props) {
             if (typeof props === 'string') {
