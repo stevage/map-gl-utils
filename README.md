@@ -8,8 +8,8 @@ Major features:
 * All properties can be expressed as camelCase rather than kebab-case.
 * Layer operations can act on an array of layers, not just one.
 * Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircle()`, `setCircleRadius()`...
-* Some other convenience functions: `show()`, `onLoad()`, `update()`, `hoverPointer()`, `clickLayer()`
-* Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically)
+* Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`, `hoverPointer()`, `clickLayer()`
+* Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically), `setFilter()` (works on multiple layers at once)
 
 ```js
 // Adds U property to map, containing these methods.
@@ -94,7 +94,7 @@ map.U.setProperty('mylayer', {
 });
 
 // Simpler way to update source data:
-map.U.update('mysource', data);
+map.U.setData('mysource', data);
 
 // Easier to remember way to turn layers on and off:
 map.U.show('mylayer');
