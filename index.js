@@ -171,7 +171,7 @@ utils.init = function(map) {
             }
             Object.assign(out, which.other);
             return out;
-        }, update(source, data) {
+        }, setData(source, data) {
             map.getSource(source).setData(data);
         }, show: arrayify(layer => 
             map.setLayoutProperty(layer, 'visibility', 'visible')
@@ -179,7 +179,9 @@ utils.init = function(map) {
             map.setLayoutProperty(layer, 'visibility', 'none')
         ), toggle: arrayify((layer, state) =>
             map.setLayoutProperty(layer, 'visibility', state ? 'visible' : 'none')
-        ), removeSource: arrayify(source => {
+        ), setFilter: arrayify((layer, filter) => 
+            map.setFilter(layer, filter)),
+        removeSource: arrayify(source => {
             // remove layers that use this source first
             const layers = map.getStyle().layers
                 .filter(l => l.source === source)
@@ -201,8 +203,9 @@ utils.init = function(map) {
             // Hmm, we can't remove the rotation control.
             map.touchZoomRotate.disable();
             map.dragRotate.disable();
-        }, setFilter: arrayify((layer, filter) => map.setFilter(layer, filter))
+        }, 
     });
+    this.update = this.setData; // deprecated
     // Turn every property into a 'setTextSize()', 'setLineColor()' etc.
     allProps.paints.forEach(prop => makeSetProp(prop, 'setPaintProperty'));
     allProps.layouts.forEach(prop => makeSetProp(prop, 'setLayoutProperty'));

@@ -13,6 +13,7 @@ function mockMap() {
         },
         setPaintProperty: jest.fn().mockName('setPaintProperty'),
         setLayoutProperty: jest.fn().mockName('setLayoutProperty'),
+        setFilter: jest.fn().mockName('setFilter'),
         addLayer: jest.fn(layer =>
             map._layers.push(layer)
             ).mockName('addLayer'),
@@ -324,14 +325,22 @@ describe('Adding layers to a source', () => {
     });
 });
 
-describe('update()', () => {
+describe('setData()', () => {
     test('Calls setData with correct source', () => {
-        map.U.update('mysource', geojson);
+        map.U.setData('mysource', geojson);
         expect(map.getSource).toBeCalledWith('mysource')
         const source = map.getSource.mock.results[0].value;
         expect(source.setData).toBeCalledWith(geojson);
     });
 });
+
+describe('setFilter()', () => {
+    test('Calls setFilter twice when given two layers', () => {
+        map.U.setFilter(['mylayer1', 'mylayer2'], ['==', 'id', 13]);
+        expect(map.setFilter).toBeCalledTimes(2)
+    });
+});
+
 
 describe('onLoad()', () => {
     test('Fires immediately if needed', () => {
