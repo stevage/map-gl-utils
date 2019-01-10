@@ -201,7 +201,7 @@ utils.init = function(map) {
             // Hmm, we can't remove the rotation control.
             map.touchZoomRotate.disable();
             map.dragRotate.disable();
-        }
+        }, setFilter: arrayify((layer, filter) => map.setFilter(layer, filter))
     });
     // Turn every property into a 'setTextSize()', 'setLineColor()' etc.
     allProps.paints.forEach(prop => makeSetProp(prop, 'setPaintProperty'));
