@@ -11,6 +11,7 @@ function mockMap() {
                 console.error(data.error);
             }
         },
+        getStyle: jest.fn(() => ({ layers: map._layers })),
         setPaintProperty: jest.fn().mockName('setPaintProperty'),
         setLayoutProperty: jest.fn().mockName('setLayoutProperty'),
         setFilter: jest.fn().mockName('setFilter'),
@@ -398,6 +399,19 @@ describe('removeLayer()', () => {
         expect(console.error).not.toBeCalled();
     });
 });
+
+describe('hideSource()', () => {
+    test('Hides layers attached to a source.', () => {
+        map.U.addVector('mysource', 'mapbox://foo.blah' );
+        map.U.addLine('line1', 'mysource');
+        map.U.addFill('fill1', 'mysource');
+        map.U.hideSource('mysource');
+        expect(map.setLayoutProperty.mock.calls[0]).toEqual(['line1', 'visibility', 'none']);
+        expect(map.setLayoutProperty.mock.calls[1]).toEqual(['fill1', 'visibility', 'none']);
+        // expect(map.setLayoutProperty).toBeCalledWith('fill1', 'visibility', 'none');
+    });
+});
+
 describe('Jam Session expressions', () => {
     test('Detects and parses a Jam Session string', () => {
         expect(U`2 + 2`).toEqual(['+', 2, 2]);

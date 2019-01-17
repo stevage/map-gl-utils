@@ -91,6 +91,12 @@ utils.init = function(map) {
         };
     }
 
+    function layersBySource(source) {
+        return map.getStyle().layers
+            .filter(l => l.source === source)
+            .map(l => l.id);
+    }
+
     Object.assign(this, {
         hoverPointer: arrayify(layer => {
             map.on('mouseenter', layer, e => map.getCanvas().style.cursor = 'pointer' ); 
@@ -174,18 +180,22 @@ utils.init = function(map) {
         }, setData(source, data) {
             map.getSource(source).setData(data);
         }, show: arrayify(layer => 
-            map.setLayoutProperty(layer, 'visibility', 'visible')
+            this.setVisibility(layer, 'visible')
         ), hide: arrayify(layer => 
-            map.setLayoutProperty(layer, 'visibility', 'none')
+            this.setVisibility(layer, 'none')
         ), toggle: arrayify((layer, state) =>
-            map.setLayoutProperty(layer, 'visibility', state ? 'visible' : 'none')
+            this.setVisibility(layer, state ? 'visible' : 'none')
+        ), showSource: arrayify(source =>
+            this.setVisibility(layersBySource(source) , 'visible')
+        ), hideSource: arrayify(source => 
+            this.setVisibility(layersBySource(source), 'none')
+        ), toggleSource: arrayify((source, state) =>
+            this.setVisibility(layersBySource(source), state ? 'visible' : 'none')
         ), setFilter: arrayify((layer, filter) => 
-            map.setFilter(layer, filter)),
-        removeSource: arrayify(source => {
+            map.setFilter(layer, filter)
+        ), removeSource: arrayify(source => {
             // remove layers that use this source first
-            const layers = map.getStyle().layers
-                .filter(l => l.source === source)
-                .map(l => l.id);
+            const layers = layersBySource(source);
             this.removeLayer(layers);
             if (map.getSource(source)) {
                 map.removeSource(source);
