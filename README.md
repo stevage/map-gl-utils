@@ -130,6 +130,11 @@ map.U.clickLayer(['towns', 'town-labels'], e => {
     }
 });
 
+// Hide/show/toggle all the layers attached to this source
+map.U.hideSource('buildings');
+map.U.showSource('buildings');
+map.U.toggleSource('buildings', true);
+
 // Update several filters at once.
 map.U.setFilter(['buildings-fill', 'buildings-outline', 'buildings-label'], [...]);
 
