@@ -98,6 +98,7 @@ utils.init = function(map) {
     }
 
     Object.assign(this, {
+        _loaded = false,
         hoverPointer: arrayify(layer => {
             map.on('mouseenter', layer, e => map.getCanvas().style.cursor = 'pointer' ); 
             map.on('mouseleave', layer, e => map.getCanvas().style.cursor = '' ); 
