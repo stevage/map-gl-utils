@@ -108,6 +108,10 @@ map.U.toggle(['mylayer', 'myotherlayer'], isVisible);
 // Use the mouse 'finger' cursor when hovering over this layer.
 map.U.hoverPointer('mylayer'); 
 
+// Sets a "hover" feature-state to be true or false as the mouse moves over features in this layer.
+// Requires that features have an `id`.
+map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer');
+
 // Like on('load') but fires immediately (and reliably) any time after map already loaded.
 map.U.onLoad(callback);
 
