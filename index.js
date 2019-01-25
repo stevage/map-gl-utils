@@ -102,6 +102,29 @@ utils.init = function(map) {
         hoverPointer: arrayify(layer => {
             map.on('mouseenter', layer, e => map.getCanvas().style.cursor = 'pointer' ); 
             map.on('mouseleave', layer, e => map.getCanvas().style.cursor = '' ); 
+        }), hoverFeatureState: arrayify((layer, source, sourceLayer) => {
+            if (Array.isArray(source)) {
+                // assume we have array of [source, sourceLayer]
+                source.forEach(([source, sourceLayer]) => this.hoverFeatureState(layer, source, sourceLayer));
+                return;
+            }
+            let featureId;
+            function setHoverState(state) {
+                if (featureId) {
+                    map.setFeatureState({ source, sourceLayer, id: featureId}, { hover: state });
+                }
+            }
+            map.on('mousemove', layer, e => {
+                setHoverState(false);
+                const f = e.features[0];
+                if (!f) return;
+                featureId = f.id;
+                setHoverState(true);
+            });
+            map.on('mouseleave', layer, () => {
+                setHoverState(false);
+                featureId = undefined;
+            });
         }), clickLayer: arrayify((layer, cb) => {
             map.on('click', layer, e => {
                 e.features = map.queryRenderedFeatures(e.point, {
