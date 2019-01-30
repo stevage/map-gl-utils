@@ -88,6 +88,8 @@ map.U.setProperty('mylayer', {
     'text-size': 12,
     'text-color': 'red'
 });
+
+// Existing properties aren't touched
 map.U.setProperty('mylayer', {
     textSize: 12,
     textColor: 'red'
@@ -115,7 +117,15 @@ map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer');
 // Like on('load') but fires immediately (and reliably) any time after map already loaded.
 map.U.onLoad(callback);
 
-// properties() converts an object to a properties object accepted by Mapbox-GL-JS
+// Gets the layer definition. Mapbox's `getLayer()` has weird paint and layout properties.
+const layer = map.U.getLayerStyle('mylayer');
+
+// Resets all other properties to default first. Ignores non-paint, non-layout properties.
+map.setLayerStyle('mylayer', {
+    lineWidth: 3
+});
+
+// properties() converts an object to a layer object accepted by Mapbox-GL-JS
 map.addLayer(map.U.properties({
     id: 'mylayer',
     source: 'mysource',
