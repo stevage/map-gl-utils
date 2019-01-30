@@ -6,6 +6,10 @@ function isPaintProp(prop) {
     return allProps.paints.indexOf(prop) >= 0;
 }
 
+function isLayoutProp(prop) {
+    return allProps.layouts.indexOf(prop) >= 0;
+}
+
 function whichProp(prop) {
     if (allProps.paints.indexOf(prop) >= 0) {
         return 'paint';
@@ -20,7 +24,7 @@ function utils(...args) {
     if (args[0] && Array.isArray(args[0]) && args[0].raw) {
         // We're being used as a tagged template
         return jamSession.formulaToExpression(args[0].raw[0]);
-    } else throw 'Mapbox-gl-utils unexpectedly called as a function.'
+    } else throw 'Mapbox-gl-utils unexpectedly called as a function. Use .init(map)'
 }
 
 function parseSource(source) {
@@ -181,8 +185,13 @@ utils.init = function(map) {
                 Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
             } else {
                 const kprop = kebabCase(prop);
-                const fn = isPaintProp(kprop) ? 'setPaintProperty' : 'setLayoutProperty';
-                map[fn](layer, kprop, value);
+                if (isPaintProp(kprop)){
+                    map.setPaintProperty(layer, kprop, value);
+                } else if (isLayoutProp(kprop)) {
+                    map.setLayoutProperty(layer, kprop, value);
+                } else {
+                    // ignore properties such as minzoom, type, filter, etc for now.
+                }
             }
         }), properties(props) {
             if (!props) {
@@ -201,6 +210,12 @@ utils.init = function(map) {
             }
             Object.assign(out, which.other);
             return out;
+        }, layerStyle(id, source, props) {
+            return {
+                id,
+                source,
+                ...this.properties(props)
+            }
         }, getLayerStyle(layer) {
             return map.getStyle().layers.find(l => l.id === layer)
         }, setLayerStyle: arrayify((layer, style) => {
