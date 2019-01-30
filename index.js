@@ -182,7 +182,7 @@ utils.init = function(map) {
             } else {
                 const kprop = kebabCase(prop);
                 const fn = isPaintProp(kprop) ? 'setPaintProperty' : 'setLayoutProperty';
-                map[fn](layer, kprop , value);
+                map[fn](layer, kprop, value);
             }
         }), properties(props) {
             if (!props) {
@@ -201,7 +201,22 @@ utils.init = function(map) {
             }
             Object.assign(out, which.other);
             return out;
-        }, setData(source, data) {
+        }, getLayerStyle(layer) {
+            return map.getStyle().layers.find(l => l.id === layer)
+        }, setLayerStyle: arrayify((layer, style) => {
+            const clearProps = (oldObj = {}, newObj = {}) => 
+                Object.keys(oldObj)
+                    .forEach(key => {
+                        if (!(key in newObj)) {
+                            this.setProperty(layer, key, undefined);
+                        }
+                    });
+            const oldStyle = this.getLayerStyle(layer);
+            const newStyle = this.properties(style);
+            clearProps(oldStyle.paint, newStyle.paint);
+            clearProps(oldStyle.layout, newStyle.layout);
+            this.setProperty(layer, style);
+        }), setData(source, data) {
             map.getSource(source).setData(data);
         }, show: arrayify(layer => 
             this.setVisibility(layer, 'visible')

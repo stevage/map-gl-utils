@@ -430,3 +430,32 @@ describe('Jam Session expressions', () => {
         });
     });
 });
+
+describe('getLayerStyle()', () => {
+    test('Works', () => {
+        map.U.addLine('myline', 'mysource', { lineWidth: 3 });
+        expect(map.U.getLayerStyle('myline')).toEqual({
+            type: 'line',
+            id: 'myline',
+            source: 'mysource',
+            paint: {
+                'line-width': 3
+            }
+        });
+    });
+});
+
+describe('setLayer', () => {
+    test.only('Clears unused properties first', () => {
+        map.U.addLine('myline', 'mysource', {
+            lineWidth: 5,
+            lineColor: 'red'
+        });
+        map.U.setLayerStyle('myline', {
+            lineWidth: 3
+        });
+        // expect(map.setPaintProperty.mock.calls[1]).toEqual(['myline','line-width', 3]);
+        console.log(map.setPaintProperty.mock.calls);
+        expect(map.setPaintProperty).toBeCalledWith('myline','line-color', undefined);
+    });
+});
