@@ -445,17 +445,43 @@ describe('getLayerStyle()', () => {
     });
 });
 
+describe('layerStyle()', () => {
+    const output = {
+        id: 'mylayer',
+        source: 'mysource',
+        type: 'line',
+        paint: {
+            'line-width': 3
+        }
+    };
+    test('Works with id, source, type, props', () => {
+        expect(map.U.layerStyle('mylayer', 'mysource', 'line', { lineWidth: 3 })).toEqual(output);
+    });
+    test('Works with id, source, props', () => {
+        expect(map.U.layerStyle('mylayer', 'mysource', { type: 'line', lineWidth: 3 })).toEqual(output);
+    });
+    test('Works with id, props', () => {
+        expect(map.U.layerStyle('mylayer', { source: 'mysource', type: 'line', lineWidth: 3 })).toEqual(output);
+    });
+    test('Works with props', () => {
+        expect(map.U.layerStyle({ id: 'mylayer', source: 'mysource', type: 'line', lineWidth: 3 })).toEqual(output);
+    });
+});
+
 describe('setLayer', () => {
-    test.only('Clears unused properties first', () => {
+    test('Clears unused properties first', () => {
         map.U.addLine('myline', 'mysource', {
             lineWidth: 5,
             lineColor: 'red'
         });
         map.U.setLayerStyle('myline', {
-            lineWidth: 3
+            lineWidth: 3,
+            lineDasharray: [4,4]
         });
         // expect(map.setPaintProperty.mock.calls[1]).toEqual(['myline','line-width', 3]);
         console.log(map.setPaintProperty.mock.calls);
+        expect(map.setPaintProperty).toBeCalledWith('myline','line-width', 3);
+        expect(map.setPaintProperty).toBeCalledWith('myline','line-dasharray', [4,4]);
         expect(map.setPaintProperty).toBeCalledWith('myline','line-color', undefined);
     });
 });

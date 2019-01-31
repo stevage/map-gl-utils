@@ -210,13 +210,17 @@ utils.init = function(map) {
             }
             Object.assign(out, which.other);
             return out;
-        }, layerStyle(id, source, props) {
-            return {
-                id,
-                source,
-                ...this.properties(props)
-            }
-        }, getLayerStyle(layer) {
+        z}, layerStyle(id, source, type, props) {
+        }, layerStyle(...args) {
+            const [id, source, type] = args;
+            const props = args.find(arg => typeof arg === 'object' && !Array.isArray(arg));
+            const ret = this.properties(props);
+            if (typeof id === 'string') ret.id = id;
+            if (typeof source === 'string') ret.source = source;
+            if (typeof type === 'string') ret.type = type;
+            return ret;
+        }, 
+        getLayerStyle(layer) {
             return map.getStyle().layers.find(l => l.id === layer)
         }, setLayerStyle: arrayify((layer, style) => {
             const clearProps = (oldObj = {}, newObj = {}) => 
@@ -230,7 +234,8 @@ utils.init = function(map) {
             const newStyle = this.properties(style);
             clearProps(oldStyle.paint, newStyle.paint);
             clearProps(oldStyle.layout, newStyle.layout);
-            this.setProperty(layer, style);
+            // Hmm, this gets murky, what exactly is meant to happen with non-paint, non-layout props?
+            this.setProperty(layer, { ...newStyle.paint, ...newStyle.layout });
         }), setData(source, data) {
             map.getSource(source).setData(data);
         }, show: arrayify(layer => 
