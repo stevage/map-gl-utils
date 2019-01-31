@@ -137,6 +137,9 @@ utils.init = function(map) {
                 cb(e);
             });
         }),
+        addLayer(...args) {
+            map.addLayer(this.layerStyle(...args))
+        },
         add(id, source, type, props) {
             map.addLayer({
                 id,
@@ -210,8 +213,7 @@ utils.init = function(map) {
             }
             Object.assign(out, which.other);
             return out;
-        z}, layerStyle(id, source, type, props) {
-        }, layerStyle(...args) {
+        }, layerStyle(...args) { // layerStyle([id,] [source,] [type,] props)
             const [id, source, type] = args;
             const props = args.find(arg => typeof arg === 'object' && !Array.isArray(arg));
             const ret = this.properties(props);
@@ -268,6 +270,19 @@ utils.init = function(map) {
                     cb();
                 });
             }
+        }, addImage(id, url) {
+            if (typeof url === 'string' && url.match(/\.[a-z]+$/)) {
+                map.loadImage(url, (error, image) => {
+                    if (error) {
+                        console.error(`Error loading image ${url}`, error);
+                    } else {
+                        map.addImage(id, image);
+                    }
+                });
+            } else {
+                return map.addImage(id, url);
+            }            
+
         }, lockOrientation() {
             // Hmm, we can't remove the rotation control.
             map.touchZoomRotate.disable();

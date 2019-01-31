@@ -468,6 +468,34 @@ describe('layerStyle()', () => {
     });
 });
 
+
+describe('addLayer()', () => {
+    const output = {
+        id: 'mylayer',
+        source: 'mysource',
+        type: 'line',
+        paint: {
+            'line-width': 3
+        }
+    };
+    test('Works with id, source, type, props', () => {
+        map.U.addLayer('mylayer', 'mysource', 'line', { lineWidth: 3 });
+        expect(map.addLayer).toBeCalledWith(output);
+    });
+    test('Works with id, source, props', () => {
+        map.U.addLayer('mylayer', 'mysource', { type: 'line', lineWidth: 3 });
+        expect(map.addLayer).toBeCalledWith(output);
+    });
+    test('Works with id, props', () => {
+        map.U.addLayer('mylayer', { source: 'mysource', type: 'line', lineWidth: 3 });
+        expect(map.addLayer).toBeCalledWith(output);
+    });
+    test('Works with props', () => {
+        map.U.addLayer({ id: 'mylayer', source: 'mysource', type: 'line', lineWidth: 3 });
+        expect(map.addLayer).toBeCalledWith(output);
+    });
+});
+
 describe('setLayer', () => {
     test('Clears unused properties first', () => {
         map.U.addLine('myline', 'mysource', {
