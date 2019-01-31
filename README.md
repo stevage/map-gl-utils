@@ -136,6 +136,13 @@ map.addLayer(map.U.properties({
     filter: ['==', 'status', 'confirmed']
 }));
 
+// layerStyle() is flexible, pass as many or as few of id, source, and type (in that order) as you like:
+map.U.layerStyle('mylayer', 'mysource', 'line', { ... })
+map.U.layerStyle('mylayer', 'mysource', { ... })
+map.U.layerStyle('mylayer', { ... })
+map.U.layerStyle({ ... })
+
+
 // clickLayer() is like .on('click)', but can take an array and adds a 'features' member 
 // to the event, for what got clicked on.
 map.U.clickLayer(['towns', 'town-labels'], e => {
