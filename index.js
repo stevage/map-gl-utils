@@ -232,6 +232,10 @@ utils.init = function(map) {
                             this.setProperty(layer, key, undefined);
                         }
                     });
+            if (!style) {
+                style = layer;
+                layer = style.id;
+            }
             const oldStyle = this.getLayerStyle(layer);
             const newStyle = this.properties(style);
             clearProps(oldStyle.paint, newStyle.paint);
