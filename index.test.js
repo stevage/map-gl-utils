@@ -496,7 +496,7 @@ describe('addLayer()', () => {
     });
 });
 
-describe('setLayer', () => {
+describe('setLayerStyle()', () => {
     test('Clears unused properties first', () => {
         map.U.addLine('myline', 'mysource', {
             lineWidth: 5,
@@ -506,10 +506,19 @@ describe('setLayer', () => {
             lineWidth: 3,
             lineDasharray: [4,4]
         });
-        // expect(map.setPaintProperty.mock.calls[1]).toEqual(['myline','line-width', 3]);
-        console.log(map.setPaintProperty.mock.calls);
         expect(map.setPaintProperty).toBeCalledWith('myline','line-width', 3);
         expect(map.setPaintProperty).toBeCalledWith('myline','line-dasharray', [4,4]);
         expect(map.setPaintProperty).toBeCalledWith('myline','line-color', undefined);
+    });
+    test('Supports id passed in layer', () => {
+        map.U.addLine('myline', 'mysource', {
+            lineWidth: 5,
+            lineColor: 'red'
+        });
+        map.U.setLayerStyle({
+            id: 'myline',
+            lineWidth: 3,
+        });
+        expect(map.setPaintProperty).toBeCalledWith('myline','line-width', 3);
     });
 });
