@@ -70,6 +70,10 @@ map.U.addGeoJSON('buildings', 'data/buildings.geojson')
     }).addLine('buildings-footprint', {
         lineColor: 'lightblue'
     });
+
+// Replace the source on an existing layer. (Actually removes and re-adds it.)
+map.U.setLayerSource('buildings', 'newsource');
+map.U.setLayerSource(['buildings-3d', 'buildings-outline]', 'newsource', 'newsourcelayer');
 ```
 
 

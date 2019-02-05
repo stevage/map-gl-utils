@@ -15,9 +15,16 @@ function mockMap() {
         setPaintProperty: jest.fn().mockName('setPaintProperty'),
         setLayoutProperty: jest.fn().mockName('setLayoutProperty'),
         setFilter: jest.fn().mockName('setFilter'),
-        addLayer: jest.fn(layer =>
-            map._layers.push(layer)
-            ).mockName('addLayer'),
+        addLayer: jest.fn((layer, before) => {
+            let index = map._layers.length;
+            if (before) {
+                index = map._layers.findIndex(l => l.id === before);
+                if (index < 0) {
+                    index = map._layers.length;
+                }
+            }
+            map._layers.splice(index, 0, layer)
+        }).mockName('addLayer'),
         removeLayer: jest.fn(layerId => {
             if (!map._layers.find(l => l.id === layerId)) {
                 map._fire('error', {
@@ -520,5 +527,24 @@ describe('setLayerStyle()', () => {
             lineWidth: 3,
         });
         expect(map.setPaintProperty).toBeCalledWith('myline','line-width', 3);
+    });
+});
+
+describe('setLayerSource()', () => {
+    test('Works on first layer', () => {
+        map.U.addLine('line1', 'mysource', { sourceLayer: 'old', lineWidth: 5 });
+        map.U.addLine('line2', 'mysource', { lineWidth: 5 });
+        map.U.setLayerSource('line1', 'newsource', 'new');
+        expect(map.getStyle().layers[0].source).toEqual('newsource');
+        expect(map.getStyle().layers[0]['source-layer']).toEqual('new');
+        expect(map.getStyle().layers.length).toEqual(2);
+             
+    });
+    test('Works on last layer', () => {
+        map.U.addLine('line1', 'mysource', { lineWidth: 5 });
+        map.U.addLine('line2', 'mysource', { lineWidth: 5 });
+        map.U.setLayerSource('line2', 'newsource');
+        expect(map.getStyle().layers[1].source).toEqual('newsource');
+        expect(map.getStyle().layers.length).toEqual(2);
     });
 });
