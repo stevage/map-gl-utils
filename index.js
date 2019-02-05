@@ -285,7 +285,7 @@ utils.init = function(map) {
                     cb();
                 });
             }
-        }, addImage(id, url) {
+        }, loadImage(id, url) {
             if (typeof url === 'string' && url.match(/\.[a-z]+$/)) {
                 map.loadImage(url, (error, image) => {
                     if (error) {
