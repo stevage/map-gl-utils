@@ -265,6 +265,17 @@ utils.init = function(map) {
             if (map.getSource(source)) {
                 map.removeSource(source);
             }
+        }), setLayerSource: arrayify((layerId, source, sourceLayer) => {
+            const oldLayers = map.getStyle().layers;
+            const layerIndex = oldLayers.findIndex(l => l.id === layerId);
+            const layerDef = oldLayers[layerIndex];
+            const before = oldLayers[layerIndex + 1] && oldLayers[layerIndex + 1].id;
+            layerDef.source = source;
+            if (sourceLayer) {
+                layerDef['source-layer'] = sourceLayer;
+            }
+            map.removeLayer(layerId);
+            map.addLayer(layerDef, before);
         }), onLoad(cb) {
             if (map.loaded() || this._loaded) {
                 cb();
