@@ -163,6 +163,9 @@ map.U.toggleSource('buildings', true);
 // Update several filters at once.
 map.U.setFilter(['buildings-fill', 'buildings-outline', 'buildings-label'], [...]);
 
+// Conveniently load an image into the map in one step
+map.U.loadImage('marker', '/assets/marker-pin.png');
+
 // Seamlessly incorporate [Jam Session](https://github.com/mapbox/expression-jamsession) expressions:
 const U = require('mapbox-gl-utils').init(map);
 map.U.addLine('mylines', 'mysource', { 
