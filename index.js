@@ -285,6 +285,12 @@ utils.init = function(map) {
                     cb();
                 });
             }
+        }, setRootProperty(propName, val) {
+            const style = map.getStyle();
+            style[kebabCase(propName)] = val;
+            map.setStyle(style);
+        }, setTransition(val) {
+            this.setRootProperty('transition', val);
         }, loadImage(id, url) {
             if (typeof url === 'string' && url.match(/\.[a-z]+$/)) {
                 map.loadImage(url, (error, image) => {
