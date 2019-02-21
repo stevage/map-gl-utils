@@ -172,6 +172,8 @@ map.U.addLine('mylines', 'mysource', {
     lineWidth: U`get("size") + 3`
 });
 
+// Update the map style's root "transition" property
+map.U.setTransition({ delay: 1000, delay: 0});
 ```
 
 ### Contrived example
