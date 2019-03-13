@@ -305,8 +305,7 @@ utils.init = function(map) {
             }            
 
         }, lockOrientation() {
-            // Hmm, we can't remove the rotation control.
-            map.touchZoomRotate.disable();
+            map.touchZoomRotate.disableRotation();
             map.dragRotate.disable();
         }, 
     });
@@ -324,4 +323,6 @@ utils.init = function(map) {
     return this;
 }
 
-module.exports = utils;
+// Hmm. Using ES2015 export seems to play nicer with Webpack. But then testing within Node doesn't work. Sigh.
+// module.exports = utils;
+export default utils;
