@@ -116,7 +116,13 @@ map.U.hoverPointer('mylayer');
 
 // Sets a "hover" feature-state to be true or false as the mouse moves over features in this layer.
 // Requires that features have an `id`.
+map.U.hoverFeatureState('mylayer');
+
+// Want to apply the hover feature-state to a different source?
 map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer');
+
+// You can also add additional event handlers:
+map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer', e => console.log(`Entered ${e.features[0].id}`), e => console.log(`Left ${e.oldFeatureid}`);
 
 // Like on('load') but fires immediately (and reliably) any time after map already loaded.
 map.U.onLoad(callback);
