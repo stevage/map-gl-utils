@@ -106,11 +106,16 @@ utils.init = function(map) {
         hoverPointer: arrayify(layer => {
             map.on('mouseenter', layer, e => map.getCanvas().style.cursor = 'pointer' ); 
             map.on('mouseleave', layer, e => map.getCanvas().style.cursor = '' ); 
-        }), hoverFeatureState: arrayify((layer, source, sourceLayer) => {
+        }), hoverFeatureState: arrayify((layer, source, sourceLayer, enterCb, leaveCb) => {
             if (Array.isArray(source)) {
                 // assume we have array of [source, sourceLayer]
                 source.forEach(([source, sourceLayer]) => this.hoverFeatureState(layer, source, sourceLayer));
                 return;
+            }
+            if (source === undefined) {
+                const l = this.getLayerStyle(layer);
+                source = l.source;
+                sourceLayer = l['source-layer'];
             }
             let featureId;
             function setHoverState(state) {
@@ -122,12 +127,25 @@ utils.init = function(map) {
                 setHoverState(false);
                 const f = e.features[0];
                 if (!f) return;
+                if (f.id === featureId) {
+                    if (leaveCb) {
+                        leaveCb({ ...e, oldFeatureId: featureid});
+                    }
+                    return;
+                }
                 featureId = f.id;
                 setHoverState(true);
+                if (enterCb) {
+                    enterCb(e);
+                }
             });
-            map.on('mouseleave', layer, () => {
+            map.on('mouseleave', layer, e => {
                 setHoverState(false);
+                e.oldFeatureId = featureId;
                 featureId = undefined;
+                if (leaveCb) {
+                    leaveCb(e);
+                }
             });
         }), clickLayer: arrayify((layer, cb) => {
             map.on('click', layer, e => {
