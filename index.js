@@ -129,7 +129,7 @@ utils.init = function(map) {
                 if (!f) return;
                 if (f.id === featureId) {
                     if (leaveCb) {
-                        leaveCb({ ...e, oldFeatureId: featureid});
+                        leaveCb({ ...e, oldFeatureId: featureId});
                     }
                     return;
                 }
