@@ -124,14 +124,14 @@ utils.init = function(map) {
                 }
             }
             map.on('mousemove', layer, e => {
-                setHoverState(false);
                 const f = e.features[0];
-                if (!f) return;
-                if (f.id === featureId) {
-                    if (leaveCb) {
-                        leaveCb({ ...e, oldFeatureId: featureId});
-                    }
+                if (f && f.id === featureId) {
                     return;
+                }
+                setHoverState(false);
+                if (!f) return;
+                if (featureId && leaveCb) {
+                    leaveCb({ ...e, oldFeatureId: featureId});
                 }
                 featureId = f.id;
                 setHoverState(true);
