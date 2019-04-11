@@ -230,6 +230,18 @@ describe('add()', () => {
             type: 'fill-extrusion'
         });
     });
+    test('Plain "add" respects "before" property', () => {
+        map.U.add('mylayer', 'things', 'line', { lineColor: 'green'}, 'someotherlayer');
+        expect(map.addLayer).toBeCalledWith({
+            id: 'mylayer',
+            type: 'line',
+            source: 'things',
+            paint: {
+                'line-color': 'green'
+            }
+        }, 'someotherlayer');
+    });
+
 });
 
 describe('addLine()', () => {
@@ -243,6 +255,17 @@ describe('addLine()', () => {
                 'line-width': 3
             }, minzoom: 3
         });
+    });
+    test('addLine() respects "before" property', () => {
+        map.U.addLine('mylayer', 'things', { lineColor: 'green' }, 'someotherlayer');
+        expect(map.addLayer).toBeCalledWith({
+            id: 'mylayer',
+            type: 'line',
+            source: 'things',
+            paint: {
+                'line-color': 'green',
+            }
+        }, 'someotherlayer');
     });
 });
 

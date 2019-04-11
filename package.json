@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test10": "n use 10.0.0 node_modules/jest/bin/jest.js",
     "build": "node make"
   },
   "author": "Steve Bennett <me@stevebennett.me> (http://stevebennett.me)",
