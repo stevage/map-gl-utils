@@ -40,6 +40,9 @@ map.U.addLine('mylayer', geojson);
 // ...or a vector tile source hosted on Mapbox.
 map.U.addLine('mylayer', 'mapbox://myuser.aoeuaoeu12341234');
 
+// and of course add the layer "before" another layer if needed:
+map.U.addLine('mylayer', 'mysource', { lineColor: 'red' }, 'toplayer');
+
 // removeLayer() doesn't throw errors if the layers don't exist
 map.U.removeLayer(['towns','town-labels']);
 

@@ -67,9 +67,9 @@ utils.init = function(map) {
     function makeAddLayer(layerType, obj, fixedSource) {
         const funcName = 'add' + upperCamelCase(layerType);
         if (fixedSource) {
-            obj[funcName] = (id, options) => U.add(id, fixedSource, layerType, options);
+            obj[funcName] = (id, options, before) => U.addLayer(id, fixedSource, layerType, options, before);
         } else {
-            obj[funcName] = (id, source, options) => U.add(id, source, layerType, options);
+            obj[funcName] = (id, source, options, before) => U.addLayer(id, source, layerType, options, before);
         }
     }
 
@@ -155,16 +155,24 @@ utils.init = function(map) {
                 cb(e);
             });
         }),
-        addLayer(...args) {
-            map.addLayer(this.layerStyle(...args))
+        mapAddLayerBefore(layer, before) {
+            if (before) {
+                map.addLayer(layer, before)
+            } else {
+                map.addLayer(layer);
+            }
         },
-        add(id, source, type, props) {
-            map.addLayer({
+        addLayer(id, source, type, props, before) {
+            this.mapAddLayerBefore(this.layerStyle(id, source, type, props), before);
+            return makeSource(source);
+        },
+        add(id, source, type, props, before) {
+            this.mapAddLayerBefore({
                 id,
                 source: parseSource(source),
                 type,
                 ...this.properties(props)
-            });
+            }, before);
             return makeSource(source); // Could get very weird if source is not a string...
         },  removeLayer: arrayify(layer => {
             const swallowError = (data => {
@@ -234,7 +242,7 @@ utils.init = function(map) {
         }, layerStyle(...args) { // layerStyle([id,] [source,] [type,] props)
             const [id, source, type] = args;
             const props = args.find(arg => typeof arg === 'object' && !Array.isArray(arg));
-            const ret = this.properties(props);
+            const ret = this.properties(props) || {};
             if (typeof id === 'string') ret.id = id;
             if (typeof source === 'string') ret.source = source;
             if (typeof type === 'string') ret.type = type;
@@ -293,7 +301,7 @@ utils.init = function(map) {
                 layerDef['source-layer'] = sourceLayer;
             }
             map.removeLayer(layerId);
-            map.addLayer(layerDef, before);
+            this.mapAddLayerBefore(layerDef, before);
         }), onLoad(cb) {
             if (map.loaded() || this._loaded) {
                 cb();
@@ -342,5 +350,5 @@ utils.init = function(map) {
 }
 
 // Hmm. Using ES2015 export seems to play nicer with Webpack. But then testing within Node doesn't work. Sigh.
-// module.exports = utils;
-export default utils;
+module.exports = utils;
+// export default utils;
