@@ -62,6 +62,9 @@ map.U.addGeoJSON('mysource');
 map.U.addVector('mysource', 'mapbox://foo.blah');
 map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf');
 
+// Additional properties still work
+map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf', { maxzoom: 13 });
+
 // Automatically removes any layers using these sources. Not an error if sources don't exist.
 map.U.removeSource(['buildings', 'roads']);
 
