@@ -154,7 +154,21 @@ utils.init = function(map) {
                 });
                 cb(e);
             });
-        }),
+        }), clickOneLayer(layers, cb) {
+            map.on('click', e => {
+                for (const layer of layers) {
+                    const features = map.queryRenderedFeatures(e.point, { layers: [ layer ] });
+                    if (features[0]) {
+                        cb({
+                            layer,
+                            feature: features[0],
+                            features
+                        });
+                        break;
+                    }
+                }
+            });
+        },
         mapAddLayerBefore(layer, before) {
             if (before) {
                 map.addLayer(layer, before)

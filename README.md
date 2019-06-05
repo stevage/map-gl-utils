@@ -167,6 +167,18 @@ map.U.clickLayer(['towns', 'town-labels'], e => {
     }
 });
 
+// clickOneLayer tests multiple layers in order, firing callback on the first one that
+// is hit. The callback is passed { features, layer }.
+map.U.clickLayer(['town-labels', 'state-boundaries'], e => {
+    if (e.layer === 'town-labels') {
+        setView('town');
+        panel.selectedId = e.features[0].id;
+    } else if (e.layer === 'state-boundaries') {
+        setView('state');
+        panel.selectedId = e.features[0].id;
+    }
+});
+
 // Hide/show/toggle all the layers attached to this source
 map.U.hideSource('buildings');
 map.U.showSource('buildings');
