@@ -14,6 +14,11 @@ Major features:
 ```js
 // Adds U property to map, containing these methods.
 const U = require('mapbox-gl-utils').init(map);
+
+// Certain methods (eg hoverPopup) require access to the mapxoxgl library itself
+const mapboxgl = require('mapbox-gl');
+const U = require('mapbox-gl-utils').init(map, mapboxgl);
+
 ```
 
 ### Adding and removing layers
@@ -114,7 +119,7 @@ map.U.hide('mylayer');
 map.U.toggle(['mylayer', 'myotherlayer'], isVisible);
 ```
 
-### Other functions
+### Hovering
 
 ```js
 // Use the mouse 'finger' cursor when hovering over this layer.
@@ -130,6 +135,15 @@ map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer');
 // You can also add additional event handlers:
 map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer', e => console.log(`Entered ${e.features[0].id}`), e => console.log(`Left ${e.oldFeatureid}`);
 
+// Shows a popup when a feature is hovered over. 
+// callback is called as: (feature, popup) => htmlString
+// Make sure you passed the mapboxgl library itself when initialising: U.init(map, mapboxgl).
+map.U.hoverPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`);
+```
+
+### Other functions
+
+```
 // Like on('load') but fires immediately (and reliably) any time after map already loaded.
 map.U.onLoad(callback);
 
@@ -205,11 +219,16 @@ map.U.setTransition({ delay: 1000, delay: 0});
 map.U.onload(() => {
     map.U.addGeoJSON('towns');
     map.U.addCircle('small-towns', 'towns', { circleColor: 'green', filter: U`"size" == "small"`});
-    map.U.addCircle('large-towns', 'towns', { circleColor: 'red', filter: U`"size" == "large"`});
+    map.U.addCircle('large-towns', 'towns', { 
+        circleColor: 'red', 
+        filter: U`"size" == "large"`},
+        circleStrokeWidth: ['case', ['to-boolean', ['feature-state', 'hover']], 5, 1]
+    );
     map.U.setCircleRadius(['small-towns', 'large-towns'], 12);
     map.U.hoverPointer(['small-towns', 'large-towns']);
+    map.U.hoverFeatureState('large-towns');
     // update the source layer when data is available
-    d3.json('http://example.com/towns.json', data => map.U.update('towns', data);
+    d3.json('http://example.com/towns.json', data => map.U.update('towns', data));
 });
 
 

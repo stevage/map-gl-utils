@@ -54,8 +54,9 @@ function upperCamelCase(s) {
     return s[0].toUpperCase() + kebabCase.reverse(s).slice(1);
 }
 
-utils.init = function(map) {
+utils.init = function(map, mapboxgl) {
     const U = this;
+    this.mapboxgl = mapboxgl;
     const layerTypes = ['line','fill','circle','symbol','video','raster','fill-extrusion','heatmap','hillshade'];
     function makeSetProp(prop, setPropFunc) {
         const funcName = 'set' + upperCamelCase(prop);
@@ -87,10 +88,10 @@ utils.init = function(map) {
 
     function makeAddSource(sourceType) {
         const funcName = 'add' + upperCamelCase(sourceType);
-        U[funcName] = (id, options) => {
+        U[funcName] = (id, props) => {
             addSource(id, { 
                 type: sourceType, 
-                ...options
+                ...props
             });
         };
     }
@@ -106,7 +107,8 @@ utils.init = function(map) {
         hoverPointer: arrayify(layer => {
             map.on('mouseenter', layer, e => map.getCanvas().style.cursor = 'pointer' ); 
             map.on('mouseleave', layer, e => map.getCanvas().style.cursor = '' ); 
-        }), hoverFeatureState: arrayify((layer, source, sourceLayer, enterCb, leaveCb) => {
+        }), 
+        hoverFeatureState: arrayify((layer, source, sourceLayer, enterCb, leaveCb) => {
             if (Array.isArray(source)) {
                 // assume we have array of [source, sourceLayer]
                 source.forEach(([source, sourceLayer]) => this.hoverFeatureState(layer, source, sourceLayer));
@@ -147,7 +149,24 @@ utils.init = function(map) {
                     leaveCb(e);
                 }
             });
-        }), clickLayer: arrayify((layer, cb) => {
+        }), hoverPopup(layers, cb, Popup=(this.mapboxgl && this.mapboxgl.Popup)) {
+            const popup = new Popup({
+                closeButton: false,
+            });
+            return arrayify((layer, cb) => {
+                map.on('mouseenter', layer, e => {
+                    if (e.features[0]) {
+                        popup.setLngLat(e.lngLat)
+                        popup.setHTML(cb(e.features[0], popup));
+                        popup.addTo(map);
+                    }
+                });
+                map.on('mouseout', layer, e => {
+                    popup.remove();
+                });
+            })(layers, cb);
+        },
+        clickLayer: arrayify((layer, cb) => {
             map.on('click', layer, e => {
                 e.features = map.queryRenderedFeatures(e.point, {
                     layers: [layer]
