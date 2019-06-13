@@ -8,7 +8,8 @@ Major features:
 * All properties can be expressed as camelCase rather than kebab-case.
 * Layer operations can act on an array of layers, not just one.
 * Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircle()`, `setCircleRadius()`...
-* Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`, `hoverPointer()`, `clickLayer()`
+* Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`, 
+* Better click and hover functions: `hoverPointer()`, `hoverFeatureState()`, `hoverPopup()`, `clickLayer()`
 * Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically), `setFilter()` (works on multiple layers at once)
 
 ```js
@@ -119,7 +120,7 @@ map.U.hide('mylayer');
 map.U.toggle(['mylayer', 'myotherlayer'], isVisible);
 ```
 
-### Hovering
+### Hovering and clicking
 
 ```js
 // Use the mouse 'finger' cursor when hovering over this layer.
@@ -133,17 +134,35 @@ map.U.hoverFeatureState('mylayer');
 map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer');
 
 // You can also add additional event handlers:
-map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer', e => console.log(`Entered ${e.features[0].id}`), e => console.log(`Left ${e.oldFeatureid}`);
+map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer', 
+    e => console.log(`Entered ${e.features[0].id}`), 
+    e => console.log(`Left ${e.oldFeatureid}`);
 
 // Shows a popup when a feature is hovered over. 
 // callback is called as: (feature, popup) => htmlString
 // Make sure you passed the mapboxgl library itself when initialising: U.init(map, mapboxgl).
 map.U.hoverPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`);
+
+// clickLayer() is like .on('click)', but can take an array and adds a 'features' member 
+// to the event, for what got clicked on.
+map.U.clickLayer(['towns', 'town-labels'], e => panel.selectedId = e.features[0].id);
+
+// clickOneLayer tests multiple layers in order, firing callback on the first one that
+// is hit. The callback is passed { features, layer }.
+map.U.clickLayer(['town-labels', 'state-boundaries'], e => {
+    if (e.layer === 'town-labels') {
+        setView('town');
+        panel.selectedId = e.features[0].id;
+    } else if (e.layer === 'state-boundaries') {
+        setView('state');
+        panel.selectedId = e.features[0].id;
+    }
+});
 ```
 
 ### Other functions
 
-```
+```js
 // Like on('load') but fires immediately (and reliably) any time after map already loaded.
 map.U.onLoad(callback);
 
@@ -172,26 +191,6 @@ map.U.layerStyle('mylayer', 'mysource', { ... })
 map.U.layerStyle('mylayer', { ... })
 map.U.layerStyle({ ... })
 
-
-// clickLayer() is like .on('click)', but can take an array and adds a 'features' member 
-// to the event, for what got clicked on.
-map.U.clickLayer(['towns', 'town-labels'], e => {
-    if (e.features) {
-        panel.selectedId = e.features[0].id;
-    }
-});
-
-// clickOneLayer tests multiple layers in order, firing callback on the first one that
-// is hit. The callback is passed { features, layer }.
-map.U.clickLayer(['town-labels', 'state-boundaries'], e => {
-    if (e.layer === 'town-labels') {
-        setView('town');
-        panel.selectedId = e.features[0].id;
-    } else if (e.layer === 'state-boundaries') {
-        setView('state');
-        panel.selectedId = e.features[0].id;
-    }
-});
 
 // Hide/show/toggle all the layers attached to this source
 map.U.hideSource('buildings');
