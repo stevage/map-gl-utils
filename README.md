@@ -8,7 +8,7 @@ Major features:
 * All properties can be expressed as camelCase rather than kebab-case.
 * Layer operations can act on an array of layers, not just one.
 * Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircle()`, `setCircleRadius()`...
-* Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`, 
+* Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`,
 * Better click and hover functions: `hoverPointer()`, `hoverFeatureState()`, `hoverPopup()`, `clickLayer()`
 * Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically), `setFilter()` (works on multiple layers at once)
 
@@ -16,7 +16,7 @@ Major features:
 // Adds U property to map, containing these methods.
 const U = require('mapbox-gl-utils').init(map);
 
-// Certain methods (eg hoverPopup) require access to the mapxoxgl library itself
+// Certain methods (eg hoverPopup) require access to the mapboxgl library itself
 const mapboxgl = require('mapbox-gl');
 const U = require('mapbox-gl-utils').init(map, mapboxgl);
 
@@ -27,10 +27,10 @@ const U = require('mapbox-gl-utils').init(map, mapboxgl);
 ```js
 // Conveniently add a line feature, mixing paint, layout and other properties.
 // Notice you can use camelCase for all property names.
-map.U.addLine('mylines', 'mysource', { 
-    lineWidth: 3, 
+map.U.addLine('mylines', 'mysource', {
+    lineWidth: 3,
     lineCap: 'round',
-    minzoom: 11 
+    minzoom: 11
 });
 map.U.addCircle('mycircles', 'mysource', { circleStrokeColor: 'red' });
 // Also addFill, addFillExtrusion, addRaster, addVideo, addSymbol, addHillshade, addHeatmap
@@ -124,7 +124,7 @@ map.U.toggle(['mylayer', 'myotherlayer'], isVisible);
 
 ```js
 // Use the mouse 'finger' cursor when hovering over this layer.
-map.U.hoverPointer('mylayer'); 
+map.U.hoverPointer('mylayer');
 
 // Sets a "hover" feature-state to be true or false as the mouse moves over features in this layer.
 // Requires that features have an `id`.
@@ -134,22 +134,22 @@ map.U.hoverFeatureState('mylayer');
 map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer');
 
 // You can also add additional event handlers:
-map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer', 
-    e => console.log(`Entered ${e.features[0].id}`), 
+map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer',
+    e => console.log(`Entered ${e.features[0].id}`),
     e => console.log(`Left ${e.oldFeatureid}`);
 
-// Shows a popup when a feature is hovered over. 
+// Shows a popup when a feature is hovered over.
 // callback is called as: (feature, popup) => htmlString
 // Make sure you passed the mapboxgl library itself when initialising: U.init(map, mapboxgl).
 map.U.hoverPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`);
 
-// clickLayer() is like .on('click)', but can take an array and adds a 'features' member 
+// clickLayer() is like .on('click)', but can take an array and adds a 'features' member
 // to the event, for what got clicked on.
 map.U.clickLayer(['towns', 'town-labels'], e => panel.selectedId = e.features[0].id);
 
 // clickOneLayer tests multiple layers in order, firing callback on the first one that
 // is hit. The callback is passed { features, layer }.
-map.U.clickLayer(['town-labels', 'state-boundaries'], e => {
+map.U.clickOneLayer(['town-labels', 'state-boundaries'], e => {
     if (e.layer === 'town-labels') {
         setView('town');
         panel.selectedId = e.features[0].id;
@@ -205,7 +205,7 @@ map.U.loadImage('marker', '/assets/marker-pin.png');
 
 // Seamlessly incorporate [Jam Session](https://github.com/mapbox/expression-jamsession) expressions:
 const U = require('mapbox-gl-utils').init(map);
-map.U.addLine('mylines', 'mysource', { 
+map.U.addLine('mylines', 'mysource', {
     lineWidth: U`get("size") + 3`
 });
 
@@ -218,8 +218,8 @@ map.U.setTransition({ delay: 1000, delay: 0});
 map.U.onload(() => {
     map.U.addGeoJSON('towns');
     map.U.addCircle('small-towns', 'towns', { circleColor: 'green', filter: U`"size" == "small"`});
-    map.U.addCircle('large-towns', 'towns', { 
-        circleColor: 'red', 
+    map.U.addCircle('large-towns', 'towns', {
+        circleColor: 'red',
         filter: U`"size" == "large"`},
         circleStrokeWidth: ['case', ['to-boolean', ['feature-state', 'hover']], 5, 1]
     );
@@ -232,5 +232,3 @@ map.U.onload(() => {
 
 
 ```
-
-
