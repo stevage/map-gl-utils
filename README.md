@@ -1,3 +1,5 @@
+[![NPM](https://nodei.co/npm/mapbox-gl-utils.png)](https://nodei.co/npm/mapbox-gl-utils/)
+
 ## Mapbox-GL-Utils
 
 Mapbox-GL-Utils adds a number of utility functions and syntactic sugar to a Mapbox-GL-JS map instance. If you write a lot of Mapbox-GL-JS code, you may appreciate the more concise form, and simpler API.
