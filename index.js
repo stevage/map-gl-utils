@@ -149,9 +149,10 @@ utils.init = function(map, mapboxgl) {
                     leaveCb(e);
                 }
             });
-        }), hoverPopup(layers, cb, Popup=(this.mapboxgl && this.mapboxgl.Popup)) {
-            const popup = new Popup({
+        }), hoverPopup(layers, cb, popupOptions = {}) {
+            const popup = new this.mapboxgl.Popup({
                 closeButton: false,
+                ...popupOptions
             });
             return arrayify((layer, cb) => {
                 map.on('mouseenter', layer, e => {
@@ -163,6 +164,20 @@ utils.init = function(map, mapboxgl) {
                 });
                 map.on('mouseout', layer, e => {
                     popup.remove();
+                });
+            })(layers, cb);
+        },
+        clickPopup(layers, cb, popupOptions = {}) {
+            const popup = new this.mapboxgl.Popup({
+                ...popupOptions
+            });
+            return arrayify((layer, cb) => {
+                map.on('click', layer, e => {
+                    if (e.features[0]) {
+                        popup.setLngLat(e.features[0].geometry.coordinates.slice())
+                        popup.setHTML(cb(e.features[0], popup));
+                        popup.addTo(map);
+                    }
                 });
             })(layers, cb);
         },
@@ -332,6 +347,8 @@ utils.init = function(map, mapboxgl) {
             layerDef.source = source;
             if (sourceLayer) {
                 layerDef['source-layer'] = sourceLayer;
+            } else if (sourceLayer !== undefined) {
+                delete layerDef['source-layer'];
             }
             map.removeLayer(layerId);
             this.mapAddLayerBefore(layerDef, before);

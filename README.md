@@ -86,8 +86,10 @@ map.U.addGeoJSON('buildings', 'data/buildings.geojson')
 // Replace the source on an existing layer. (Actually removes and re-adds it.)
 map.U.setLayerSource('buildings', 'newsource');
 map.U.setLayerSource(['buildings-3d', 'buildings-outline]', 'newsource', 'newsourcelayer');
-```
 
+// To change the source layer, pass a third argument, or null to clear it (if switching from vector tiles to geojson)
+map.U.setLayerSource('buildings', 'mylocalbuildings', null);
+```
 
 ### Setting properties and updating data
 
@@ -138,10 +140,12 @@ map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer',
     e => console.log(`Entered ${e.features[0].id}`), 
     e => console.log(`Left ${e.oldFeatureid}`);
 
-// Shows a popup when a feature is hovered over. 
+// Shows a popup when a feature is hovered over or clicked. 
+// The third argument is an options object, passed to the Popup constructor.
 // callback is called as: (feature, popup) => htmlString
 // Make sure you passed the mapboxgl library itself when initialising: U.init(map, mapboxgl).
-map.U.hoverPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`);
+map.U.hoverPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`, { anchor: 'left' });
+map.U.clickPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`, { maxWidth: 500 });
 
 // clickLayer() is like .on('click)', but can take an array and adds a 'features' member 
 // to the event, for what got clicked on.
