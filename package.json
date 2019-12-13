@@ -33,6 +33,7 @@
     "layers",
     "maps"
   ],
+  "repository": "github:stevage/mapbox-gl-utils",
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
