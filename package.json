@@ -1,8 +1,8 @@
 {
   "name": "mapbox-gl-utils",
-  "version": "0.28.0",
+  "version": "0.28.1",
   "description": "Utility functions for Mapbox-GL-JS",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "test10": "n use 10.0.0 node_modules/jest/bin/jest.js",
