@@ -5,6 +5,7 @@ Should be run when new properties are added to that spec.
 
 const v8 = require('@mapbox/mapbox-gl-style-spec/reference/v8.json');
 const fs = require('fs');
+const styleSpecVersion = require('./node_modules/@mapbox/mapbox-gl-style-spec/package.json').version;
 const out = {
     paints: [],
     layouts: []
@@ -19,4 +20,7 @@ Object.keys(v8)
     
 out.paints = Array.from(new Set(out.paints));
 out.layouts = Array.from(new Set(out.layouts));
-fs.writeFileSync('keys.json', JSON.stringify(out));
+const outFile = 'dist/keys.json';
+fs.writeFileSync(outFile, JSON.stringify(out));
+
+console.log(`Wrote updated ${outFile} based on Mapbox-GL style spec ${styleSpecVersion}.`);
