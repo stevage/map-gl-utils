@@ -1,17 +1,23 @@
 {
   "name": "mapbox-gl-utils",
-  "version": "0.27.2",
+  "version": "0.28.0",
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "test10": "n use 10.0.0 node_modules/jest/bin/jest.js",
-    "build": "node make"
+    "update-keys": "node make",
+    "babel": "babel src -d dist",
+    "prepublish": "yarn run update-keys; yarn run babel",
+    "main": "dist/index.js"
   },
   "author": "Steve Bennett <me@stevebennett.me> (http://stevebennett.me)",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@mapbox/mapbox-gl-style-spec": "^13.4.0",
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@mapbox/mapbox-gl-style-spec": "^13.10.2",
     "jest": "^23.6.0"
   },
   "dependencies": {
@@ -19,10 +25,7 @@
     "kebab-case": "^1.0.0"
   },
   "files": [
-    "index.js",
-    "index.test.js",
-    "make.js",
-    "keys.json"
+    "dist/*"
   ],
   "keywords": [
     "mapbox",
