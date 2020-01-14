@@ -4,3 +4,5 @@
 /coverage/
 
 /.vscode/launch.json
+/dist/
+/yarn-error.log
