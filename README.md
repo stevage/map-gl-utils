@@ -148,7 +148,7 @@ map.U.clickPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.D
 map.U.clickLayer(['towns', 'town-labels'], e => panel.selectedId = e.features[0].id);
 
 // clickOneLayer tests multiple layers in order, firing callback on the first one that
-// is hit. The callback is passed { features, layer }.
+// is hit. The callback is passed { feature, features, layer, event }.
 map.U.clickOneLayer(['town-labels', 'state-boundaries'], e => {
     if (e.layer === 'town-labels') {
         setView('town');
@@ -157,6 +157,11 @@ map.U.clickOneLayer(['town-labels', 'state-boundaries'], e => {
         setView('state');
         panel.selectedId = e.features[0].id;
     }
+});
+
+// Optionally pass in an extra callback which is fired for clicks that miss all layers:
+map.U.clickOneLayer(['town-labels', 'state-boundaries'], e => {...}, e => {
+    console.log('Missed everything');
 });
 ```
 
