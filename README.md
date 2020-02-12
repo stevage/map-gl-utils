@@ -34,26 +34,15 @@ map.U.addLine('mylines', 'mysource', {
     lineCap: 'round',
     minzoom: 11
 });
+
 map.U.addCircle('mycircles', 'mysource', { circleStrokeColor: 'red' });
 // Also addFill, addFillExtrusion, addRaster, addVideo, addSymbol, addHillshade, addHeatmap
-
-// You can sneakily create a datasource (with the same id), by passing in...
-// ...a URL to a GeoJSON
-map.U.addLine('mylayer', 'my.geojson');
-
-// ... a GeoJSON as a data structure
-const geojson = { type: 'Feature', ... };
-map.U.addLine('mylayer', geojson);
-
-// ...or a vector tile source hosted on Mapbox.
-map.U.addLine('mylayer', 'mapbox://myuser.aoeuaoeu12341234');
 
 // and of course add the layer "before" another layer if needed:
 map.U.addLine('mylayer', 'mysource', { lineColor: 'red' }, 'toplayer');
 
 // removeLayer() doesn't throw errors if the layers don't exist
 map.U.removeLayer(['towns','town-labels']);
-
 ```
 
 ### Adding and removing sources
@@ -62,16 +51,19 @@ map.U.removeLayer(['towns','town-labels']);
 // Simpler way to create GeoJSON source:
 map.U.addGeoJSON('mysource', geojson);
 
-// Or create a GeoJSON source with initially blank data:
+// Or create a GeoJSON source with initially blank data. This is very convenient if you're loading 
+// the data separately and will call .setData() later.
 map.U.addGeoJSON('mysource');
 
 // Simpler ways to create a vector tile source:
-// There's also addRaster(), addRasterDem(), addImage(), addVideo()
 map.U.addVector('mysource', 'mapbox://foo.blah');
 map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf');
 
 // Additional properties still work
 map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf', { maxzoom: 13 });
+
+// There's also addRaster(), addRasterDem(), addImage(), addVideo()
+
 
 // Automatically removes any layers using these sources. Not an error if sources don't exist.
 map.U.removeSource(['buildings', 'roads']);
@@ -104,11 +96,6 @@ map.U.setLineWidth(['mylayer', 'mylayer-highlight'], 4);
 
 // There's also a more familiar setProperty() form.
 map.U.setProperty('mylayer', 'line-width', 3);
-map.U.setProperty('mylayer', {
-    'text-size': 12,
-    'text-color': 'red'
-});
-
 // Existing properties aren't touched
 map.U.setProperty('mylayer', {
     textSize: 12,
@@ -122,6 +109,12 @@ map.U.setData('mysource', data);
 map.U.show('mylayer');
 map.U.hide('mylayer');
 map.U.toggle(['mylayer', 'myotherlayer'], isVisible);
+
+// To avoid name clashes such as with 'raster', you can use a longer form ending
+// with either ...Layer() or ...Source()
+
+map.U.addRasterSource('myrastersource', { type: 'raster', url: 'mapbox://mapbox.satellite', tileSize: 256 });
+map.U.addRasterLayer('myrasterlayer', 'myrastersource', { rasterSaturation: 0.5 });
 ```
 
 ### Hovering and clicking
@@ -135,7 +128,8 @@ map.U.hoverPointer('mylayer');
 map.U.hoverFeatureState('mylayer');
 
 // Want to apply the hover feature-state to a different source?
-map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer');
+// For instance, you hover over a label, but want to highlight the surrounding boundary.
+map.U.hoverFeatureState('town-labels', 'boundaries', 'town-boundaries');
 
 // You can also add additional event handlers:
 map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer',
@@ -209,11 +203,6 @@ map.U.setFilter(['buildings-fill', 'buildings-outline', 'buildings-label'], [...
 // Conveniently load an image into the map in one step
 map.U.loadImage('marker', '/assets/marker-pin.png');
 
-// Seamlessly incorporate [Jam Session](https://github.com/mapbox/expression-jamsession) expressions:
-const U = require('mapbox-gl-utils').init(map);
-map.U.addLine('mylines', 'mysource', {
-    lineWidth: U`get("size") + 3`
-});
 
 // Update the map style's root "transition" property
 map.U.setTransition({ delay: 1000, delay: 0});
@@ -235,6 +224,5 @@ map.U.onload(() => {
     // update the source layer when data is available
     d3.json('http://example.com/towns.json', data => map.U.update('towns', data));
 });
-
 
 ```
