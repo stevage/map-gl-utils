@@ -4,7 +4,7 @@
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest src/",
     "test10": "n use 10.0.0 node_modules/jest/bin/jest.js",
     "update-keys": "node make",
     "babel": "babel src -d dist",
@@ -15,10 +15,10 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
+    "@babel/core": "^7.0.0-0",
     "@babel/preset-env": "^7.8.3",
     "@mapbox/mapbox-gl-style-spec": "^13.10.2",
-    "jest": "^23.6.0"
+    "jest": "^25.1.0"
   },
   "dependencies": {
     "@mapbox/expression-jamsession": "^0.4.2",
