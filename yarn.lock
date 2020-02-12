@@ -860,9 +860,9 @@
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@mapbox/jsonlint-lines-primitives/-/jsonlint-lines-primitives-2.0.2.tgz#ce56e539f83552b58d10d672ea4d6fc9adc7b234"
 
-"@mapbox/mapbox-gl-style-spec@^13.10.2":
-  version "13.10.2"
-  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-style-spec/-/mapbox-gl-style-spec-13.10.2.tgz#790766d69ef99abcfc87a538e37b8646cc5ce6d2"
+"@mapbox/mapbox-gl-style-spec@^13.11.0":
+  version "13.11.0"
+  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-style-spec/-/mapbox-gl-style-spec-13.11.0.tgz#94758e51ee45070a1c8b0774205006c8efa25c33"
   dependencies:
     "@mapbox/jsonlint-lines-primitives" "~2.0.2"
     "@mapbox/unitbezier" "^0.0.0"
