@@ -72,6 +72,7 @@ utils.init = function(map, mapboxgl) {
         } else {
             obj[funcName] = (id, source, options, before) => U.addLayer(id, source, layerType, options, before);
         }
+        obj[funcName + 'Layer'] = obj[funcName];
     }
 
     function makeSource(id) {
@@ -94,6 +95,7 @@ utils.init = function(map, mapboxgl) {
                 ...props
             });
         };
+        U[funcName + 'Source'] = U[funcName];
     }
 
     function layersBySource(source) {

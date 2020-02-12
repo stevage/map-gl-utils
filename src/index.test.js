@@ -571,3 +571,34 @@ describe('setLayerSource()', () => {
         expect(map.getStyle().layers.length).toEqual(2);
     });
 });
+
+describe('Rasters aren\'t ambiguous', () => {
+    test('Adding raster source', () => {
+        map.U.addRasterSource('myrastersource', {
+            type: 'raster',
+            url: 'mapbox://mapbox.satellite',
+            tileSize: 256
+        });
+        expect(map.addSource).toBeCalledWith(
+            'myrastersource', 
+            {
+                type: 'raster',
+                url: 'mapbox://mapbox.satellite',
+                tileSize: 256
+            }
+        );
+    });
+    test('Adds a Raster layer', () => {
+        map.U.addRasterLayer('myrasterlayer', 'myrastersource', {
+            rasterSaturation: 0.5
+        });
+        expect(map.addLayer).toBeCalledWith({
+            id: 'myrasterlayer',
+            source: 'myrastersource',
+            type: 'raster',
+            paint: {
+                'raster-saturation': 0.5
+            }
+        });
+    });
+});
