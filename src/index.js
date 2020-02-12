@@ -199,7 +199,7 @@ utils.init = function(map, mapboxgl) {
                             event: e,
                             layer,
                             feature: features[0],
-                            features,
+                            features
                         });
           
                         match = true;
