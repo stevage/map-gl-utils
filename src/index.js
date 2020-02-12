@@ -190,18 +190,27 @@ utils.init = function(map, mapboxgl) {
                 });
                 cb(e);
             });
-        }), clickOneLayer(layers, cb) {
+        }), clickOneLayer(layers, cb, noMatchCb) {
             map.on('click', e => {
+                let match = false;
+          
                 for (const layer of layers) {
                     const features = map.queryRenderedFeatures(e.point, { layers: [ layer ] });
                     if (features[0]) {
                         cb({
+                            event: e,
                             layer,
                             feature: features[0],
                             features
                         });
+          
+                        match = true;
                         break;
                     }
+                }
+          
+                if (!match && noMatchCb) {
+                    noMatchCb(e);
                 }
             });
         },
