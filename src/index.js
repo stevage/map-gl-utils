@@ -46,7 +46,7 @@ function parseSource(source) {
 // Magically turn a function that works on one layer into one that works on array of layers.
 const arrayify = f => (things, ...args) =>
     Array.isArray(things)
-        ? things.forEach(t => f(t, ...args)) 
+        ? things.map(t => f(t, ...args)) 
         : f(things, ...args);
 
 
@@ -107,17 +107,22 @@ utils.init = function(map, mapboxgl) {
     Object.assign(this, {
         _loaded: false,
         hoverPointer: arrayify(layer => {
+            const cursor = map.getCanvas().style.cursor;
             function mouseenter(e) {
                 map.getCanvas().style.cursor = 'pointer';
             }
 
             function mouseleave(e) {
-                map.getCanvas().style.cursor = '';
+                map.getCanvas().style.cursor = cursor;
             }
 
             map.on('mouseenter', layer, mouseenter); 
             map.on('mouseleave', layer, mouseleave);
-            return ({mouseenter, mouseleave});
+            return (() => {
+                map.off('mouseenter', layer, mouseenter);
+                map.off('mouseleave', layer, mouseleave);
+                mouseleave();
+            });
         }), 
         hoverFeatureState: arrayify((layer, source, sourceLayer, enterCb, leaveCb) => {
             if (Array.isArray(source)) {
@@ -156,7 +161,9 @@ utils.init = function(map, mapboxgl) {
 
             function mouseleave(e) {
                 setHoverState(false);
-                e.oldFeatureId = featureId;
+                if(e && e.oldFeatureId){
+                    e.oldFeatureId = featureId;
+                }
                 featureId = undefined;
                 if (leaveCb) {
                     leaveCb(e);
@@ -166,7 +173,11 @@ utils.init = function(map, mapboxgl) {
             map.on('mousemove', layer, mousemove);
             map.on('mouseleave', layer, mouseleave);
 
-            return ({mousemove, mouseleave});
+            return (() => {
+                map.off('mousemove', layer, mousemove);
+                map.off('mouseleave', layer, mouseleave);
+                mouseleave();
+            });
         }), hoverPopup(layers, cb, popupOptions = {}) {
             const popup = new this.mapboxgl.Popup({
                 closeButton: false,
@@ -187,7 +198,11 @@ utils.init = function(map, mapboxgl) {
 
                 map.on('mouseenter', layer, mouseenter);
                 map.on('mouseout', layer, mouseout);
-                return ({mouseenter, mouseout});
+                return (() => {
+                    map.off('mouseenter', layer, mouseenter);
+                    map.off('mouseout', layer, mouseout);
+                    mouseout();
+                });
             })(layers, cb);
         },
         clickPopup(layers, cb, popupOptions = {}) {
@@ -203,7 +218,9 @@ utils.init = function(map, mapboxgl) {
                     }
                 }
                 map.on('click', layer, click);
-                return ({click})
+                return (() => {
+                    map.off('click', layer, click);
+                });
             })(layers, cb);
         },
         clickLayer: arrayify((layer, cb) => {
@@ -214,7 +231,9 @@ utils.init = function(map, mapboxgl) {
                 cb(e);
             }
             map.on('click', layer, click);
-            return ({click})
+            return (() => {
+                map.off('click', layer, click);
+            });
         }), clickOneLayer(layers, cb, noMatchCb) {
             function click(e) {
                 let match = false;
@@ -239,7 +258,9 @@ utils.init = function(map, mapboxgl) {
                 }
             }
             map.on('click', click);
-            return ({click})
+            return (() => {
+                map.off('click', click);
+            });
         },
         mapAddLayerBefore(layer, before) {
             if (before) {
