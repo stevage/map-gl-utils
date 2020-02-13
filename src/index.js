@@ -107,8 +107,17 @@ utils.init = function(map, mapboxgl) {
     Object.assign(this, {
         _loaded: false,
         hoverPointer: arrayify(layer => {
-            map.on('mouseenter', layer, e => map.getCanvas().style.cursor = 'pointer' ); 
-            map.on('mouseleave', layer, e => map.getCanvas().style.cursor = '' ); 
+            function mouseenter(e) {
+                map.getCanvas().style.cursor = 'pointer';
+            }
+
+            function mouseleave(e) {
+                map.getCanvas().style.cursor = '';
+            }
+
+            map.on('mouseenter', layer, mouseenter); 
+            map.on('mouseleave', layer, mouseleave);
+            return ({mouseenter, mouseleave});
         }), 
         hoverFeatureState: arrayify((layer, source, sourceLayer, enterCb, leaveCb) => {
             if (Array.isArray(source)) {
@@ -127,7 +136,8 @@ utils.init = function(map, mapboxgl) {
                     map.setFeatureState({ source, sourceLayer, id: featureId}, { hover: state });
                 }
             }
-            map.on('mousemove', layer, e => {
+
+            function mousemove(e) {
                 const f = e.features[0];
                 if (f && f.id === featureId) {
                     return;
@@ -142,31 +152,42 @@ utils.init = function(map, mapboxgl) {
                 if (enterCb) {
                     enterCb(e);
                 }
-            });
-            map.on('mouseleave', layer, e => {
+            }
+
+            function mouseleave(e) {
                 setHoverState(false);
                 e.oldFeatureId = featureId;
                 featureId = undefined;
                 if (leaveCb) {
                     leaveCb(e);
                 }
-            });
+            }
+
+            map.on('mousemove', layer, mousemove);
+            map.on('mouseleave', layer, mouseleave);
+
+            return ({mousemove, mouseleave});
         }), hoverPopup(layers, cb, popupOptions = {}) {
             const popup = new this.mapboxgl.Popup({
                 closeButton: false,
                 ...popupOptions
             });
             return arrayify((layer, cb) => {
-                map.on('mouseenter', layer, e => {
+                function mouseenter(e) {
                     if (e.features[0]) {
                         popup.setLngLat(e.lngLat)
                         popup.setHTML(cb(e.features[0], popup));
                         popup.addTo(map);
                     }
-                });
-                map.on('mouseout', layer, e => {
+                }
+
+                function mouseout(e) {
                     popup.remove();
-                });
+                }
+
+                map.on('mouseenter', layer, mouseenter);
+                map.on('mouseout', layer, mouseout);
+                return ({mouseenter, mouseout});
             })(layers, cb);
         },
         clickPopup(layers, cb, popupOptions = {}) {
@@ -174,26 +195,30 @@ utils.init = function(map, mapboxgl) {
                 ...popupOptions
             });
             return arrayify((layer, cb) => {
-                map.on('click', layer, e => {
+                function click(e) {
                     if (e.features[0]) {
                         popup.setLngLat(e.features[0].geometry.coordinates.slice())
                         popup.setHTML(cb(e.features[0], popup));
                         popup.addTo(map);
                     }
-                });
+                }
+                map.on('click', layer, click);
+                return ({click})
             })(layers, cb);
         },
         clickLayer: arrayify((layer, cb) => {
-            map.on('click', layer, e => {
+            function click(e) {
                 e.features = map.queryRenderedFeatures(e.point, {
                     layers: [layer]
                 });
                 cb(e);
-            });
+            }
+            map.on('click', layer, click);
+            return ({click})
         }), clickOneLayer(layers, cb, noMatchCb) {
-            map.on('click', e => {
+            function click(e) {
                 let match = false;
-          
+            
                 for (const layer of layers) {
                     const features = map.queryRenderedFeatures(e.point, { layers: [ layer ] });
                     if (features[0]) {
@@ -203,16 +228,18 @@ utils.init = function(map, mapboxgl) {
                             feature: features[0],
                             features
                         });
-          
+            
                         match = true;
                         break;
                     }
                 }
-          
+            
                 if (!match && noMatchCb) {
                     noMatchCb(e);
                 }
-            });
+            }
+            map.on('click', click);
+            return ({click})
         },
         mapAddLayerBefore(layer, before) {
             if (before) {
