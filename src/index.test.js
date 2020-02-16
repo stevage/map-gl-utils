@@ -1,6 +1,7 @@
 const utils = require('./index');
 function mockMap() {
     let map;
+    const style = { cursor: ''}
     return map = {
         _layers: [],
         _handlers: {},
@@ -41,14 +42,25 @@ function mockMap() {
         addSource: jest.fn().mockName('addSource'),
         once: jest.fn((event, cb) => map._handlers[event] = cb ),
         on: jest.fn((event, cb) => map._handlers[event] = cb),
-        off: jest.fn((event, cb) => map._handlers[event] = undefined)
+        off: jest.fn((event, cb) => map._handlers[event] = undefined),
+        getCanvas: jest.fn(() => ({ style }))
     };
+}
+
+function mockMapboxgl() {
+    return {
+        Popup() {
+            return {
+                remove() { }
+            }
+        }
+    }
 }
 
 let map, U;
 beforeEach(() => {
     map = mockMap();
-    U = utils.init(map);
+    U = utils.init(map, mockMapboxgl());
 });
 
 const geojson = { type: 'FeatureCollection', features: [
@@ -600,5 +612,54 @@ describe('Rasters aren\'t ambiguous', () => {
                 'raster-saturation': 0.5
             }
         });
+    });
+});
+
+describe('Hook functions return "remove" handlers', () => {
+    test('clickOneLayer', () => {
+        map.U.addGeoJSON('source');
+        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        const remove = map.U.clickOneLayer('layer', console.log);
+        expect(map._handlers.click).toBeDefined();
+        remove();
+        expect(map._handlers.click).not.toBeDefined();
+    });
+    test('hoverPointer', () => {
+        map.U.addGeoJSON('source');
+        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        const remove = map.U.hoverPointer('layer');
+        expect(map._handlers.mouseenter).toBeDefined();
+        expect(map._handlers.mouseleave).toBeDefined();
+        remove();
+        expect(map._handlers.mouseenter).not.toBeDefined();
+        expect(map._handlers.mouseleave).not.toBeDefined();
+    });
+    test('hoverFeatureState', () => {
+        map.U.addGeoJSON('source');
+        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        const remove = map.U.hoverFeatureState('layer');
+        expect(map._handlers.mousemove).toBeDefined();
+        expect(map._handlers.mouseleave).toBeDefined();
+        remove();
+        expect(map._handlers.mousemove).not.toBeDefined();
+        expect(map._handlers.mouseleave).not.toBeDefined();
+    });
+    test('hoverPopup', () => {
+        map.U.addGeoJSON('source');
+        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        const remove = map.U.hoverPopup('layer', f => f.properties.name);
+        expect(map._handlers.mouseenter).toBeDefined();
+        expect(map._handlers.mouseout).toBeDefined();
+        remove();
+        expect(map._handlers.mouseenter).not.toBeDefined();
+        expect(map._handlers.mouseout).not.toBeDefined();
+    });
+    test('clickPopup', () => {
+        map.U.addGeoJSON('source');
+        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        const remove = map.U.clickPopup('layer', f => f.properties.name);
+        expect(map._handlers.click).toBeDefined();
+        remove();
+        expect(map._handlers.click).not.toBeDefined();
     });
 });

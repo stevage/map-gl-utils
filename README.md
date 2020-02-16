@@ -163,6 +163,11 @@ map.U.clickOneLayer(['town-labels', 'state-boundaries'], e => {
 map.U.clickOneLayer(['town-labels', 'state-boundaries'], e => {...}, e => {
     console.log('Missed everything');
 });
+
+// All these functions return an "undo" function that removes the handlers added:
+const remove = map.U.hoverPopup('mylayer', showPopupFunc);
+//...
+remove(); // no more hover popup
 ```
 
 ### Other functions
