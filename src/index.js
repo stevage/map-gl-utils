@@ -107,14 +107,9 @@ utils.init = function(map, mapboxgl) {
     Object.assign(this, {
         _loaded: false,
         hoverPointer: arrayify(layer => {
-            const cursor = map.getCanvas().style.cursor;
-            function mouseenter(e) {
-                map.getCanvas().style.cursor = 'pointer';
-            }
-
-            function mouseleave(e) {
-                map.getCanvas().style.cursor = cursor;
-            }
+            const oldCursor = map.getCanvas().style.cursor;
+            const mouseenter = e => map.getCanvas().style.cursor = 'pointer';
+            const mouseleave = e => map.getCanvas().style.cursor = oldCursor;
 
             map.on('mouseenter', layer, mouseenter); 
             map.on('mouseleave', layer, mouseleave);
@@ -142,7 +137,7 @@ utils.init = function(map, mapboxgl) {
                 }
             }
 
-            function mousemove(e) {
+            const mousemove = e => {
                 const f = e.features[0];
                 if (f && f.id === featureId) {
                     return;
@@ -159,7 +154,7 @@ utils.init = function(map, mapboxgl) {
                 }
             }
 
-            function mouseleave(e) {
+            const mouseleave = e =>  {
                 setHoverState(false);
                 if(e && e.oldFeatureId){
                     e.oldFeatureId = featureId;
