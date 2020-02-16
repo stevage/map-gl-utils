@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest src/",
     "test10": "n use 10.0.0 node_modules/jest/bin/jest.js",
-    "update-keys": "node make",
+    "update-keys": "node updateKeys",
     "babel": "babel src -d dist",
     "prepublish": "yarn run update-keys; yarn run babel",
     "main": "dist/index.js"
@@ -17,7 +17,7 @@
     "@babel/cli": "^7.8.3",
     "@babel/core": "^7.0.0-0",
     "@babel/preset-env": "^7.8.3",
-    "@mapbox/mapbox-gl-style-spec": "^13.11.0",
+    "@mapbox/mapbox-gl-style-spec": "latest",
     "jest": "^25.1.0"
   },
   "dependencies": {
