@@ -222,10 +222,10 @@ map.U.setTransition({ delay: 1000, delay: 0});
 ```js
 map.U.onload(() => {
     map.U.addGeoJSON('towns');
-    map.U.addCircle('small-towns', 'towns', { circleColor: 'green', filter: U`"size" == "small"`});
+    map.U.addCircle('small-towns', 'towns', { circleColor: 'green', filter: ['==', 'size', 'small']});
     map.U.addCircle('large-towns', 'towns', {
         circleColor: 'red',
-        filter: U`"size" == "large"`},
+        filter: ['==', 'size', ['large']],
         circleStrokeWidth: ['case', ['to-boolean', ['feature-state', 'hover']], 5, 1]
     );
     map.U.setCircleRadius(['small-towns', 'large-towns'], 12);
