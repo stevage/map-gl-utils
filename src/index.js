@@ -51,7 +51,7 @@ function parseSource(source) {
 
 // Magically turn a function that works on one layer into one that works on array of layers.
 const arrayify = f => {
-    return function(things, ...args) {
+    return function (things, ...args) {
         return Array.isArray(things)
             ? things.map(t => f.bind(this)(t, ...args))
             : f.bind(this)(things, ...args);
@@ -155,7 +155,7 @@ class Utils {
     }
 }
 Object.assign(Utils.prototype, {
-    hoverPointer: arrayify(function(layer) {
+    hoverPointer: arrayify(function (layer) {
         const oldCursor = this.map.getCanvas().style.cursor;
         const mouseenter = e => (this.map.getCanvas().style.cursor = 'pointer');
         const mouseleave = e => (this.map.getCanvas().style.cursor = oldCursor);
@@ -168,7 +168,7 @@ Object.assign(Utils.prototype, {
             mouseleave();
         };
     }),
-    hoverFeatureState: arrayify(function(
+    hoverFeatureState: arrayify(function (
         layer,
         source,
         sourceLayer,
@@ -279,7 +279,7 @@ Object.assign(Utils.prototype, {
             };
         })(layers, cb);
     },
-    clickLayer: arrayify(function(layer, cb) {
+    clickLayer: arrayify(function (layer, cb) {
         const click = e => {
             e.features = this.map.queryRenderedFeatures(e.point, {
                 layers: [layer],
@@ -300,15 +300,17 @@ Object.assign(Utils.prototype, {
                     layers: [layer],
                 });
                 if (features[0]) {
-                    cb({
-                        event: e,
-                        layer,
-                        feature: features[0],
-                        features,
-                    });
-
-                    match = true;
-                    break;
+                    try {
+                        cb({
+                            event: e,
+                            layer,
+                            feature: features[0],
+                            features,
+                        });
+                    } finally {
+                        match = true;
+                        break;
+                    }
                 }
             }
 
@@ -321,6 +323,19 @@ Object.assign(Utils.prototype, {
             this.map.off('click', click);
         };
     },
+    hoverLayer: arrayify(function (layer, cb) {
+        const click = e => {
+            e.features = this.map.queryRenderedFeatures(e.point, {
+                layers: [layer],
+            });
+            cb(e);
+        };
+        this.map.on('click', layer, click);
+        return () => {
+            this.map.off('click', layer, click);
+        };
+    }),
+
     mapAddLayerBefore(layer, before) {
         if (before) {
             this.map.addLayer(layer, before);
@@ -348,7 +363,7 @@ Object.assign(Utils.prototype, {
         );
         return this.makeSource(source); // Could get very weird if source is not a string...
     },
-    removeLayer: arrayify(function(layer) {
+    removeLayer: arrayify(function (layer) {
         const swallowError = data => {
             if (!data.error.message.match(/does not exist/)) {
                 console.error(data.error);
@@ -401,7 +416,7 @@ Object.assign(Utils.prototype, {
             });
         }
     },
-    setProperty: arrayify(function(layer, prop, value) {
+    setProperty: arrayify(function (layer, prop, value) {
         if (typeof prop === 'object') {
             Object.keys(prop).forEach(k => this.setProperty(layer, k, prop[k]));
         } else {
@@ -449,7 +464,7 @@ Object.assign(Utils.prototype, {
     getLayerStyle(layer) {
         return this.map.getStyle().layers.find(l => l.id === layer);
     },
-    setLayerStyle: arrayify(function(layer, style) {
+    setLayerStyle: arrayify(function (layer, style) {
         const clearProps = (oldObj = {}, newObj = {}) =>
             Object.keys(oldObj).forEach(key => {
                 if (!(key in newObj)) {
@@ -470,31 +485,31 @@ Object.assign(Utils.prototype, {
     setData(source, data) {
         this.map.getSource(source).setData(data);
     },
-    show: arrayify(function(layer) {
+    show: arrayify(function (layer) {
         this.setVisibility(layer, 'visible');
     }),
-    hide: arrayify(function(layer) {
+    hide: arrayify(function (layer) {
         this.setVisibility(layer, 'none');
     }),
-    toggle: arrayify(function(layer, state) {
+    toggle: arrayify(function (layer, state) {
         this.setVisibility(layer, state ? 'visible' : 'none');
     }),
-    showSource: arrayify(function(source) {
+    showSource: arrayify(function (source) {
         this.setVisibility(this.layersBySource(source), 'visible');
     }),
-    hideSource: arrayify(function(source) {
+    hideSource: arrayify(function (source) {
         this.setVisibility(this.layersBySource(source), 'none');
     }),
-    toggleSource: arrayify(function(source, state) {
+    toggleSource: arrayify(function (source, state) {
         this.setVisibility(
             this.layersBySource(source),
             state ? 'visible' : 'none'
         );
     }),
-    setFilter: arrayify(function(layer, filter) {
+    setFilter: arrayify(function (layer, filter) {
         this.map.setFilter(layer, filter);
     }),
-    removeSource: arrayify(function(source) {
+    removeSource: arrayify(function (source) {
         // remove layers that use this source first
         const layers = this.layersBySource(source);
         this.removeLayer(layers);
@@ -502,7 +517,7 @@ Object.assign(Utils.prototype, {
             this.map.removeSource(source);
         }
     }),
-    setLayerSource: arrayify(function(layerId, source, sourceLayer) {
+    setLayerSource: arrayify(function (layerId, source, sourceLayer) {
         const oldLayers = this.map.getStyle().layers;
         const layerIndex = oldLayers.findIndex(l => l.id === layerId);
         const layerDef = oldLayers[layerIndex];
@@ -574,7 +589,7 @@ exported: U.init() needs to work as it always did, so:
 function initClass(U) {
     const makeSetProp = (prop, setPropFunc) => {
         const funcName = 'set' + upperCamelCase(prop);
-        U[funcName] = arrayify(function(layer, value) {
+        U[funcName] = arrayify(function (layer, value) {
             return this.map[setPropFunc](layer, prop, value);
         });
     };
@@ -582,7 +597,7 @@ function initClass(U) {
     const makeAddLayer = (layerType, obj, fixedSource) => {
         const funcName = 'add' + upperCamelCase(layerType);
         if (fixedSource) {
-            obj[funcName] = function(id, options, before) {
+            obj[funcName] = function (id, options, before) {
                 return this.addLayer(
                     id,
                     fixedSource,
@@ -592,7 +607,7 @@ function initClass(U) {
                 );
             };
         } else {
-            obj[funcName] = function(id, source, options, before) {
+            obj[funcName] = function (id, source, options, before) {
                 return this.addLayer(id, source, layerType, options, before);
             };
         }
@@ -604,7 +619,7 @@ function initClass(U) {
         const out = new Utils();
         out.map = this.map;
         out.mapboxgl = this.mapboxgl;
-        layerTypes.forEach(function(type) {
+        layerTypes.forEach(function (type) {
             makeAddLayer(type, out, id);
         });
         return out;
@@ -612,7 +627,7 @@ function initClass(U) {
 
     function makeAddSource(sourceType) {
         const funcName = 'add' + upperCamelCase(sourceType);
-        U[funcName] = function(id, props) {
+        U[funcName] = function (id, props) {
             return this.addSource(id, {
                 type: sourceType,
                 ...props,
