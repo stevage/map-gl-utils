@@ -551,7 +551,7 @@ Object.assign(Utils.prototype, {
         this.setRootProperty('transition', val);
     },
     loadImage(id, url, options) {
-        if (typeof url === 'string' && url.match(/\.[a-z]+$/)) {
+        if (typeof url === 'string' /* && url.match(/\.[a-z]+$/)*/) {
             this.map.loadImage(url, (error, image) => {
                 if (error) {
                     console.error(`Error loading image ${url}`, error);
