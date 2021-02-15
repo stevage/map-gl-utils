@@ -550,17 +550,17 @@ Object.assign(Utils.prototype, {
     setTransition(val) {
         this.setRootProperty('transition', val);
     },
-    loadImage(id, url) {
+    loadImage(id, url, options) {
         if (typeof url === 'string' && url.match(/\.[a-z]+$/)) {
             this.map.loadImage(url, (error, image) => {
                 if (error) {
                     console.error(`Error loading image ${url}`, error);
                 } else {
-                    this.map.addImage(id, image);
+                    this.map.addImage(id, image, options);
                 }
             });
         } else {
-            return this.map.addImage(id, url);
+            return this.map.addImage(id, url, options);
         }
     },
     lockOrientation() {
