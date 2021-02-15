@@ -1,6 +1,6 @@
 {
   "name": "mapbox-gl-utils",
-  "version": "0.32.1",
+  "version": "0.33.0",
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "dist/index.js",
   "scripts": {
@@ -42,9 +42,9 @@
     "collectCoverage": true
   },
   "prettier": {
-      "trailingComma": "es5",
-      "singleQuote": true,
-      "arrowParens": "avoid",
-      "tabWidth": 4
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "tabWidth": 4
   }
 }
