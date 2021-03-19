@@ -1,5 +1,5 @@
 const utils = require('./index').default;
-const mockMap = jest.fn((params) => {
+const mockMap = jest.fn(params => {
     let map;
     const style = { cursor: '' };
     return (map = {
@@ -20,7 +20,7 @@ const mockMap = jest.fn((params) => {
             .fn((layer, before) => {
                 let index = map._layers.length;
                 if (before) {
-                    index = map._layers.findIndex((l) => l.id === before);
+                    index = map._layers.findIndex(l => l.id === before);
                     if (index < 0) {
                         index = map._layers.length;
                     }
@@ -29,8 +29,8 @@ const mockMap = jest.fn((params) => {
             })
             .mockName('addLayer'),
         removeLayer: jest
-            .fn((layerId) => {
-                if (!map._layers.find((l) => l.id === layerId)) {
+            .fn(layerId => {
+                if (!map._layers.find(l => l.id === layerId)) {
                     map._fire('error', {
                         error: {
                             message:
@@ -40,7 +40,7 @@ const mockMap = jest.fn((params) => {
                         },
                     });
                 } else {
-                    map._layers = map._layers.filter((l) => l.id !== layerId);
+                    map._layers = map._layers.filter(l => l.id !== layerId);
                 }
             })
             .mockName('removeLayer'),
@@ -936,7 +936,7 @@ describe('Hook functions return "remove" handlers', () => {
     test('hoverPopup', () => {
         map.U.addGeoJSON('source');
         map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
-        const remove = map.U.hoverPopup('layer', (f) => f.properties.name);
+        const remove = map.U.hoverPopup('layer', f => f.properties.name);
         expect(map._handlers.mouseenter).toBeDefined();
         expect(map._handlers.mouseout).toBeDefined();
         remove();
@@ -946,7 +946,7 @@ describe('Hook functions return "remove" handlers', () => {
     test('clickPopup', () => {
         map.U.addGeoJSON('source');
         map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
-        const remove = map.U.clickPopup('layer', (f) => f.properties.name);
+        const remove = map.U.clickPopup('layer', f => f.properties.name);
         expect(map._handlers.click).toBeDefined();
         remove();
         expect(map._handlers.click).not.toBeDefined();
