@@ -49,12 +49,27 @@ function parseSource(source) {
     }
 }
 
-// Magically turn a function that works on one layer into one that works on array of layers.
+// Magically turn a function that works on one layer into one that works on multiple layers
+// specified as: an array, a regex (on layer id), or filter function (on layer definition)
 const arrayify = f => {
     return function (things, ...args) {
-        return Array.isArray(things)
-            ? things.map(t => f.bind(this)(t, ...args))
-            : f.bind(this)(things, ...args);
+        if (Array.isArray(things)) {
+            return things.map(t => f.bind(this)(t, ...args));
+        } else if (things instanceof RegExp) {
+            const matchingLayers = this.map
+                .getStyle()
+                .layers.map(l => l.id)
+                .filter(id => id.match(things));
+            return matchingLayers.map(t => f.bind(this)(t, ...args));
+        } else if (things instanceof Function) {
+            const matchingLayers = this.map
+                .getStyle()
+                .layers.filter(layer => things(layer))
+                .map(l => l.id);
+            return matchingLayers.map(t => f.bind(this)(t, ...args));
+        } else {
+            return f.bind(this)(things, ...args);
+        }
     };
 };
 function upperCamelCase(s) {
@@ -113,7 +128,6 @@ class Utils {
                     ),
                 ];
             });
-            console.log(style);
         }
 
         if (!params.style) {

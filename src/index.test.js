@@ -236,6 +236,50 @@ describe('Streamlined setFoo() for layers', () => {
         expect(map.setLayoutProperty).toBeCalledWith('layer1', 'text-size', 14);
         expect(map.setLayoutProperty).toBeCalledWith('layer2', 'text-size', 14);
     });
+    test('Supports multiple layers with regex', () => {
+        map.U.addLine('cool-line', 'mysource');
+        map.U.addLine('cooler-line', 'mysource');
+        map.U.addLine('crap-line', 'mysource');
+
+        map.U.setLineWidth(/cool/, 4);
+        expect(map.setPaintProperty).toBeCalledWith(
+            'cool-line',
+            'line-width',
+            4
+        );
+        expect(map.setPaintProperty).toBeCalledWith(
+            'cooler-line',
+            'line-width',
+            4
+        );
+        expect(map.setPaintProperty).not.toBeCalledWith(
+            'crap-line',
+            'line-width',
+            4
+        );
+    });
+    test('Supports multiple layers with filter function', () => {
+        map.U.addLine('blue-line', 'mysource', { lineColor: 'blue' });
+        map.U.addLine('also-blue-line', 'mysource', { lineColor: 'blue' });
+        map.U.addLine('red-line', 'mysource', { lineColor: 'red' });
+
+        map.U.setLineWidth(layer => layer.paint['line-color'] === 'blue', 4);
+        expect(map.setPaintProperty).toBeCalledWith(
+            'blue-line',
+            'line-width',
+            4
+        );
+        expect(map.setPaintProperty).toBeCalledWith(
+            'also-blue-line',
+            'line-width',
+            4
+        );
+        expect(map.setPaintProperty).not.toBeCalledWith(
+            'red-line',
+            'line-width',
+            4
+        );
+    });
 });
 
 describe('properties()', () => {

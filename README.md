@@ -8,7 +8,7 @@ Major features:
 
 * No need to distinguish between paint, layout and other properties.
 * All properties can be expressed as camelCase rather than kebab-case.
-* Layer operations can act on an array of layers, not just one.
+* Layer operations can act on multiple layers (given by array, regex or filter function), not just one.
 * Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircle()`, `setCircleRadius()`...
 * Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`,
 * Better click and hover functions: `hoverPointer()`, `hoverFeatureState()`, `hoverPopup()`, `clickLayer()`
@@ -51,7 +51,7 @@ map.U.removeLayer(['towns','town-labels']);
 // Simpler way to create GeoJSON source:
 map.U.addGeoJSON('mysource', geojson);
 
-// Or create a GeoJSON source with initially blank data. This is very convenient if you're loading 
+// Or create a GeoJSON source with initially blank data. This is very convenient if you're loading
 // the data separately and will call .setData() later.
 map.U.addGeoJSON('mysource');
 
@@ -93,6 +93,8 @@ map.U.setTextSize('mylayer', 12);
 
 // And they all work on multiple layers at once:
 map.U.setLineWidth(['mylayer', 'mylayer-highlight'], 4);
+map.U.setLineOpacity(/^border-/, 0);
+map.U.setFillColor(layer => layer.source === 'farms', 'green');
 
 // There's also a more familiar setProperty() form.
 map.U.setProperty('mylayer', 'line-width', 3);
@@ -136,7 +138,7 @@ map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer',
     e => console.log(`Entered ${e.features[0].id}`),
     e => console.log(`Left ${e.oldFeatureid}`);
 
-// Shows a popup when a feature is hovered over or clicked. 
+// Shows a popup when a feature is hovered over or clicked.
 // The third argument is an options object, passed to the Popup constructor.
 // callback is called as: (feature, popup) => htmlString
 // Make sure you passed the mapboxgl library itself when initialising: U.init(map, mapboxgl).
