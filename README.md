@@ -214,6 +214,7 @@ map.U.setFilter(['buildings-fill', 'buildings-outline', 'buildings-label'], [...
 
 // Conveniently load an image into the map in one step
 map.U.loadImage('marker', '/assets/marker-pin.png');
+map.U.loadImage('marker', '/assets/marker-pin@2x.png', { pixelRatio: 2}).then(/* ... */;
 
 
 // Update the map style's root "transition" property
