@@ -110,6 +110,9 @@ map.U.setProperty('mylayer', {
 // Simpler way to update source data:
 map.U.setData('mysource', data);
 
+// you can leave out the data parameter to clear out a GeoJSON source:
+map.U.setData('mysource');
+
 // Easier to remember way to turn layers on and off:
 map.U.show('mylayer');
 map.U.hide('mylayer');

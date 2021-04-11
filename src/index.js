@@ -514,7 +514,7 @@ Object.assign(Utils.prototype, {
         // Hmm, this gets murky, what exactly is meant to happen with non-paint, non-layout props?
         this.setProperty(layer, { ...newStyle.paint, ...newStyle.layout });
     }),
-    setData(source, data) {
+    setData(source, data = { type: 'FeatureCollection', features: [] }) {
         this.map.getSource(source).setData(data);
     },
     show: arrayify(function (layer) {
