@@ -15,13 +15,31 @@ Major features:
 * Better click and hover functions: `hoverPointer()`, `hoverFeatureState()`, `hoverPopup()`, `clickLayer()`
 * Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically), `setFilter()` (works on multiple layers at once), `setData()` clears data if no GeoJSON provided.
 
+To use without any build process:
+
+```html
+<script src="https://unpkg.com/mapbox-gl-utils"></script>
+```
+
+then
+
+```js
+U.init(map)
+```
+
+With Webpack etc:
+
 ```js
 // Adds U property to map, containing these methods.
-const U = require('mapbox-gl-utils').init(map);
+require('mapbox-gl-utils').init(map);
+
+// or:
+import U from 'mapbox-gl-utils';
+U.init(map);
 
 // Certain methods (eg hoverPopup) require access to the mapboxgl library itself
 const mapboxgl = require('mapbox-gl');
-const U = require('mapbox-gl-utils').init(map, mapboxgl);
+require('mapbox-gl-utils').init(map, mapboxgl);
 ```
 
 ### Adding and removing layers
