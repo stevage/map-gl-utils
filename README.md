@@ -9,7 +9,7 @@ Major features:
 * No need to distinguish between paint, layout and other properties.
 * All properties can be expressed as camelCase rather than kebab-case.
 * Layer operations can act on multiple layers (given by array, regex or filter function), not just one.
-* Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircleLayer()`, `setCircleRadius()`...
+* Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircleLayer()`, `setCircleRadius()`, `getTextFont()`...
 * Adding layers and sources is idempotent: call `addLineLayer()` multiple times to create, then update the layer.
 * Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`, `fontsInUse()`
 * Better click and hover functions: `hoverPointer()`, `hoverFeatureState()`, `hoverPopup()`, `clickLayer()`
@@ -106,6 +106,9 @@ map.U.setProperty('mylayer', {
     textSize: 12,
     textColor: 'red'
 });
+
+// There's a `get...` version of every function, too.
+map.U.getFillColor('water')
 
 // Simpler way to update source data:
 map.U.setData('mysource', data);

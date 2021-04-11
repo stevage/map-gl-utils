@@ -669,6 +669,12 @@ function initClass(U) {
             return this.map[setPropFunc](layer, prop, value);
         });
     };
+    const makeGetProp = (prop, getPropFunc) => {
+        const funcName = 'get' + upperCamelCase(prop);
+        U[funcName] = arrayify(function (layer) {
+            return this.map[getPropFunc](layer, prop);
+        });
+    };
     // idempotent version
     const makeAddLayer = (layerType, obj, fixedSource) => {
         let func;
@@ -719,6 +725,8 @@ function initClass(U) {
     // Turn every property into a 'setTextSize()', 'setLineColor()' etc.
     allProps.paints.forEach(prop => makeSetProp(prop, 'setPaintProperty'));
     allProps.layouts.forEach(prop => makeSetProp(prop, 'setLayoutProperty'));
+    allProps.paints.forEach(prop => makeGetProp(prop, 'getPaintProperty'));
+    allProps.layouts.forEach(prop => makeGetProp(prop, 'getLayoutProperty'));
 
     layerTypes.forEach(layerType => makeAddLayer(layerType, U));
 

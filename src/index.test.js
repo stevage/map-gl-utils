@@ -19,6 +19,8 @@ const mockMap = jest.fn(params => {
         })),
         setPaintProperty: jest.fn().mockName('setPaintProperty'),
         setLayoutProperty: jest.fn().mockName('setLayoutProperty'),
+        getPaintProperty: jest.fn().mockName('getPaintProperty'),
+        getLayoutProperty: jest.fn().mockName('getLayoutProperty'),
         setFilter: jest.fn().mockName('setFilter'),
         addLayer: jest
             .fn((layer, before) => {
@@ -283,6 +285,17 @@ describe('Streamlined setFoo() for layers', () => {
             'line-width',
             4
         );
+    });
+});
+
+describe('getLineWidth() etc', () => {
+    test('getLineWidth calls getPaintProperty', () => {
+        map.U.getLineWidth('mylayer');
+        expect(map.getPaintProperty).toBeCalledWith('mylayer', 'line-width');
+    });
+    test('getTextSize calls getLayoutProperty', () => {
+        map.U.getTextSize('mylayer');
+        expect(map.getLayoutProperty).toBeCalledWith('mylayer', 'text-size');
     });
 });
 
