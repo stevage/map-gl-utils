@@ -459,6 +459,14 @@ describe('Streamlined addVector', () => {
             url: 'mapbox://foo.blah',
         });
     });
+    test('addVector("mapbox://", { maxzoom: 13 })', () => {
+        map.U.addVector('mysource', 'mapbox://foo.blah', { maxzoom: 13 });
+        expect(map.getStyle().sources['mysource']).toEqual({
+            type: 'vector',
+            url: 'mapbox://foo.blah',
+            maxzoom: 13,
+        });
+    });
     test('addVector("http://tiles.example.com/tiles/{z}/{x}/{y}.pbf")', () => {
         map.U.addVector(
             'mysource',
@@ -467,6 +475,18 @@ describe('Streamlined addVector', () => {
         expect(map.getStyle().sources['mysource']).toEqual({
             type: 'vector',
             tiles: ['http://tiles.example.com/tiles/{z}/{x}/{y}.pbf'],
+        });
+    });
+    test('addVector("http://tiles.example.com/tiles/{z}/{x}/{y}.pbf", { maxzoom: 13 })', () => {
+        map.U.addVector(
+            'mysource',
+            'http://tiles.example.com/tiles/{z}/{x}/{y}.pbf',
+            { maxzoom: 13 }
+        );
+        expect(map.getStyle().sources['mysource']).toEqual({
+            type: 'vector',
+            tiles: ['http://tiles.example.com/tiles/{z}/{x}/{y}.pbf'],
+            maxzoom: 13,
         });
     });
 });

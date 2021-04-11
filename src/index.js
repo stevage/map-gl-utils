@@ -427,18 +427,20 @@ Object.assign(Utils.prototype, {
             .map(l => l.id);
     },
 
-    addVector(id, props) {
+    addVector(id, props, extraProps = {}) {
         if (typeof props === 'string') {
             if (props.match(/\{z\}/)) {
                 return this.addSource(id, {
                     type: 'vector',
                     tiles: [props],
+                    ...extraProps,
                 });
             } else {
                 // mapbox://, http://.../index.json
                 return this.addSource(id, {
                     type: 'vector',
                     url: props,
+                    ...extraProps,
                 });
             }
         } else {
