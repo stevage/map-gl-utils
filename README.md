@@ -9,7 +9,7 @@ Major features:
 * No need to distinguish between paint, layout and other properties.
 * All properties can be expressed as camelCase rather than kebab-case.
 * Layer operations can act on multiple layers (given by array, regex or filter function), not just one.
-* Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircle()`, `setCircleRadius()`...
+* Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircleLayer()`, `setCircleRadius()`...
 * Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`,
 * Better click and hover functions: `hoverPointer()`, `hoverFeatureState()`, `hoverPopup()`, `clickLayer()`
 * Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically), `setFilter()` (works on multiple layers at once)
@@ -29,22 +29,25 @@ const U = require('mapbox-gl-utils').init(map, mapboxgl);
 ```js
 // Conveniently add a line feature, mixing paint, layout and other properties.
 // Notice you can use camelCase for all property names.
-map.U.addLine('mylines', 'mysource', {
+map.U.addLineLayer('mylines', 'mysource', {
     lineWidth: 3,
     lineCap: 'round',
     minzoom: 11
 });
 
-map.U.addCircle('mycircles', 'mysource', { circleStrokeColor: 'red' });
-// Also addFill, addFillExtrusion, addRaster, addVideo, addSymbol, addHillshade, addHeatmap
+// Also addFillLayer, addFillExtrusionLayer, addRasterLayer, addVideoLayer, addSymbolLayer, addHillshadeLayer, addHeatmapLayer
+map.U.addCircleLayer('mycircles', 'mysource', { circleStrokeColor: 'red' });
+// if the layer already exists, calling add*Layer simply updates any of the properties
+map.U.addCircleLayer('mycircles', 'mysource', { circleStrokeColor: 'red', circleRadius: 4, filter: ['==', 'type', 'active'});
+
 
 // and of course add the layer "before" another layer if needed:
-map.U.addLine('mylayer', 'mysource', { lineColor: 'red' }, 'toplayer');
+map.U.addLineLayer('mylayer', 'mysource', { lineColor: 'red' }, 'toplayer');
 
 // removeLayer() doesn't throw errors if the layers don't exist
 map.U.removeLayer(['towns','town-labels']);
-```
 
+```
 ### Adding and removing sources
 
 ```js
@@ -63,7 +66,7 @@ map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf');
 map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf', { maxzoom: 13 });
 
 // There's also addRaster(), addRasterDem(), addImage(), addVideo()
-
+// Calling any of the add* functions simply updates the source definition if it exists already.
 
 // Automatically removes any layers using these sources. Not an error if sources don't exist.
 map.U.removeSource(['buildings', 'roads']);
@@ -73,7 +76,7 @@ map.U.addGeoJSON('buildings', 'data/buildings.geojson')
     .addFillExtrusion('buildings-3d', {
         fillExtrusionHeight: 100,
         fillExtrusionColor: 'grey'
-    }).addLine('buildings-footprint', {
+    }).addLineLayer('buildings-footprint', {
         lineColor: 'lightblue'
     });
 
@@ -225,8 +228,8 @@ map.U.setTransition({ delay: 1000, delay: 0});
 ```js
 map.U.onload(() => {
     map.U.addGeoJSON('towns');
-    map.U.addCircle('small-towns', 'towns', { circleColor: 'green', filter: ['==', 'size', 'small']});
-    map.U.addCircle('large-towns', 'towns', {
+    map.U.addCircleLayer('small-towns', 'towns', { circleColor: 'green', filter: ['==', 'size', 'small']});
+    map.U.addCircleLayer('large-towns', 'towns', {
         circleColor: 'red',
         filter: ['==', 'size', ['large']],
         circleStrokeWidth: ['case', ['to-boolean', ['feature-state', 'hover']], 5, 1]

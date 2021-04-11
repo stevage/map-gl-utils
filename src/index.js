@@ -377,6 +377,22 @@ Object.assign(Utils.prototype, {
         );
         return this.makeSource(source); // Could get very weird if source is not a string...
     },
+    // idempotent addLayer
+    setLayer(id, source, type, props, before) {
+        const layerDef = this.layerStyle(id, source, type, props);
+        const style = this.map.getStyle();
+        const layerIndex = style.layers.findIndex(l => l.id === layerDef.id);
+        const beforeIndex = style.layers.findIndex(l => l.id === before);
+        if (layerIndex >= 0) {
+            style.layers.splice(layerIndex, 1, layerDef);
+        } else if (beforeIndex >= 0) {
+            style.layers.splice(beforeIndex, 0, layerDef);
+        } else {
+            style.layers.push(layerDef);
+        }
+        this.map.setStyle(style);
+        return this.makeSource(source);
+    },
     removeLayer: arrayify(function (layer) {
         const swallowError = data => {
             if (!data.error.message.match(/does not exist/)) {
@@ -398,8 +414,10 @@ Object.assign(Utils.prototype, {
             ...props,
         });
     },
-    addSource(id, props) {
-        this.map.addSource(id, props);
+    addSource(id, sourceDef) {
+        const style = this.map.getStyle();
+        style.sources[id] = sourceDef;
+        this.map.setStyle(style);
         return this.makeSource(id);
     },
     layersBySource(source) {
@@ -611,12 +629,12 @@ function initClass(U) {
             return this.map[setPropFunc](layer, prop, value);
         });
     };
-
+    // idempotent version
     const makeAddLayer = (layerType, obj, fixedSource) => {
-        const funcName = 'add' + upperCamelCase(layerType);
+        let func;
         if (fixedSource) {
-            obj[funcName] = function (id, options, before) {
-                return this.addLayer(
+            func = function (id, options, before) {
+                return this.setLayer(
                     id,
                     fixedSource,
                     layerType,
@@ -625,11 +643,13 @@ function initClass(U) {
                 );
             };
         } else {
-            obj[funcName] = function (id, source, options, before) {
-                return this.addLayer(id, source, layerType, options, before);
+            func = function (id, source, options, before) {
+                return this.setLayer(id, source, layerType, options, before);
             };
         }
-        obj[funcName + 'Layer'] = obj[funcName];
+        const upType = upperCamelCase(layerType);
+        obj[`add${upType}`] = func;
+        obj[`add${upType}Layer`] = func;
     };
 
     function makeSource(id) {

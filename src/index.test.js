@@ -4,6 +4,7 @@ const mockMap = jest.fn(params => {
     const style = { cursor: '' };
     return (map = {
         _layers: [],
+        _sources: {},
         _handlers: {},
         _fire: (event, data) => {
             if (map._handlers[event]) {
@@ -12,7 +13,10 @@ const mockMap = jest.fn(params => {
                 console.error(data.error);
             }
         },
-        getStyle: jest.fn(() => ({ layers: map._layers })),
+        getStyle: jest.fn(() => ({
+            layers: map._layers,
+            sources: map._sources,
+        })),
         setPaintProperty: jest.fn().mockName('setPaintProperty'),
         setLayoutProperty: jest.fn().mockName('setLayoutProperty'),
         setFilter: jest.fn().mockName('setFilter'),
@@ -45,13 +49,13 @@ const mockMap = jest.fn(params => {
             })
             .mockName('removeLayer'),
         loaded: jest.fn(() => true).mockName('loaded'),
-        getSource: jest
-            .fn(() => ({
-                setData: jest.fn(),
-            }))
-            .mockName('getSource'),
-        addSource: jest.fn().mockName('addSource'),
+        getSource: jest.fn(id => ({ ...map._sources[id], setData: jest.fn() })),
+        // .mockName('getSource'),
+        addSource: jest.fn((id, sourceDef) => (map._sources[id] = sourceDef)),
         removeSource: jest.fn().mockName('removeSource'),
+        setStyle: jest.fn(style => {
+            (map._layers = style.layers), (map._sources = style.sources);
+        }),
         once: jest.fn((event, cb) => (map._handlers[event] = cb)),
         on: jest.fn((event, cb) => (map._handlers[event] = cb)),
         off: jest.fn((event, cb) => (map._handlers[event] = undefined)),
@@ -384,6 +388,7 @@ describe('add()', () => {
         });
     });
     test('Plain "add" respects "before" property', () => {
+        map.U.add('someotherlayer', 'things', 'line', { lineColor: 'blue' });
         map.U.add(
             'mylayer',
             'things',
@@ -391,72 +396,45 @@ describe('add()', () => {
             { lineColor: 'green' },
             'someotherlayer'
         );
-        expect(map.addLayer).toBeCalledWith(
-            {
-                id: 'mylayer',
-                type: 'line',
-                source: 'things',
-                paint: {
-                    'line-color': 'green',
-                },
-            },
-            'someotherlayer'
-        );
+        expect(map.getStyle().layers[0].id).toEqual('mylayer');
     });
 });
 
 describe('addLine()', () => {
     test('Adds line type with no style props', () => {
         map.U.addLine('mylayer', 'things', { lineWidth: 3, minzoom: 3 });
-        expect(map.addLayer).toBeCalledWith({
-            id: 'mylayer',
-            type: 'line',
-            source: 'things',
-            paint: {
-                'line-width': 3,
-            },
-            minzoom: 3,
-        });
+        expect(map.getStyle().layers[0].type).toEqual('line');
     });
     test('addLine() respects "before" property', () => {
+        map.U.add('someotherlayer', 'things', 'line', { lineColor: 'blue' });
         map.U.addLine(
             'mylayer',
             'things',
             { lineColor: 'green' },
             'someotherlayer'
         );
-        expect(map.addLayer).toBeCalledWith(
-            {
-                id: 'mylayer',
-                type: 'line',
-                source: 'things',
-                paint: {
-                    'line-color': 'green',
-                },
-            },
-            'someotherlayer'
-        );
+        expect(map.getStyle().layers[0].id).toEqual('mylayer');
     });
 });
 
 describe('addGeoJSON', () => {
     test('Adds a GeoJSON source by data', () => {
         map.U.addGeoJSON('mysource', geojson);
-        expect(map.addSource).toBeCalledWith('mysource', {
+        expect(map.getStyle().sources['mysource']).toEqual({
             type: 'geojson',
             data: geojson,
         });
     });
     test('Adds a GeoJSON source by URL', () => {
         map.U.addGeoJSON('mysource', 'data/mything.geojson');
-        expect(map.addSource).toBeCalledWith('mysource', {
+        expect(map.getStyle().sources['mysource']).toEqual({
             type: 'geojson',
             data: 'data/mything.geojson',
         });
     });
     test('Supports an undefined source', () => {
         map.U.addGeoJSON('mysource');
-        expect(map.addSource).toBeCalledWith('mysource', {
+        expect(map.getStyle().sources['mysource']).toEqual({
             type: 'geojson',
             data: {
                 type: 'FeatureCollection',
@@ -469,14 +447,14 @@ describe('addGeoJSON', () => {
 describe('Streamlined addVector', () => {
     test('addVector({url: "mapbox://..."})', () => {
         map.U.addVector('mysource', { url: 'mapbox://foo.blah' });
-        expect(map.addSource).toBeCalledWith('mysource', {
+        expect(map.getStyle().sources['mysource']).toEqual({
             type: 'vector',
             url: 'mapbox://foo.blah',
         });
     });
     test('addVector("mapbox://")', () => {
         map.U.addVector('mysource', 'mapbox://foo.blah');
-        expect(map.addSource).toBeCalledWith('mysource', {
+        expect(map.getStyle().sources['mysource']).toEqual({
             type: 'vector',
             url: 'mapbox://foo.blah',
         });
@@ -486,7 +464,7 @@ describe('Streamlined addVector', () => {
             'mysource',
             'http://tiles.example.com/tiles/{z}/{x}/{y}.pbf'
         );
-        expect(map.addSource).toBeCalledWith('mysource', {
+        expect(map.getStyle().sources['mysource']).toEqual({
             type: 'vector',
             tiles: ['http://tiles.example.com/tiles/{z}/{x}/{y}.pbf'],
         });
@@ -499,7 +477,7 @@ describe('Adding layers to a source', () => {
             sourceLayer: 'mylines',
             lineColor: 'blue',
         });
-        expect(map.addLayer).toBeCalledWith({
+        expect(map.U.getLayerStyle('foo-line')).toEqual({
             id: 'foo-line',
             source: 'mysource',
             'source-layer': 'mylines',
@@ -517,7 +495,7 @@ describe('Adding layers to a source', () => {
                 sourceLayer: 'mylines',
                 lineColor: 'red',
             });
-        expect(map.addLayer).toBeCalledTimes(2);
+        expect(map.getStyle().layers.length).toEqual(2);
     });
 });
 
@@ -869,24 +847,28 @@ describe("Rasters aren't ambiguous", () => {
             url: 'mapbox://mapbox.satellite',
             tileSize: 256,
         });
-        expect(map.addSource).toBeCalledWith('myrastersource', {
-            type: 'raster',
-            url: 'mapbox://mapbox.satellite',
-            tileSize: 256,
-        });
+        expect(map.getSource('myrastersource')).toEqual(
+            expect.objectContaining({
+                type: 'raster',
+                url: 'mapbox://mapbox.satellite',
+                tileSize: 256,
+            })
+        );
     });
     test('Adds a Raster layer', () => {
         map.U.addRasterLayer('myrasterlayer', 'myrastersource', {
             rasterSaturation: 0.5,
         });
-        expect(map.addLayer).toBeCalledWith({
-            id: 'myrasterlayer',
-            source: 'myrastersource',
-            type: 'raster',
-            paint: {
-                'raster-saturation': 0.5,
-            },
-        });
+        expect(map.U.getLayerStyle('myrasterlayer')).toEqual(
+            expect.objectContaining({
+                id: 'myrasterlayer',
+                source: 'myrastersource',
+                type: 'raster',
+                paint: {
+                    'raster-saturation': 0.5,
+                },
+            })
+        );
     });
 });
 
