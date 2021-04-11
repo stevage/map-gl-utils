@@ -603,6 +603,44 @@ Object.assign(Utils.prototype, {
         this.map.touchZoomRotate.disableRotation();
         this.map.dragRotate.disable();
     },
+    fontsInUse() {
+        // TODO add tests
+        // TODO: find fonts burried within ['format', ... { 'text-font': ... }] expressions
+        function findLiterals(expr) {
+            if (Array.isArray(expr)) {
+                if (expr[0] === 'literal') {
+                    ///
+                    fonts.push(...expr[1]);
+                } else {
+                    expr.forEach(findLiterals);
+                }
+            }
+        }
+        let fonts = [];
+        const fontExprs = this.map
+            .getStyle()
+            .layers.map(l => l.layout && l.layout['text-font'])
+            .filter(Boolean);
+        for (const fontExpr of fontExprs) {
+            // if top level expression is an array of strings, it's hopefully ['Arial', ...] and not ['get', 'font']
+            if (fontExpr.stops) {
+                // old-school base/stops
+                // TODO verify we have got all the cases
+                try {
+                    fonts.push(
+                        ...fontExpr.stops.flat().filter(Array.isArray).flat()
+                    );
+                } catch {
+                    console.log("Couldn't process font expression:", fontExpr);
+                }
+            } else if (fontExpr.every(f => typeof f === 'string')) {
+                fonts.push(...fontExpr);
+            } else {
+                findLiterals(fontExpr);
+            }
+        }
+        return [...new Set(fonts)];
+    },
 });
 /* options:
     addLayers: [{ id: ..., ... }, ...]

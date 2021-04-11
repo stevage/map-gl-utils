@@ -10,9 +10,10 @@ Major features:
 * All properties can be expressed as camelCase rather than kebab-case.
 * Layer operations can act on multiple layers (given by array, regex or filter function), not just one.
 * Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircleLayer()`, `setCircleRadius()`...
-* Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`,
+* Adding layers and sources is idempotent: call `addLineLayer()` multiple times to create, then update the layer.
+* Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`, `fontsInUse()`
 * Better click and hover functions: `hoverPointer()`, `hoverFeatureState()`, `hoverPopup()`, `clickLayer()`
-* Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically), `setFilter()` (works on multiple layers at once)
+* Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically), `setFilter()` (works on multiple layers at once), `setData()` clears data if no GeoJSON provided.
 
 ```js
 // Adds U property to map, containing these methods.
@@ -21,7 +22,6 @@ const U = require('mapbox-gl-utils').init(map);
 // Certain methods (eg hoverPopup) require access to the mapboxgl library itself
 const mapboxgl = require('mapbox-gl');
 const U = require('mapbox-gl-utils').init(map, mapboxgl);
-
 ```
 
 ### Adding and removing layers
@@ -225,6 +225,10 @@ map.U.loadImage('marker', '/assets/marker-pin@2x.png', { pixelRatio: 2}).then(/*
 
 // Update the map style's root "transition" property
 map.U.setTransition({ delay: 1000, delay: 0});
+
+// Get a list of fonts used in symbol layers with fontsUsed(). Useful for quickly getting some text displaying.
+const fonts = map.U.fontsInUse();
+map.U.addSymbolLayer('labels', 'mysource', { textFont: fonts[0], textField: '{label}' });
 ```
 
 ### Contrived example
