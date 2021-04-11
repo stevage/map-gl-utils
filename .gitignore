@@ -6,3 +6,5 @@
 /.vscode/launch.json
 /dist/
 /yarn-error.log
+/commonjs/
+/umd/

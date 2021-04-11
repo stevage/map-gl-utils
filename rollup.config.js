@@ -1,3 +1,4 @@
+import { terser } from 'rollup-plugin-terser';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
@@ -9,6 +10,12 @@ export default [
                 file: 'dist/index.js',
                 format: 'umd', // UMD version for browser, and for Node (for Jest testing)
                 name: 'U',
+            },
+            {
+                file: 'dist/index.min.js',
+                format: 'umd', // minified UMD version for browser
+                name: 'U',
+                plugins: [terser()],
             },
             {
                 file: 'commonjs/index.js',
