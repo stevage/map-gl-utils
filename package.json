@@ -1,17 +1,17 @@
 {
   "name": "mapbox-gl-utils",
-  "version": "0.36.0",
+  "version": "0.36.1",
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
-    "pretest": "yarn run rollup -c",
+    "pretest": "yarn run rollup",
     "test": "jest commonjs/",
     "test10": "n use 10.0.0 node_modules/jest/bin/jest.js",
     "update-keys": "node updateKeys",
     "babel": "babel src -d dist",
     "rollup": "node_modules/rollup/dist/bin/rollup -c",
-    "prepublish": "yarn run update-keys; yarn run rollup -c"
+    "prepublish": "yarn run update-keys; yarn run rollup"
   },
   "author": "Steve Bennett <me@stevebennett.me> (http://stevebennett.me)",
   "license": "Apache-2.0",
