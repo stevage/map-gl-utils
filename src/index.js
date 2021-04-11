@@ -1,6 +1,6 @@
-const kebabCase = require('kebab-case');
-const allProps = require('./keys.json');
-const jamSession = require('@mapbox/expression-jamsession');
+import kebabCase from 'kebab-case';
+// const allProps = require('./keys.json');
+import * as allProps from './keys';
 
 function isPaintProp(prop) {
     return allProps.paints.indexOf(prop) >= 0;
@@ -19,15 +19,6 @@ function whichProp(prop) {
     }
     return 'other';
 }
-
-// this is the deprecated U`foo == blah` jam-session syntax.
-// function utils(...args) {
-//     if (args[0] && Array.isArray(args[0]) && args[0].raw) {
-//         // We're being used as a tagged template
-//         return jamSession.formulaToExpression(args[0].raw[0]);
-//     } else
-//         throw 'Mapbox-gl-utils unexpectedly called as a function. Use .init(map)';
-// }
 
 function parseSource(source) {
     if (
@@ -737,6 +728,4 @@ function initClass(U) {
 const U = Utils.prototype;
 initClass(U);
 
-// Hmm. Using ES2015 export seems to play nicer with Webpack. But then testing within Node doesn't work. Sigh.
-// module.exports = Utils;
 export default Utils;
