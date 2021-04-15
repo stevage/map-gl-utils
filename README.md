@@ -270,9 +270,9 @@ map.U.onload(() => {
     // update the source layer when data is available
     d3.json('http://example.com/towns.json', data => map.U.update('towns', data));
 });
+```
 
 ## Credits
 
 Mapbox-GL-Utils was written by, and maintained, by Steve Bennett, a [freelance map developer](https://hire.stevebennett.me).
 
-```
