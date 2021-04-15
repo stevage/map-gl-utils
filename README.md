@@ -204,6 +204,8 @@ remove(); // no more hover popup
 ```js
 // Like on('load') but fires immediately (and reliably) any time after map already loaded.
 map.U.onLoad(callback);
+// returns a promise if no callback:
+await map.U.onLoad();
 
 // Gets the layer definition. Mapbox's `getLayer()` has weird paint and layout properties.
 const layer = map.U.getLayerStyle('mylayer');
@@ -268,5 +270,9 @@ map.U.onload(() => {
     // update the source layer when data is available
     d3.json('http://example.com/towns.json', data => map.U.update('towns', data));
 });
+
+## Credits
+
+Mapbox-GL-Utils was written by, and maintained, by Steve Bennett, a [freelance map developer](https://hire.stevebennett.me).
 
 ```

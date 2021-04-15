@@ -10,27 +10,25 @@ export default [
                 file: 'dist/index.js',
                 format: 'umd', // UMD version for browser, and for Node (for Jest testing)
                 name: 'U',
+                plugins: [babel({ babelHelpers: 'bundled' })],
             },
             {
                 file: 'dist/index.min.js',
                 format: 'umd', // minified UMD version for browser
                 name: 'U',
-                plugins: [terser()],
+                plugins: [terser(), babel({ babelHelpers: 'bundled' })],
             },
             {
                 file: 'commonjs/index.js',
                 format: 'cjs', // CommonJS version for node? Not even sure this is required.
+                plugins: [babel({ babelHelpers: 'bundled' })],
             },
             {
                 file: 'dist/index.esm.js',
                 format: 'esm', // ES2015 modules version so consumers can tree-shake
             },
         ],
-        plugins: [
-            commonjs(),
-            nodeResolve(),
-            babel({ babelHelpers: 'bundled' }),
-        ],
+        plugins: [commonjs(), nodeResolve()],
     },
     {
         input: 'src/index.test.js',

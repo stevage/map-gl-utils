@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.37.0
+
+- `onLoad()` now returns a promise if no callback provided.
+
 ### 0.36.0
 
 - added UMD build so you can use directly in the browser at https://unpkg.com/mapbox-gl-utils or https://unpkg.com/mapbox-gl-utils@0.36.0/dist/index.min.js . https://github.com/stevage/mapbox-gl-utils/issues/27

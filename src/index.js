@@ -558,13 +558,17 @@ Object.assign(Utils.prototype, {
         this.mapAddLayerBefore(layerDef, before);
     }),
     onLoad(cb) {
-        if (this.map.loaded() || this._loaded) {
-            cb();
+        if (!cb) {
+            return new Promise(resolve => this.onLoad(resolve));
         } else {
-            this.map.once('load', () => {
-                this._loaded = true;
+            if (this.map.loaded() || this._loaded) {
                 cb();
-            });
+            } else {
+                this.map.once('load', () => {
+                    this._loaded = true;
+                    cb();
+                });
+            }
         }
     },
     setRootProperty(propName, val) {
