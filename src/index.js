@@ -639,24 +639,6 @@ Object.assign(Utils.prototype, {
         return [...new Set(fonts)];
     },
 });
-/* options:
-    addLayers: [{ id: ..., ... }, ...]
-
-*/
-// ok this doesn't work for now because we have to call utils.init() in order to get all function and properties
-// but that requires an initialised map object...which this function is going to do.
-// so we need to rewrite utils as a prototype or constructor or class or something
-
-/*
-What do I want here:
-a static class that can do style manipulation etc
-an instance bound to a specific map
-
-exported: U.init() needs to work as it always did, so:
-  - U is a class
-  - U.init(map) is a static method that instantiates utils and binds it to map
-*/
-
 function initClass(U) {
     const makeSetProp = (prop, setPropFunc) => {
         const funcName = 'set' + upperCamelCase(prop);
