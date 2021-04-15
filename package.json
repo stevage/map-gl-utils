@@ -1,6 +1,6 @@
 {
   "name": "mapbox-gl-utils",
-  "version": "0.36.1",
+  "version": "0.37.0",
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -29,7 +29,6 @@
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
-    "@mapbox/expression-jamsession": "^0.4.2",
     "kebab-case": "^1.0.0"
   },
   "files": [
