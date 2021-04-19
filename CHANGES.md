@@ -1,5 +1,14 @@
 ## Changelog
 
+### 0.38.0
+
+- scrapped the CommonJS build. NodeJS is able to handle ES modules these days.
+- rewrote the "arrayify" logic
+- correctly handle 'hover' transitions across overlapping layers
+- probably correctly gives an "off" handler so this kind of thing works:
+    `const off = map.U.hoverPointer(['layer1','layer2']); /* ... */ off()`
+- more tests
+
 ### 0.37.0
 
 - `onLoad()` now returns a promise if no callback provided.

@@ -152,6 +152,10 @@ map.U.addRasterLayer('myrasterlayer', 'myrastersource', { rasterSaturation: 0.5 
 // Use the mouse 'finger' cursor when hovering over this layer.
 map.U.hoverPointer('mylayer');
 
+// If you pass several layers, it correctly handles moving from one layer to another
+// Use the mouse 'finger' cursor when hovering over this layer.
+map.U.hoverPointer(['regions-border', 'regions-fill']);
+
 // Sets a "hover" feature-state to be true or false as the mouse moves over features in this layer.
 // Requires that features have an `id`.
 map.U.hoverFeatureState('mylayer');

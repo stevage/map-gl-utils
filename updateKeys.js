@@ -22,9 +22,9 @@ Object.keys(styleSpec)
 out.paints = Array.from(new Set(out.paints));
 out.layouts = Array.from(new Set(out.layouts));
 
-const outFileJS = 'src/keys.js';
-fs.writeFileSync(outFileJS, 'module.exports = ' + JSON.stringify(out));
+const outFileES = 'src/keys.js';
+fs.writeFileSync(outFileES, 'export default ' + JSON.stringify(out));
 
 console.log(
-    `Wrote updated ${outFileJS} based on Mapbox-GL style spec ${styleSpecVersion}.`
+    `Wrote updated ${outFileES} based on Mapbox-GL style spec ${styleSpecVersion}.`
 );

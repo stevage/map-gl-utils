@@ -1,6 +1,5 @@
 import kebabCase from 'kebab-case';
-// const allProps = require('./keys.json');
-import * as allProps from './keys';
+import allProps from './keys.js';
 
 function isPaintProp(prop) {
     return allProps.paints.indexOf(prop) >= 0;
@@ -40,29 +39,42 @@ function parseSource(source) {
     }
 }
 
+// turn a thing, an array of things, a regex or a filter function, into an array
+const resolveArray = (things, map) => {
+    if (Array.isArray(things)) {
+        return things;
+    } else if (things instanceof RegExp) {
+        return map
+            .getStyle()
+            .layers.map(l => l.id)
+            .filter(id => id.match(things));
+    } else if (things instanceof Function) {
+        return map
+            .getStyle()
+            .layers.filter(layer => things(layer))
+            .map(l => l.id);
+    } else {
+        return [things];
+    }
+};
 // Magically turn a function that works on one layer into one that works on multiple layers
 // specified as: an array, a regex (on layer id), or filter function (on layer definition)
 const arrayify = f => {
-    return function (things, ...args) {
-        if (Array.isArray(things)) {
-            return things.map(t => f.bind(this)(t, ...args));
-        } else if (things instanceof RegExp) {
-            const matchingLayers = this.map
-                .getStyle()
-                .layers.map(l => l.id)
-                .filter(id => id.match(things));
-            return matchingLayers.map(t => f.bind(this)(t, ...args));
-        } else if (things instanceof Function) {
-            const matchingLayers = this.map
-                .getStyle()
-                .layers.filter(layer => things(layer))
-                .map(l => l.id);
-            return matchingLayers.map(t => f.bind(this)(t, ...args));
-        } else {
-            return f.bind(this)(things, ...args);
-        }
+    return function (thingOrThings, ...args) {
+        const things = resolveArray(thingOrThings, this.map);
+        return things.map(t => f.call(this, t, ...args));
     };
 };
+
+// assuming each function returns an 'off' handler, returns a function that calls them all
+const arrayifyAndOff = f => {
+    return function (thingOrThings, ...args) {
+        const things = resolveArray(thingOrThings, this.map);
+        const offs = things.map(t => f.call(this, t, ...args));
+        return () => offs.forEach(off => off());
+    };
+};
+
 function upperCamelCase(s) {
     return s[0].toUpperCase() + kebabCase.reverse(s).slice(1);
 }
@@ -160,20 +172,34 @@ class Utils {
     }
 }
 Object.assign(Utils.prototype, {
-    hoverPointer: arrayify(function (layer) {
-        const oldCursor = this.map.getCanvas().style.cursor;
-        const mouseenter = e => (this.map.getCanvas().style.cursor = 'pointer');
-        const mouseleave = e => (this.map.getCanvas().style.cursor = oldCursor);
-
-        this.map.on('mouseenter', layer, mouseenter);
-        this.map.on('mouseleave', layer, mouseleave);
-        return () => {
-            this.map.off('mouseenter', layer, mouseenter);
-            this.map.off('mouseleave', layer, mouseleave);
-            mouseleave();
-        };
-    }),
-    hoverFeatureState: arrayify(function (
+    hoverPointer: (() =>
+        function (layerOrLayers) {
+            const layers = resolveArray(layerOrLayers, this.map);
+            const mouseenter = e =>
+                (this.map.getCanvas().style.cursor = 'pointer');
+            const mouseleave = e => {
+                // don't de-hover if we're still over a different relevant layer
+                if (
+                    this.map.queryRenderedFeatures(e.point, { layers })
+                        .length === 0
+                ) {
+                    this.map.getCanvas().style.cursor = oldCursor;
+                }
+            };
+            const oldCursor = this.map.getCanvas().style.cursor;
+            for (const layer of layers) {
+                this.map.on('mouseleave', layer, mouseleave);
+                this.map.on('mouseenter', layer, mouseenter);
+            }
+            return () => {
+                for (const layer of layers) {
+                    this.map.off('mouseenter', layer, mouseenter);
+                    this.map.off('mouseleave', layer, mouseleave);
+                }
+                this.map.getCanvas().style.cursor = oldCursor;
+            };
+        }).call(this),
+    hoverFeatureState: arrayifyAndOff(function (
         layer,
         source,
         sourceLayer,
@@ -244,7 +270,7 @@ Object.assign(Utils.prototype, {
             closeButton: false,
             ...popupOptions,
         });
-        return arrayify((layer, cb) => {
+        return arrayifyAndOff(function (layer, cb) {
             function mouseenter(e) {
                 if (e.features[0]) {
                     popup.setLngLat(e.lngLat);
@@ -264,13 +290,13 @@ Object.assign(Utils.prototype, {
                 this.map.off('mouseout', layer, mouseout);
                 mouseout();
             };
-        })(layers, cb);
+        }).call(this, layers, cb);
     },
     clickPopup(layers, cb, popupOptions = {}) {
         const popup = new this.mapboxgl.Popup({
             ...popupOptions,
         });
-        return arrayify((layer, cb) => {
+        return arrayifyAndOff(function (layer, cb) {
             function click(e) {
                 if (e.features[0]) {
                     popup.setLngLat(e.features[0].geometry.coordinates.slice());
@@ -279,12 +305,10 @@ Object.assign(Utils.prototype, {
                 }
             }
             this.map.on('click', layer, click);
-            return () => {
-                this.map.off('click', layer, click);
-            };
-        })(layers, cb);
+            return () => this.map.off('click', layer, click);
+        }).call(this, layers, cb);
     },
-    clickLayer: arrayify(function (layer, cb) {
+    clickLayer: arrayifyAndOff(function (layer, cb) {
         const click = e => {
             e.features = this.map.queryRenderedFeatures(e.point, {
                 layers: [layer],
@@ -292,9 +316,7 @@ Object.assign(Utils.prototype, {
             cb(e);
         };
         this.map.on('click', layer, click);
-        return () => {
-            this.map.off('click', layer, click);
-        };
+        return () => this.map.off('click', layer, click);
     }),
     clickOneLayer(layers, cb, noMatchCb) {
         const click = e => {
@@ -324,11 +346,9 @@ Object.assign(Utils.prototype, {
             }
         };
         this.map.on('click', click);
-        return () => {
-            this.map.off('click', click);
-        };
+        return () => this.map.off('click', click);
     },
-    hoverLayer: arrayify(function (layer, cb) {
+    hoverLayer: arrayifyAndOff(function (layer, cb) {
         const click = e => {
             e.features = this.map.queryRenderedFeatures(e.point, {
                 layers: [layer],
@@ -336,9 +356,7 @@ Object.assign(Utils.prototype, {
             cb(e);
         };
         this.map.on('click', layer, click);
-        return () => {
-            this.map.off('click', layer, click);
-        };
+        return () => this.map.off('click', layer, click);
     }),
 
     mapAddLayerBefore(layer, before) {

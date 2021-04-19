@@ -4,10 +4,9 @@
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
+  "type": "module",
   "scripts": {
-    "pretest": "yarn run rollup",
-    "test": "jest commonjs/",
-    "test10": "n use 10.0.0 node_modules/jest/bin/jest.js",
+    "test": "jest src/",
     "update-keys": "node updateKeys",
     "babel": "babel src -d dist",
     "rollup": "node_modules/rollup/dist/bin/rollup -c",

@@ -1,10 +1,12 @@
-const utils = require('./index').default;
+import utils from './index.js';
 const mockMap = jest.fn(params => {
     let map;
     const style = { cursor: '' };
     return (map = {
-        _layers: [],
-        _sources: {},
+        _style: {
+            layers: [],
+            sources: {},
+        },
         _handlers: {},
         _fire: (event, data) => {
             if (map._handlers[event]) {
@@ -13,10 +15,8 @@ const mockMap = jest.fn(params => {
                 console.error(data.error);
             }
         },
-        getStyle: jest.fn(() => ({
-            layers: map._layers,
-            sources: map._sources,
-        })),
+        getStyle: jest.fn(() => map._style),
+        setStyle: jest.fn(style => (map._style = style)),
         setPaintProperty: jest.fn().mockName('setPaintProperty'),
         setLayoutProperty: jest.fn().mockName('setLayoutProperty'),
         getPaintProperty: jest.fn().mockName('getPaintProperty'),
@@ -24,19 +24,19 @@ const mockMap = jest.fn(params => {
         setFilter: jest.fn().mockName('setFilter'),
         addLayer: jest
             .fn((layer, before) => {
-                let index = map._layers.length;
+                let index = map._style.layers.length;
                 if (before) {
-                    index = map._layers.findIndex(l => l.id === before);
+                    index = map._style.layers.findIndex(l => l.id === before);
                     if (index < 0) {
-                        index = map._layers.length;
+                        index = map._style.layers.length;
                     }
                 }
-                map._layers.splice(index, 0, layer);
+                map._style.layers.splice(index, 0, layer);
             })
             .mockName('addLayer'),
         removeLayer: jest
             .fn(layerId => {
-                if (!map._layers.find(l => l.id === layerId)) {
+                if (!map._style.layers.find(l => l.id === layerId)) {
                     map._fire('error', {
                         error: {
                             message:
@@ -46,18 +46,22 @@ const mockMap = jest.fn(params => {
                         },
                     });
                 } else {
-                    map._layers = map._layers.filter(l => l.id !== layerId);
+                    map._style.layers = map._style.layers.filter(
+                        l => l.id !== layerId
+                    );
                 }
             })
             .mockName('removeLayer'),
         loaded: jest.fn(() => true).mockName('loaded'),
-        getSource: jest.fn(id => ({ ...map._sources[id], setData: jest.fn() })),
+        getSource: jest.fn(id => ({
+            ...map._style.sources[id],
+            setData: jest.fn(),
+        })),
         // .mockName('getSource'),
-        addSource: jest.fn((id, sourceDef) => (map._sources[id] = sourceDef)),
+        addSource: jest.fn(
+            (id, sourceDef) => (map._style.sources[id] = sourceDef)
+        ),
         removeSource: jest.fn().mockName('removeSource'),
-        setStyle: jest.fn(style => {
-            (map._layers = style.layers), (map._sources = style.sources);
-        }),
         once: jest.fn((event, cb) => (map._handlers[event] = cb)),
         on: jest.fn((event, cb) => (map._handlers[event] = cb)),
         off: jest.fn((event, cb) => (map._handlers[event] = undefined)),
@@ -614,22 +618,41 @@ describe('removeLayer()', () => {
         map.addLayer({ id: 'mylayer' });
         map.U.removeLayer(['mylayer']);
         expect(map.removeLayer).toBeCalledWith('mylayer');
-        expect(map._layers.length).toBe(0);
+        expect(map.getStyle().layers.length).toBe(0);
     });
     test("Regular removeLayer() throws error when layer doesn't exist, ", () => {
         // this is just testing that our mocking works.
         console.error = jest.fn();
         map.removeLayer('mylayer');
         expect(map.removeLayer).toBeCalledWith('mylayer');
-        expect(map._layers.length).toBe(0);
+        expect(map.getStyle().layers.length).toBe(0);
         expect(console.error).toBeCalled();
     });
     test("Throws no errors when layer doesn't exist, ", () => {
         console.error = jest.fn();
         map.U.removeLayer(['mylayer']);
         expect(map.removeLayer).toBeCalledWith('mylayer');
-        expect(map._layers.length).toBe(0);
+        expect(map.getStyle().layers.length).toBe(0);
         expect(console.error).not.toBeCalled();
+    });
+    test('Removes multiple layers. ', () => {
+        map.addLayer({ id: 'mylayer' });
+        map.addLayer({ id: 'mylayer2' });
+        map.addLayer({ id: 'mylayer3' });
+        map.U.removeLayer(['mylayer', 'mylayer2']);
+        expect(map.removeLayer).toBeCalledWith('mylayer');
+        expect(map.removeLayer).toBeCalledWith('mylayer2');
+        expect(map.getStyle().layers.length).toBe(1);
+    });
+
+    test('Removes multiple layers with regex. ', () => {
+        map.addLayer({ id: 'mylayer' });
+        map.addLayer({ id: 'mylayer2' });
+        map.addLayer({ id: 'someotherlayer3' });
+        map.U.removeLayer(/mylayer/);
+        expect(map.getStyle().layers.length).toBe(1);
+        expect(map.removeLayer).toBeCalledWith('mylayer');
+        expect(map.removeLayer).toBeCalledWith('mylayer2');
     });
 });
 
@@ -702,25 +725,6 @@ describe('removeSource', () => {
         expect(map.removeLayer.mock.calls[0]).toEqual(['line1']);
         expect(map.removeLayer.mock.calls[1]).toEqual(['fill1']);
         expect(map.removeSource.mock.calls[0]).toEqual(['mysource']);
-    });
-});
-
-describe.skip('Jam Session expressions', () => {
-    test('Detects and parses a Jam Session string', () => {
-        expect(U`2 + 2`).toEqual(['+', 2, 2]);
-    });
-    test('Supports Jam Session in a layer definition', () => {
-        map.U.addLine('myline', 'mysource', {
-            lineWidth: U`get("width") + 3`,
-        });
-        expect(map.addLayer).toBeCalledWith({
-            id: 'myline',
-            source: 'mysource',
-            type: 'line',
-            paint: {
-                'line-width': ['+', ['get', 'width'], 3],
-            },
-        });
     });
 });
 
@@ -908,7 +912,7 @@ describe("Rasters aren't ambiguous", () => {
 describe('Hook functions return "remove" handlers', () => {
     test('clickOneLayer', () => {
         map.U.addGeoJSON('source');
-        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        map.U.addLine('layer', 'source');
         const remove = map.U.clickOneLayer('layer', console.log);
         expect(map._handlers.click).toBeDefined();
         remove();
@@ -916,8 +920,9 @@ describe('Hook functions return "remove" handlers', () => {
     });
     test('hoverPointer', () => {
         map.U.addGeoJSON('source');
-        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        map.U.addLine('layer', 'source');
         const remove = map.U.hoverPointer('layer');
+        console.log(map._handlers.mouseenter);
         expect(map._handlers.mouseenter).toBeDefined();
         expect(map._handlers.mouseleave).toBeDefined();
         remove();
@@ -926,7 +931,7 @@ describe('Hook functions return "remove" handlers', () => {
     });
     test('hoverFeatureState', () => {
         map.U.addGeoJSON('source');
-        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        map.U.addLine('layer', 'source');
         const remove = map.U.hoverFeatureState('layer');
         expect(map._handlers.mousemove).toBeDefined();
         expect(map._handlers.mouseleave).toBeDefined();
@@ -950,7 +955,7 @@ describe('Hook functions return "remove" handlers', () => {
     });
     test('hoverPopup', () => {
         map.U.addGeoJSON('source');
-        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        map.U.addLine('layer', 'source');
         const remove = map.U.hoverPopup('layer', f => f.properties.name);
         expect(map._handlers.mouseenter).toBeDefined();
         expect(map._handlers.mouseout).toBeDefined();
@@ -958,12 +963,47 @@ describe('Hook functions return "remove" handlers', () => {
         expect(map._handlers.mouseenter).not.toBeDefined();
         expect(map._handlers.mouseout).not.toBeDefined();
     });
+    test('hoverPopup with two layers', () => {
+        map.U.addGeoJSON('source');
+        map.U.addLine('layer', 'source');
+        map.U.addLine('layer2', 'source');
+        const remove = map.U.hoverPopup(
+            ['layer', 'layer2'],
+            f => f.properties.name
+        );
+        expect(map._handlers.mouseenter).toBeDefined();
+        expect(map._handlers.mouseout).toBeDefined();
+        remove();
+        expect(map._handlers.mouseenter).not.toBeDefined();
+        expect(map._handlers.mouseout).not.toBeDefined();
+        expect(map.on).toHaveBeenCalledTimes(4);
+        expect(map.off).toHaveBeenCalledTimes(4);
+    });
     test('clickPopup', () => {
         map.U.addGeoJSON('source');
-        map.U.addLine('layer', 'source', { sourceLayer: 'sourceLayer' });
+        map.U.addLine('layer', 'source');
         const remove = map.U.clickPopup('layer', f => f.properties.name);
         expect(map._handlers.click).toBeDefined();
         remove();
         expect(map._handlers.click).not.toBeDefined();
+    });
+    test('clickPopup with regex', () => {
+        map.U.addGeoJSON('source');
+        map.U.addLine('layer', 'source');
+        map.U.addLine('anotherlayer', 'source');
+        map.U.addLine('onemorelayer', 'source');
+        const remove = map.U.clickPopup(/layer/, f => f.properties.name);
+        expect(map._handlers.click).toBeDefined();
+        remove();
+        expect(map._handlers.click).not.toBeDefined();
+        expect(map.on).toHaveBeenCalledTimes(3);
+        expect(map.off).toHaveBeenCalledTimes(3);
+    });
+});
+
+describe('setRootProperty()', () => {
+    test('Can set sprite property', () => {
+        map.U.setRootProperty('sprite', 'http://example.com/sprite');
+        expect(map.getStyle().sprite).toEqual('http://example.com/sprite');
     });
 });

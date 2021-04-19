@@ -8,7 +8,7 @@ export default [
         output: [
             {
                 file: 'dist/index.js',
-                format: 'umd', // UMD version for browser, and for Node (for Jest testing)
+                format: 'umd', // UMD version for browser
                 name: 'U',
                 plugins: [babel({ babelHelpers: 'bundled' })],
             },
@@ -19,29 +19,10 @@ export default [
                 plugins: [terser(), babel({ babelHelpers: 'bundled' })],
             },
             {
-                file: 'commonjs/index.js',
-                format: 'cjs', // CommonJS version for node? Not even sure this is required.
-                plugins: [babel({ babelHelpers: 'bundled' })],
-            },
-            {
                 file: 'dist/index.esm.js',
                 format: 'esm', // ES2015 modules version so consumers can tree-shake
             },
         ],
         plugins: [commonjs(), nodeResolve()],
-    },
-    {
-        input: 'src/index.test.js',
-        output: [
-            {
-                file: 'commonjs/index.test.js',
-                format: 'cjs',
-            },
-        ],
-        plugins: [
-            commonjs(),
-            nodeResolve(),
-            babel({ babelHelpers: 'bundled' }),
-        ],
     },
 ];
