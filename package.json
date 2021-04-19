@@ -1,6 +1,6 @@
 {
   "name": "mapbox-gl-utils",
-  "version": "0.37.1",
+  "version": "0.38.0",
   "description": "Utility functions for Mapbox-GL-JS",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
