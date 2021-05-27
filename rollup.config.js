@@ -2,6 +2,7 @@ import { terser } from 'rollup-plugin-terser';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
+import flow from 'rollup-plugin-flow';
 export default [
     {
         input: 'src/index.js',
@@ -23,6 +24,6 @@ export default [
                 format: 'esm', // ES2015 modules version so consumers can tree-shake
             },
         ],
-        plugins: [commonjs(), nodeResolve()],
+        plugins: [flow(), commonjs(), nodeResolve()],
     },
 ];

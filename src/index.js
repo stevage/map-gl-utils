@@ -1,11 +1,23 @@
-import kebabCase from 'kebab-case';
+//@flow
 import allProps from './keys.js';
+// import type { Source } from 'mapbox-gl/dist/mapbox-gl.js.flow';
 
-function isPaintProp(prop) {
+import type { Source } from 'mapbox-gl/src/source/source';
+import type { SourceSpecification } from '@mapbox/mapbox-gl-style-spec/types';
+import type { GeoJSON } from '@mapbox/geojson-types';
+import type { UtilsFuncs } from './utils.flow';
+type PropName = string; // todo more specific?
+export type LayerRef = string | Array<string> | RegExp | (({}) => boolean);
+
+const kebabCase = s => s.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
+const upperCamelCase = s =>
+    s.replace(/(^|-)([a-z])/g, (x, y, l) => `${l.toUpperCase()}`);
+
+function isPaintProp(prop: PropName) {
     return allProps.paints.indexOf(prop) >= 0;
 }
 
-function isLayoutProp(prop) {
+function isLayoutProp(prop: PropName) {
     return allProps.layouts.indexOf(prop) >= 0;
 }
 
@@ -19,7 +31,7 @@ function whichProp(prop) {
     return 'other';
 }
 
-function parseSource(source) {
+function parseSource(source: SourceSpecification | string | GeoJSON) {
     if (
         String(source).match(/\.(geo)?json/) ||
         source.type === 'Feature' ||
@@ -75,10 +87,6 @@ const arrayifyAndOff = f => {
     };
 };
 
-function upperCamelCase(s) {
-    return s[0].toUpperCase() + kebabCase.reverse(s).slice(1);
-}
-
 const layerTypes = [
     'line',
     'fill',
@@ -91,12 +99,14 @@ const layerTypes = [
     'hillshade',
 ];
 
-class Utils {
-    constructor() {
-        this._loaded = false;
-
-        // return this;
-    }
+// $FlowFixMe[prop-missing]
+class Utils implements UtilsFuncs {
+    _loaded: boolean = false;
+    mapboxgl = null;
+    map = null;
+    /** Initialises Mapbox-GL-Utils on existing map object.
+     * @returns Something useful.
+     */
     static init(map, mapboxgl) {
         map.U = new Utils();
         map.U.mapboxgl = mapboxgl;
@@ -170,35 +180,40 @@ class Utils {
         Utils.init(map, mapboxgl);
         return map;
     }
-}
-Object.assign(Utils.prototype, {
-    hoverPointer: (() =>
-        function (layerOrLayers) {
-            const layers = resolveArray(layerOrLayers, this.map);
-            const mouseenter = e =>
-                (this.map.getCanvas().style.cursor = 'pointer');
-            const mouseleave = e => {
-                // don't de-hover if we're still over a different relevant layer
-                if (
-                    this.map.queryRenderedFeatures(e.point, { layers })
-                        .length === 0
-                ) {
-                    this.map.getCanvas().style.cursor = oldCursor;
-                }
-            };
-            const oldCursor = this.map.getCanvas().style.cursor;
-            for (const layer of layers) {
-                this.map.on('mouseleave', layer, mouseleave);
-                this.map.on('mouseenter', layer, mouseenter);
-            }
-            return () => {
-                for (const layer of layers) {
-                    this.map.off('mouseenter', layer, mouseenter);
-                    this.map.off('mouseleave', layer, mouseleave);
-                }
+
+    hoverPointer(layerOrLayers) {
+        const layers = resolveArray(layerOrLayers, this.map);
+        const mouseenter = e => (this.map.getCanvas().style.cursor = 'pointer');
+        const mouseleave = e => {
+            // don't de-hover if we're still over a different relevant layer
+            if (
+                this.map.queryRenderedFeatures(e.point, { layers }).length === 0
+            ) {
                 this.map.getCanvas().style.cursor = oldCursor;
-            };
-        }).call(this),
+            }
+        };
+        const oldCursor = this.map.getCanvas().style.cursor;
+        for (const layer of layers) {
+            this.map.on('mouseleave', layer, mouseleave);
+            this.map.on('mouseenter', layer, mouseenter);
+        }
+        return () => {
+            for (const layer of layers) {
+                this.map.off('mouseenter', layer, mouseenter);
+                this.map.off('mouseleave', layer, mouseleave);
+            }
+            this.map.getCanvas().style.cursor = oldCursor;
+        };
+    }
+}
+// FlowFixMe[prop-missing]
+const UtilsExtra = {
+    /**
+    Applies a `hover` feature-state while hovering over a feature.
+    @param layer Layer(s) to add handler to.
+    @param source Source whose features will be updated.
+    @param sourceLayer Source layer (if using vector source)
+    */
     hoverFeatureState: arrayifyAndOff(function (
         layer,
         source,
@@ -603,10 +618,10 @@ Object.assign(Utils.prototype, {
                 this.map.loadImage(url, (error, image) => {
                     if (error) {
                         console.error(`Error loading image ${url}`, error);
-                        reject(`Error loading image ${url}`, error);
+                        reject(`Error loading image ${url}`);
                     } else {
                         this.map.addImage(id, image, options);
-                        resolve(id, url, image);
+                        resolve(id);
                     }
                 });
             });
@@ -656,15 +671,17 @@ Object.assign(Utils.prototype, {
         }
         return [...new Set(fonts)];
     },
-});
-function initClass(U) {
-    const makeSetProp = (prop, setPropFunc) => {
+};
+
+Object.assign(Utils.prototype, UtilsExtra);
+function initClass(U: Utils) {
+    const makeSetProp = (prop: PropName, setPropFunc) => {
         const funcName = 'set' + upperCamelCase(prop);
         U[funcName] = arrayify(function (layer, value) {
             return this.map[setPropFunc](layer, prop, value);
         });
     };
-    const makeGetProp = (prop, getPropFunc) => {
+    const makeGetProp = (prop: PropName, getPropFunc) => {
         const funcName = 'get' + upperCamelCase(prop);
         U[funcName] = arrayify(function (layer) {
             return this.map[getPropFunc](layer, prop);
