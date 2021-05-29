@@ -869,6 +869,8 @@ class Utils implements UtilsFuncs {
         );
     });
     /** Replace the filter for one or more layers.
+    @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
+    @param {Array} filter New filter to set.
     @example map.U.setFilter(['buildings-fill', 'buildings-outline', 'buildings-label'], ['==','level','0']]);
     */
     setFilter: LayerRefFunc1<FilterSpecification> = arrayify(function (
