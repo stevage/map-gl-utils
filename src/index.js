@@ -178,9 +178,10 @@ class Utils implements UtilsFuncs {
     // $FlowFixMe[incompatible-type] // technically map is briefly null before initialisation
     map: UtilsMap = null;
     /** Initialises Mapbox-GL-Utils on existing map object.
-     * @returns Something useful.
-     */
-    static init(map: UtilsMap, mapboxgl: MapboxGlLib): Utils {
+        @param mapboxgl Mapbox-GL-JS or Maplibre-GL-JS library. Only needed for later use by `hoverPopup()` etc.
+        @returns Initialised Utils object.
+    */
+    static init(map: UtilsMap, mapboxgl?: MapboxGlLib): Utils {
         map.U = new Utils();
         map.U._mapboxgl = mapboxgl;
         map.U.map = map;

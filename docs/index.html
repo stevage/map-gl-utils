@@ -5240,7 +5240,7 @@
 
   <p>Initialises Mapbox-GL-Utils on existing map object.</p>
 
-    <div class='pre p1 fill-light mt0'>init(map: UtilsMap, mapboxgl: MapboxGlLib): Utils</div>
+    <div class='pre p1 fill-light mt0'>init(map: UtilsMap, mapboxgl: MapboxGlLib?): Utils</div>
   
   
 
@@ -5265,8 +5265,11 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mapboxgl</span> <code class='quiet'>(MapboxGlLib)</code>
-	    
+            <span class='code bold'>mapboxgl</span> <code class='quiet'>(MapboxGlLib?)</code>
+	    Mapbox-GL-JS or Maplibre-GL-JS library. Only needed for later use by 
+<code>hoverPopup()</code>
+ etc.
+
           </div>
           
         </div>
@@ -5280,7 +5283,7 @@
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>Utils</code>:
-        Something useful.
+        Initialised Utils object.
 
       
     
