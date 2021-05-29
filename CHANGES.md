@@ -1,5 +1,12 @@
 ## Changelog
 
+### 0.40.0
+- add Flow types
+- add JSdocs and use documentation.js to make documentation
+
+### 0.39.0
+- remove kebab-case dependency
+
 ### 0.38.0
 
 - scrapped the CommonJS build. NodeJS is able to handle ES modules these days.

@@ -7,6 +7,7 @@
                     "esmodules": true
                 }
             }
-        ]
+        ],
+        ["@babel/preset-flow"]
     ]
 }

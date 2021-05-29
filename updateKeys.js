@@ -7,7 +7,7 @@ const kebabCase = s => s.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
 const upperCamelCase = s =>
     s.replace(/(^|-)([a-z])/g, (x, y, l) => `${l.toUpperCase()}`);
 
-function writeFlowClassDef(fileName, propNames) {
+function writeUtilsFuncsFlow(fileName, propNames) {
     function setFunc(propName) {
         return `  set${upperCamelCase(
             propName
@@ -17,10 +17,37 @@ function writeFlowClassDef(fileName, propNames) {
         return `  get${upperCamelCase(propName)}: (layer: LayerRef) => any`;
     }
     let out = `//@flow\n`;
+    out += '// Automatically generated type file.';
     out += `import type { LayerRef } from './index';\n`;
     out += `export interface UtilsFuncs {\n`;
     out += propNames.map(setFunc).join(',\n') + `,\n`;
     out += propNames.map(getFunc).join(',\n') + `\n`;
+    out += `}`;
+    fs.writeFileSync(fileName, out);
+}
+
+// writes a fake JS library just for generating documentation
+function writeUtilsFuncsJS(fileName, paints, layouts) {
+    function setFunc(propName, type) {
+        return `
+          /** Sets the \`${propName}\` ${type} property for one or more layers. */
+          set${upperCamelCase(
+              propName
+          )} (layer: LayerRef, value: any): void {}`;
+    }
+    function getFunc(propName, type) {
+        return `
+          /** Gets the \`${propName}\` ${type} property for a layer. */
+          get${upperCamelCase(propName)} (layer: LayerRef): any {}`;
+    }
+    let out = `//@flow\n`;
+    out += '// Automatically generated for documentation.';
+    out += `import type { LayerRef } from './index';\n`;
+    out += `export const UtilsFuncs = {\n`;
+    out += paints.map(p => setFunc(p, 'paint')).join(',\n') + `,\n`;
+    out += layouts.map(p => setFunc(p, 'layout')).join(',\n') + `,\n`;
+    out += paints.map(p => getFunc(p, 'paint')).join(',\n') + `\n,`;
+    out += layouts.map(p => getFunc(p, 'layout')).join(',\n') + `\n`;
     out += `}`;
     fs.writeFileSync(fileName, out);
 }
@@ -61,7 +88,11 @@ export default {
     layouts: '${out.layouts.join(',')}'.split(','),
 }`
 );
-writeFlowClassDef('src/utils.flow.js', [...out.paints, ...out.layouts]);
+writeUtilsFuncsFlow('src/utilsGenerated.flow.js', [
+    ...out.paints,
+    ...out.layouts,
+]);
+writeUtilsFuncsJS('src/utilsGenerated.js', out.paints, out.layouts);
 
 console.log(
     `Wrote updated ${outFileES} based on Mapbox-GL style spec ${styleSpecVersion}.`

@@ -272,7 +272,7 @@ map.U.onload(() => {
     map.U.hoverPointer(['small-towns', 'large-towns']);
     map.U.hoverFeatureState('large-towns');
     // update the source layer when data is available
-    d3.json('http://example.com/towns.json', data => map.U.update('towns', data));
+    d3.json('http://example.com/towns.json', data => map.U.setData('towns', data));
 });
 ```
 
