@@ -8,22 +8,23 @@ export default [
         input: 'src/index.js',
         output: [
             {
-                file: 'dist/index.js',
+                file: 'dist/umd/ndex.js',
                 format: 'umd', // UMD version for browser
                 name: 'U',
-                plugins: [babel({ babelHelpers: 'bundled' })],
+                plugins: [],
             },
             {
-                file: 'dist/index.min.js',
+                file: 'dist/umd/index.min.js',
                 format: 'umd', // minified UMD version for browser
                 name: 'U',
                 plugins: [terser(), babel({ babelHelpers: 'bundled' })],
             },
-            {
-                file: 'dist/index.esm.js',
-                format: 'esm', // ES2015 modules version so consumers can tree-shake
-            },
         ],
-        plugins: [flow(), commonjs(), nodeResolve()],
+        plugins: [
+            flow(),
+            commonjs(),
+            nodeResolve(),
+            babel({ babelHelpers: 'bundled' }),
+        ],
     },
 ];

@@ -1,2 +1,17 @@
 toc:
-    - Utils
+  - name: Overview
+    file: docsrc/overview.md
+  - name: Getting started
+    file: docsrc/usage.md
+  - name: Working with layers
+    file: docsrc/layers.md
+  - name: Adding sources
+    description: |
+        Methods that add sources return an object ("SourceBoundUtils" in this documentation) that can be chained to allow layers to be added to it:
+
+          ```js
+          map.U.addGeoJSONSource('properties')
+            .addCircleLayer('properties-line', { lineWidth: 3 })
+            .addSymbolLayer('properties-fill', { fillColor: 'hsla(30,30%,60%,0.5)' })
+          ```
+  - Utils

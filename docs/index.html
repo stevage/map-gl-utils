@@ -29,9 +29,99 @@
               
                 
                 <li><a
+                  href='#overview'
+                  class="h5 bold black caps">
+                  Overview
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getting-started'
+                  class="h5 bold black caps">
+                  Getting started
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#working-with-layers'
+                  class="h5 bold black caps">
+                  Working with layers
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#adding-sources'
+                  class="h5 bold black caps">
+                  Adding sources
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addcirclelayer'
+                  class="">
+                  addCircleLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addfillextrusionlayer'
+                  class="">
+                  addFillExtrusionLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addfilllayer'
+                  class="">
+                  addFillLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#addgeojsonsource'
                   class="">
                   addGeoJSONSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addheatmaplayer'
+                  class="">
+                  addHeatmapLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addhillshadelayer'
+                  class="">
+                  addHillshadeLayer
                   
                 </a>
                 
@@ -59,6 +149,16 @@
               
                 
                 <li><a
+                  href='#addlinelayer'
+                  class="">
+                  addLineLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#addrasterdemsource'
                   class="">
                   addRasterDemSource
@@ -69,9 +169,9 @@
               
                 
                 <li><a
-                  href='#addrastersource'
+                  href='#addrasterlayer'
                   class="">
-                  addRasterSource
+                  addRasterLayer
                   
                 </a>
                 
@@ -89,9 +189,39 @@
               
                 
                 <li><a
-                  href='#addvector'
+                  href='#addrastersource'
                   class="">
-                  addVector
+                  addRasterSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addsymbollayer'
+                  class="">
+                  addSymbolLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addvectorsource'
+                  class="">
+                  addVectorSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addvideolayer'
+                  class="">
+                  addVideoLayer
                   
                 </a>
                 
@@ -2807,6 +2937,357 @@
       <div id='split-right' class='relative overflow-auto height-viewport-100'>
         
           
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='overview' class='mt0'>
+    Overview
+  </h2>
+
+  
+    <p>Mapbox-GL-Utils adds a number of utility functions and syntactic sugar to a Mapbox GL JS or Maplibre GL map instance. If you write a lot of interactive map code, you may appreciate the more concise form, and simpler API.</p>
+<p>Major features:</p>
+<ul>
+<li>No need to distinguish between paint, layout and other properties.</li>
+<li>All properties can be expressed as camelCase rather than kebab-case.</li>
+<li>Layer operations can act on multiple layers (given by array, regex or filter function), not just one.</li>
+<li>Source types, layer types and property names are incorporated into function names: <code>addGeoJSON()</code>, <code>addCircleLayer()</code>, <code>setCircleRadius()</code>, <code>getTextFont()</code>...</li>
+<li>Adding layers and sources is idempotent: call <code>addLineLayer()</code> multiple times to create, then update the layer.</li>
+<li>Some other convenience functions: <code>show()</code>, <code>hide()</code>, <code>onLoad()</code>, <code>setData()</code>, <code>fontsInUse()</code></li>
+<li>Better click and hover functions: <code>hoverPointer()</code>, <code>hoverFeatureState()</code>, <code>hoverPopup()</code>, <code>clickLayer()</code></li>
+<li>Some functions behave better: <code>removeLayer()</code> (not an error if layer doesn't exist), <code>removeSource()</code> (removes attached layers automatically), <code>setFilter()</code> (works on multiple layers at once), <code>setData()</code> clears data if no GeoJSON provided.</li>
+</ul>
+
+  
+</section></div>
+          
+        
+          
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='getting-started' class='mt0'>
+    Getting started
+  </h2>
+
+  
+    <p>To use without any build process:</p>
+<pre class='hljs'><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/mapbox-gl-utils&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></pre>
+<p>then</p>
+<pre class='hljs'>U.init(map)</pre>
+<p>With Webpack etc:</p>
+<pre class='hljs'><span class="hljs-keyword">const</span> mapgl = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;maplibre-gl&#x27;</span>); <span class="hljs-comment">// or require(&#x27;mapbox-gl&#x27;);</span>
+<span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> mapgl.Map({ ... });
+
+<span class="hljs-comment">// or:</span>
+<span class="hljs-keyword">import</span> U <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;mapbox-gl-utils&#x27;</span>;
+U.init(map);
+
+<span class="hljs-comment">// A small number of methods (eg hoverPopup) require access to the maplibre-gl/mapbox-gl library itself, in order to instantiate other objects.</span>
+<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;mapbox-gl-utils&#x27;</span>).init(map, mapgl);</pre>
+<p>The default distribution is an ES2015 module with no transpiling. If you experience any syntax issues (such as using older JavaScript versions), use the UMD bundle instead:</p>
+<pre class='hljs'><span class="hljs-comment">// Adds U property to map, containing these methods.</span>
+<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;mapbox-gl-utils/umd&#x27;</span>).init(map);</pre>
+
+  
+</section></div>
+          
+        
+          
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='working-with-layers' class='mt0'>
+    Working with layers
+  </h2>
+
+  
+    <p>The <code>props</code> object passed when adding a layer can freely mix paint, layout and other properties. Property keys can be specified in camelCase or kebab-case:</p>
+<pre class='hljs'>map.U.addCircleLayer(<span class="hljs-string">&#x27;trees-circle&#x27;</span>, <span class="hljs-string">&#x27;trees&#x27;</span>, {
+    <span class="hljs-attr">circleColor</span>: <span class="hljs-string">&#x27;green&#x27;</span>, <span class="hljs-comment">// paint property</span>
+    <span class="hljs-attr">circleRadius</span>: [<span class="hljs-string">&#x27;interpolate&#x27;</span>, [<span class="hljs-string">&#x27;zoom&#x27;</span>], <span class="hljs-number">12</span>, <span class="hljs-number">3</span>, <span class="hljs-number">15</span>, <span class="hljs-number">5</span>], <span class="hljs-comment">// paint property</span>
+    <span class="hljs-attr">circleSortKey</span>: [<span class="hljs-string">&#x27;get&#x27;</span>, <span class="hljs-string">&#x27;tree-sort-key&#x27;</span>], <span class="hljs-comment">// layout property</span>
+    <span class="hljs-attr">filter</span>: [<span class="hljs-string">&#x27;!=&#x27;</span>, <span class="hljs-string">&#x27;type&#x27;</span>, <span class="hljs-string">&#x27;stump&#x27;</span>], <span class="hljs-comment">// other property</span>
+});</pre>
+<p>Almost every method that works with existing layers (eg, <code>show()</code>) can work with multiple layers. There are four ways to specify the layer(s) you want to modify:</p>
+<ul>
+<li>string: <code>map.U.show('trees-label'); map.U.show('trees-circle');</code></li>
+<li>array of strings: <code>map.U.show(['trees-label', 'trees-circle'])</code>;</li>
+<li>regular expression: <code>map.U.show(/^trees-/)</code>;</li>
+<li>function that takes a layer, and returns truthy: <code>map.U.show(layer => layer.source === 'trees');</code></li>
+</ul>
+
+  
+</section></div>
+          
+        
+          
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='adding-sources' class='mt0'>
+    Adding sources
+  </h2>
+
+  
+    <p>Methods that add sources return an object ("SourceBoundUtils" in this documentation) that can be chained to allow layers to be added to it:</p>
+<pre class='hljs'>map.U.addGeoJSONSource(<span class="hljs-string">&#x27;properties&#x27;</span>)
+  .addCircleLayer(<span class="hljs-string">&#x27;properties-line&#x27;</span>, { <span class="hljs-attr">lineWidth</span>: <span class="hljs-number">3</span> })
+  .addSymbolLayer(<span class="hljs-string">&#x27;properties-fill&#x27;</span>, { <span class="hljs-attr">fillColor</span>: <span class="hljs-string">&#x27;hsla(30,30%,60%,0.5)&#x27;</span> })</pre>
+
+  
+</section></div>
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addcirclelayer'>
+      addCircleLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>circle</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addCircleLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addfillextrusionlayer'>
+      addFillExtrusionLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>fill-extrusion</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addFillExtrusionLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addfilllayer'>
+      addFillLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>fill</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addFillLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
           <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
@@ -2871,6 +3352,174 @@
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addheatmaplayer'>
+      addHeatmapLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>heatmap</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addHeatmapLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addhillshadelayer'>
+      addHillshadeLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>hillshade</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addHillshadeLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
     
   
 
@@ -3075,6 +3724,90 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='addlinelayer'>
+      addLineLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>line</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addLineLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='addrasterdemsource'>
       addRasterDemSource
     </h3>
@@ -3153,17 +3886,17 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='addrastersource'>
-      addRasterSource
+    <h3 class='fl m0' id='addrasterlayer'>
+      addRasterLayer
     </h3>
     
     
   </div>
   
 
-  <p>Adds a <code>raster</code> source</p>
+  <p>Adds a layer of type <code>raster</code>.</p>
 
-    <div class='pre p1 fill-light mt0'>addRasterSource(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): SourceBoundUtils</div>
+    <div class='pre p1 fill-light mt0'>addRasterLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
   
   
 
@@ -3180,18 +3913,24 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    ID of the new source.
-
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    Properties defining the source, per the style spec.
-
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
           </div>
           
         </div>
@@ -3204,7 +3943,7 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>SourceBoundUtils</code>
+      <code>void</code>
     
   
 
@@ -3309,8 +4048,170 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='addvector'>
-      addVector
+    <h3 class='fl m0' id='addrastersource'>
+      addRasterSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a <code>raster</code> source</p>
+
+    <div class='pre p1 fill-light mt0'>addRasterSource(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new source.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Properties defining the source, per the style spec.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addsymbollayer'>
+      addSymbolLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>symbol</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addSymbolLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addvectorsource'>
+      addVectorSource
     </h3>
     
     
@@ -3319,7 +4220,7 @@
 
   <p>Adds a <code>vector</code> source</p>
 
-    <div class='pre p1 fill-light mt0'>addVector(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, extraProps: {}, data: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): SourceBoundUtils</div>
+    <div class='pre p1 fill-light mt0'>addVectorSource(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, extraProps: {}, data: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): SourceBoundUtils</div>
   
   
 
@@ -3392,6 +4293,90 @@
       
       <pre class='p1 overflow-auto round fill-light'>addVector(<span class="hljs-string">&#x27;mysource&#x27;</span>, <span class="hljs-string">&#x27;http://example.com/tiles/{z}/{x}/{y}.pbf&#x27;</span>, { <span class="hljs-attr">maxzoom</span>: <span class="hljs-number">13</span> });</pre>
     
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addvideolayer'>
+      addVideoLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>video</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addVideoLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
   
 
   
@@ -5240,7 +6225,7 @@
 
   <p>Initialises Mapbox-GL-Utils on existing map object.</p>
 
-    <div class='pre p1 fill-light mt0'>init(map: UtilsMap, mapboxgl: MapboxGlLib?): Utils</div>
+    <div class='pre p1 fill-light mt0'>init(map: UtilsMap, mapgl: MapboxGlLib?): Utils</div>
   
   
 
@@ -5265,7 +6250,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mapboxgl</span> <code class='quiet'>(MapboxGlLib?)</code>
+            <span class='code bold'>mapgl</span> <code class='quiet'>(MapboxGlLib?)</code>
 	    Mapbox-GL-JS or Maplibre-GL-JS library. Only needed for later use by 
 <code>hoverPopup()</code>
  etc.

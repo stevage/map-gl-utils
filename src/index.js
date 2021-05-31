@@ -1,7 +1,5 @@
 //@flow
 import allProps from './keys.js';
-// import type { Source } from 'mapbox-gl/dist/mapbox-gl.js.flow';
-
 import type { Source } from 'mapbox-gl/src/source/source';
 import type {
     StyleSpecification,
@@ -17,7 +15,6 @@ import type {
 } from '@mapbox/mapbox-gl-style-spec/types';
 import type { GeoJSON } from '@mapbox/geojson-types';
 import type { StyleImageMetadata } from 'mapbox-gl/src/style/style_image';
-// import type * as UtilsMap from 'mapbox-gl/src/ui/map';
 import type MapboxGl from 'mapbox-gl/src';
 import type Map from 'mapbox-gl/src/ui/map';
 import type Popup, { PopupOptions } from 'mapbox-gl/src/ui/popup';
@@ -172,18 +169,18 @@ const layerTypes = [
 ];
 
 // $FlowFixMe[prop-missing]
-class Utils implements UtilsFuncs {
+class Utils implements UtilsFuncs, UtilsLayerFuncs {
     _loaded: boolean = false;
-    _mapboxgl: ?MapboxGlLib = null; // MapboxGl isn't a type...
+    _mapgl: ?MapboxGlLib = null;
     // $FlowFixMe[incompatible-type] // technically map is briefly null before initialisation
     map: UtilsMap = null;
     /** Initialises Mapbox-GL-Utils on existing map object.
-        @param mapboxgl Mapbox-GL-JS or Maplibre-GL-JS library. Only needed for later use by `hoverPopup()` etc.
+        @param mapgl Mapbox-GL-JS or Maplibre-GL-JS library. Only needed for later use by `hoverPopup()` etc.
         @returns Initialised Utils object.
     */
-    static init(map: UtilsMap, mapboxgl?: MapboxGlLib): Utils {
+    static init(map: UtilsMap, mapgl?: MapboxGlLib): Utils {
         map.U = new Utils();
-        map.U._mapboxgl = mapboxgl;
+        map.U._mapgl = mapgl;
         map.U.map = map;
         return map.U;
     }
@@ -386,11 +383,11 @@ class Utils implements UtilsFuncs {
         htmlFunc: LayerCallback,
         popupOptions?: PopupOptions = {}
     ): OffHandler {
-        if (!this._mapboxgl) {
-            throw 'Mapbox GL object required when initialising';
+        if (!this._mapgl) {
+            throw 'Mapbox GL JS or MapLibre GL object required when initialising';
         }
 
-        const popup = new this._mapboxgl.Popup({
+        const popup = new this._mapgl.Popup({
             closeButton: false,
             ...popupOptions,
         });
@@ -430,10 +427,10 @@ class Utils implements UtilsFuncs {
         htmlFunc: ({ ... }) => void,
         popupOptions?: PopupOptions = {}
     ): OffHandler {
-        if (!this._mapboxgl) {
-            throw 'Mapbox GL object required when initialising';
+        if (!this._mapgl) {
+            throw 'Mapbox GL JS or Maplibre GL object required when initialising';
         }
-        const popup = new this._mapboxgl.Popup({
+        const popup = new this._mapgl.Popup({
             ...popupOptions,
         });
         return arrayifyAndOff(function (layer, htmlFunc) {
@@ -604,6 +601,26 @@ class Utils implements UtilsFuncs {
         this.map.removeLayer(layer);
         this.map.off('error', swallowError);
     });
+    // The bodies of these functions are added later by `makeAddLayer`
+    /** Adds a layer of type `line`.*/
+    addLineLayer(id: string, props: { ... }, before?: string): void {}
+    /** Adds a layer of type `fill`.*/
+    addFillLayer(id: string, props: { ... }, before?: string): void {}
+    /** Adds a layer of type `circle`.*/
+    addCircleLayer(id: string, props: { ... }, before?: string): void {}
+    /** Adds a layer of type `symbol`.*/
+    addSymbolLayer(id: string, props: { ... }, before?: string): void {}
+    /** Adds a layer of type `video`.*/
+    addVideoLayer(id: string, props: { ... }, before?: string): void {}
+    /** Adds a layer of type `raster`.*/
+    addRasterLayer(id: string, props: { ... }, before?: string): void {}
+    /** Adds a layer of type `fill-extrusion`.*/
+    addFillExtrusionLayer(id: string, props: { ... }, before?: string): void {}
+    /** Adds a layer of type `heatmap`.*/
+    addHeatmapLayer(id: string, props: { ... }, before?: string): void {}
+    /** Adds a layer of type `hillshade`.*/
+    addHillshadeLayer(id: string, props: { ... }, before?: string): void {}
+
     /** Create a GeoJSON layer. */
     addGeoJSONSource(
         id: string,
@@ -616,8 +633,12 @@ class Utils implements UtilsFuncs {
             ...props,
         });
     }
-    addGeoJSON(...args) {
-        return this.addGeoJSONSource(...args);
+    addGeoJSON(
+        id: string,
+        geojson: ?GeoJSON = { type: 'FeatureCollection', features: [] },
+        props: ?GeoJSONSourceSpecification
+    ): SourceBoundUtils {
+        return this.addGeoJSONSource(id, geojson, props);
     }
     addSource(id: string, sourceDef: SourceSpecification): SourceBoundUtils {
         const style = this.map.getStyle();
@@ -638,7 +659,7 @@ class Utils implements UtilsFuncs {
 
     @example addVector('mysource', 'http://example.com/tiles/{z}/{x}/{y}.pbf', { maxzoom: 13 });
     */
-    addVector(
+    addVectorSource(
         sourceId: string,
         props: string | { ... },
         extraProps?: { ... } = {}
@@ -664,6 +685,13 @@ class Utils implements UtilsFuncs {
                 type: 'vector',
             });
         }
+    }
+    addVector(
+        sourceId: string,
+        props: string | { ... },
+        extraProps?: { ... } = {}
+    ): SourceBoundUtils {
+        return this.addVectorSource(sourceId, props, extraProps);
     }
     /** Adds a `raster` source
     @param sourceId ID of the new source.
@@ -1007,7 +1035,7 @@ class Utils implements UtilsFuncs {
         // returns an object on which we can call .addLine() etc.
         const out = new Utils();
         out.map = this.map;
-        out._mapboxgl = this._mapboxgl;
+        out._mapgl = this._mapgl;
         layerTypes.forEach(function (type) {
             makeAddLayer(type, out, sourceId);
         });
@@ -1072,9 +1100,6 @@ function initClass(U: Utils) {
     allProps.layouts.forEach(prop => makeGetProp(prop, 'getLayoutProperty'));
 
     layerTypes.forEach(layerType => makeAddLayer(layerType, U));
-
-    // ['raster', 'raster-dem', 'image', 'video'] // vector, geojson taken care of
-    //     .forEach(sourceType => makeAddSource(sourceType));
 }
 
 const U = Utils.prototype;
