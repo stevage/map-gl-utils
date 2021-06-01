@@ -26,13 +26,13 @@ type MapboxGlLib = {
 };
 import type { UtilsFuncs } from './utilsGenerated.flow';
 type PropName = string; // todo more specific?
-// not currently used - weird, makeSource is really returning something slightly different from normal Utils
+// not currently used - weird, makeSource is really returning something slightly different from normal MapGlUtils
 // export type UtilsSource = {
 //     map: UtilsMap,
 //     mapboxgl: Class<MapboxGl>,
 //     // todo add the layer type functions
 // };
-type SourceBoundUtils = Utils;
+type SourceBoundUtils = MapGlUtils;
 
 const kebabCase = s => s.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
 const upperCamelCase = s =>
@@ -169,23 +169,22 @@ const layerTypes = [
 ];
 
 // $FlowFixMe[prop-missing]
-class Utils implements UtilsFuncs, UtilsLayerFuncs {
+class MapGlUtils implements UtilsFuncs {
     _loaded: boolean = false;
     _mapgl: ?MapboxGlLib = null;
     // $FlowFixMe[incompatible-type] // technically map is briefly null before initialisation
     map: UtilsMap = null;
-    /** Initialises Mapbox-GL-Utils on existing map object.
+    /** Initialises Map-GL-Utils on existing map object.
         @param mapgl Mapbox-GL-JS or Maplibre-GL-JS library. Only needed for later use by `hoverPopup()` etc.
-        @returns Initialised Utils object.
+        @returns Initialised MapGlUtils object.
     */
-    static init(map: UtilsMap, mapgl?: MapboxGlLib): Utils {
-        map.U = new Utils();
+    static init(map: UtilsMap, mapgl?: MapboxGlLib): MapGlUtils {
+        map.U = new MapGlUtils();
         map.U._mapgl = mapgl;
         map.U.map = map;
         return map.U;
     }
-    /*
-    Still WIP
+
     static async newMap(
         mapboxgl: MapboxGlLib,
         params?: { style?: { ... }, ... } = {}, //hrm should be MapOptions but that type seems incomplete?
@@ -200,6 +199,7 @@ class Utils implements UtilsFuncs, UtilsLayerFuncs {
         function addLayers(style: StyleSpecification, layers = []) {
             style.layers = [
                 ...style.layers,
+                // $FlowFixMe[incompatible-type]
                 ...layers.map(l => this.layerStyle(l)),
             ];
         }
@@ -253,7 +253,7 @@ class Utils implements UtilsFuncs, UtilsLayerFuncs {
             } else {
                 style = styleParam;
             }
-            const u = new Utils();
+            const u = new MapGlUtils();
             addLayers.call(u, style, options.addLayers);
             addSources(style, options.addSources);
             transformStyle(style, options.transformStyle);
@@ -262,10 +262,10 @@ class Utils implements UtilsFuncs, UtilsLayerFuncs {
         }
 
         const map: UtilsMap = new mapboxgl.Map(params);
-        Utils.init(map, mapboxgl);
+        MapGlUtils.init(map, mapboxgl);
         return map;
     }
-    */
+
     /** Sets Map's cursor to 'pointer' whenever the mouse is over these layers.
         @returns A function to remove the handler.
      */
@@ -384,7 +384,7 @@ class Utils implements UtilsFuncs, UtilsLayerFuncs {
         popupOptions?: PopupOptions = {}
     ): OffHandler {
         if (!this._mapgl) {
-            throw 'Mapbox GL JS or MapLibre GL object required when initialising';
+            throw 'Mapbox GL JS or MapLibre GL JS object required when initialising';
         }
 
         const popup = new this._mapgl.Popup({
@@ -428,7 +428,7 @@ class Utils implements UtilsFuncs, UtilsLayerFuncs {
         popupOptions?: PopupOptions = {}
     ): OffHandler {
         if (!this._mapgl) {
-            throw 'Mapbox GL JS or Maplibre GL object required when initialising';
+            throw 'Mapbox GL JS or Maplibre GL JS object required when initialising';
         }
         const popup = new this._mapgl.Popup({
             ...popupOptions,
@@ -807,7 +807,7 @@ class Utils implements UtilsFuncs, UtilsLayerFuncs {
         const props = args.find(
             arg => typeof arg === 'object' && !Array.isArray(arg)
         );
-        const ret: { ... } =
+        const ret: $Shape<LayerSpecification> =
             typeof props === 'object' ? this.properties(props) || {} : {};
         if (typeof id === 'string') ret.id = id;
         if (typeof source === 'string') ret.source = source;
@@ -1033,7 +1033,7 @@ class Utils implements UtilsFuncs, UtilsLayerFuncs {
 
     _makeSource(sourceId: string): SourceBoundUtils {
         // returns an object on which we can call .addLine() etc.
-        const out = new Utils();
+        const out = new MapGlUtils();
         out.map = this.map;
         out._mapgl = this._mapgl;
         layerTypes.forEach(function (type) {
@@ -1063,7 +1063,7 @@ const makeAddLayer = (layerType, obj, fixedSource) => {
 };
 
 // Object.assign(Utils.prototype, UtilsExtra);
-function initClass(U: Utils) {
+function initClass(U: MapGlUtils) {
     const makeSetProp = (prop: PropName, setPropFunc) => {
         const funcName = 'set' + upperCamelCase(prop);
         //$FlowFixMe[prop-missing]
@@ -1102,7 +1102,7 @@ function initClass(U: Utils) {
     layerTypes.forEach(layerType => makeAddLayer(layerType, U));
 }
 
-const U = Utils.prototype;
+const U = MapGlUtils.prototype;
 initClass(U);
 
-export default Utils;
+export default MapGlUtils;

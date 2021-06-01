@@ -1,7 +1,7 @@
 {
-  "name": "mapbox-gl-utils",
-  "version": "0.39.0",
-  "description": "Utility functions for Mapbox-GL-JS",
+  "name": "map-gl-utils",
+  "version": "0.40.0",
+  "description": "Utility functions for Mapbox GL JS or Maplibre GL JS",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "type": "module",
@@ -14,8 +14,7 @@
     "rollup-esm": "node_modules/rollup/dist/bin/rollup -c rollup-esm.config.js",
     "prepublish": "yarn run update-keys; yarn run rollup; yarn run rollup-esm",
     "docs": "node updateKeys; documentation build -f html -o docs --config documentation.yml --sort-order alpha src/index.js src/utilsGenerated.js",
-    "docserve": "documentation serve --config documentation.yml --watch --document-exported --sort-order alpha src/index.js src/utilsGenerated.js",
-    "docservemin": "documentation serve --config documentation.yml --watch --sort-order alpha src/index.js src/utilsGenerated.js"
+    "docserve": "documentation serve --config documentation.yml --watch --sort-order alpha src/index.js src/utilsGenerated.js"
   },
   "author": "Steve Bennett <me@stevebennett.me> (http://stevebennett.me)",
   "license": "Apache-2.0",
@@ -50,7 +49,7 @@
     "layers",
     "maps"
   ],
-  "repository": "github:stevage/mapbox-gl-utils",
+  "repository": "github:stevage/map-gl-utils",
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true

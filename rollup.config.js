@@ -8,13 +8,13 @@ export default [
         input: 'src/index.js',
         output: [
             {
-                file: 'dist/umd/ndex.js',
+                file: 'umd/ndex.js',
                 format: 'umd', // UMD version for browser
                 name: 'U',
                 plugins: [],
             },
             {
-                file: 'dist/umd/index.min.js',
+                file: 'umd/index.min.js',
                 format: 'umd', // minified UMD version for browser
                 name: 'U',
                 plugins: [terser(), babel({ babelHelpers: 'bundled' })],

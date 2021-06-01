@@ -1,8 +1,10 @@
 ## Changelog
 
 ### 0.40.0
+- rename to Map-GL-JS and explicitly support Maplibre GL JS
 - add Flow types
 - add JSdocs and use documentation.js to make documentation
+- change the packaging again, so `dist/index.esm.js` is the default, ES module, and `umd/index.js` is the UMD module.
 
 ### 0.39.0
 - remove kebab-case dependency

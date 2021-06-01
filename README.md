@@ -1,10 +1,8 @@
-[![NPM](https://nodei.co/npm/mapbox-gl-utils.png)](https://nodei.co/npm/mapbox-gl-utils/)
+Map-GL-Utils (formerly Mapbox-GL-Utils) adds a number of utility functions and syntactic sugar to a Mapbox GL JS or Maplibre GL JS map instance. If you write a lot of interactive map code, you may appreciate the more concise form, and simpler API.
 
-## Mapbox-GL-Utils
+Full documentation: https://stevage.github.io/map-gl-utils
 
-Mapbox-GL-Utils adds a number of utility functions and syntactic sugar to a Mapbox-GL-JS map instance. If you write a lot of Mapbox-GL-JS code, you may appreciate the more concise form, and simpler API.
-
-Major features:
+## Major features:
 
 * No need to distinguish between paint, layout and other properties.
 * All properties can be expressed as camelCase rather than kebab-case.
@@ -15,10 +13,12 @@ Major features:
 * Better click and hover functions: `hoverPointer()`, `hoverFeatureState()`, `hoverPopup()`, `clickLayer()`
 * Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically), `setFilter()` (works on multiple layers at once), `setData()` clears data if no GeoJSON provided.
 
+## Usage
+
 To use without any build process:
 
 ```html
-<script src="https://unpkg.com/mapbox-gl-utils"></script>
+<script src="https://unpkg.com/map-gl-utils"></script>
 ```
 
 then
@@ -30,16 +30,60 @@ U.init(map)
 With Webpack etc:
 
 ```js
-// Adds U property to map, containing these methods.
-require('mapbox-gl-utils').init(map);
+const mapgl = require('maplibre-gl'); // or require('mapbox-gl');
+const map = new mapgl.Map({ ... });
 
 // or:
-import U from 'mapbox-gl-utils';
+import U from 'map-gl-utils';
 U.init(map);
 
-// Certain methods (eg hoverPopup) require access to the mapboxgl library itself
-const mapboxgl = require('mapbox-gl');
-require('mapbox-gl-utils').init(map, mapboxgl);
+// A small number of methods (eg hoverPopup) require access to the maplibre-gl/mapbox-gl library itself, in order to instantiate other objects.
+require('map-gl-utils').init(map, mapgl);
+```
+
+The default distribution is an ES2015 module with no transpiling. If you experience any syntax issues (such as using older JavaScript versions), use the UMD bundle instead:
+
+```js
+// Adds U property to map, containing these methods.
+require('map-gl-utils/umd').init(map);
+```
+
+If you want to use Flow types:
+
+```js
+import type MapGlUtils from 'map-gl-utils/src/index'
+```
+
+
+### Guide
+
+## Working with layers
+
+The `props` object passed when adding a layer can freely mix paint, layout and other properties. Property keys can be specified in camelCase or kebab-case:
+
+```js
+map.U.addCircleLayer('trees-circle', 'trees', {
+    circleColor: 'green', // paint property
+    circleRadius: ['interpolate', ['zoom'], 12, 3, 15, 5], // paint property
+    circleSortKey: ['get', 'tree-sort-key'], // layout property
+    filter: ['!=', 'type', 'stump'], // other property
+});
+```
+
+Almost every method that works with existing layers (eg, `show()`) can work with multiple layers. There are four ways to specify the layer(s) you want to modify:
+  * string: `map.U.show('trees-label'); map.U.show('trees-circle');`
+  * array of strings: `map.U.show(['trees-label', 'trees-circle'])`;
+  * regular expression: `map.U.show(/^trees-/)`;
+  * function that takes a layer, and returns truthy: `map.U.show(layer => layer.source === 'trees');`
+
+## Adding sources
+
+Methods that add sources return an object ("SourceBoundUtils" in this documentation) that can be chained to allow layers to be added to it:
+
+```js
+map.U.addGeoJSONSource('properties')
+.addCircleLayer('properties-line', { lineWidth: 3 })
+.addSymbolLayer('properties-fill', { fillColor: 'hsla(30,30%,60%,0.5)' })
 ```
 
 ### Adding and removing layers
@@ -278,5 +322,12 @@ map.U.onload(() => {
 
 ## Credits
 
-Mapbox-GL-Utils was written by, and maintained, by Steve Bennett, a [freelance map developer](https://hire.stevebennett.me).
+Map-GL-Utils was written by, and maintained, by Steve Bennett, a [freelance map developer](https://hire.stevebennett.me).
 
+Documentation built with [documentation.js](https://github.com/documentationjs/documentation).
+
+Packaging uses [rollup.js](https://rollupjs.org/guide/en/) and [Babel](https://babeljs.io/).
+
+[Flow](https://flow.org/) is used internally, including types from [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js).
+
+Tests are run using [Jest](https://jestjs.io/).
