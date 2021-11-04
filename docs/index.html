@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>map-gl-utils 0.40.0 | Documentation</title>
+  <title>map-gl-utils 0.41.0 | Documentation</title>
   <meta name='description' content='Utility functions for Mapbox GL JS or Maplibre GL JS'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>map-gl-utils</h3>
-          <div class='mb1'><code>0.40.0</code></div>
+          <div class='mb1'><code>0.41.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -1329,6 +1329,96 @@
               
                 
                 <li><a
+                  href='#getskyatmospherecolor'
+                  class="">
+                  getSkyAtmosphereColor
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getskyatmospherehalocolor'
+                  class="">
+                  getSkyAtmosphereHaloColor
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getskyatmospheresun'
+                  class="">
+                  getSkyAtmosphereSun
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getskyatmospheresunintensity'
+                  class="">
+                  getSkyAtmosphereSunIntensity
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getskygradient'
+                  class="">
+                  getSkyGradient
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getskygradientcenter'
+                  class="">
+                  getSkyGradientCenter
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getskygradientradius'
+                  class="">
+                  getSkyGradientRadius
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getskyopacity'
+                  class="">
+                  getSkyOpacity
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getskytype'
+                  class="">
+                  getSkyType
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#getsymbolavoidedges'
                   class="">
                   getSymbolAvoidEdges
@@ -2549,6 +2639,96 @@
               
                 
                 <li><a
+                  href='#setskyatmospherecolor'
+                  class="">
+                  setSkyAtmosphereColor
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setskyatmospherehalocolor'
+                  class="">
+                  setSkyAtmosphereHaloColor
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setskyatmospheresun'
+                  class="">
+                  setSkyAtmosphereSun
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setskyatmospheresunintensity'
+                  class="">
+                  setSkyAtmosphereSunIntensity
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setskygradient'
+                  class="">
+                  setSkyGradient
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setskygradientcenter'
+                  class="">
+                  setSkyGradientCenter
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setskygradientradius'
+                  class="">
+                  setSkyGradientRadius
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setskyopacity'
+                  class="">
+                  setSkyOpacity
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setskytype'
+                  class="">
+                  setSkyType
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#setsymbolavoidedges'
                   class="">
                   setSymbolAvoidEdges
@@ -2929,33 +3109,13 @@
 </ul>
 <h2>Usage</h2>
 <p>To use without any build process:</p>
-<pre class='hljs'><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/map-gl-utils&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></pre>
 <p>then</p>
-<pre class='hljs'>U.init(map)</pre>
 <p>With Webpack etc:</p>
-<pre class='hljs'><span class="hljs-keyword">const</span> mapgl = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;maplibre-gl&#x27;</span>); <span class="hljs-comment">// or require(&#x27;mapbox-gl&#x27;);</span>
-<span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> mapgl.Map({ ... });
-
-<span class="hljs-comment">// or:</span>
-<span class="hljs-keyword">import</span> U <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;map-gl-utils&#x27;</span>;
-U.init(map);
-
-<span class="hljs-comment">// A small number of methods (eg hoverPopup) require access to the maplibre-gl/mapbox-gl library itself, in order to instantiate other objects.</span>
-<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;map-gl-utils&#x27;</span>).init(map, mapgl);</pre>
 <p>The default distribution is an ES2015 module with no transpiling. If you experience any syntax issues (such as using older JavaScript versions), use the UMD bundle instead:</p>
-<pre class='hljs'><span class="hljs-comment">// Adds U property to map, containing these methods.</span>
-<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;map-gl-utils/umd&#x27;</span>).init(map);</pre>
 <p>If you want to use Flow types:</p>
-<pre class='hljs'><span class="hljs-keyword">import</span> type MapGlUtils <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;map-gl-utils/src/index&#x27;</span></pre>
 <h3>Guide</h3>
 <h2>Working with layers</h2>
 <p>The <code>props</code> object passed when adding a layer can freely mix paint, layout and other properties. Property keys can be specified in camelCase or kebab-case:</p>
-<pre class='hljs'>map.U.addCircleLayer(<span class="hljs-string">&#x27;trees-circle&#x27;</span>, <span class="hljs-string">&#x27;trees&#x27;</span>, {
-    <span class="hljs-attr">circleColor</span>: <span class="hljs-string">&#x27;green&#x27;</span>, <span class="hljs-comment">// paint property</span>
-    <span class="hljs-attr">circleRadius</span>: [<span class="hljs-string">&#x27;interpolate&#x27;</span>, [<span class="hljs-string">&#x27;zoom&#x27;</span>], <span class="hljs-number">12</span>, <span class="hljs-number">3</span>, <span class="hljs-number">15</span>, <span class="hljs-number">5</span>], <span class="hljs-comment">// paint property</span>
-    <span class="hljs-attr">circleSortKey</span>: [<span class="hljs-string">&#x27;get&#x27;</span>, <span class="hljs-string">&#x27;tree-sort-key&#x27;</span>], <span class="hljs-comment">// layout property</span>
-    <span class="hljs-attr">filter</span>: [<span class="hljs-string">&#x27;!=&#x27;</span>, <span class="hljs-string">&#x27;type&#x27;</span>, <span class="hljs-string">&#x27;stump&#x27;</span>], <span class="hljs-comment">// other property</span>
-});</pre>
 <p>Almost every method that works with existing layers (eg, <code>show()</code>) can work with multiple layers. There are four ways to specify the layer(s) you want to modify:</p>
 <ul>
 <li>string: <code>map.U.show('trees-label'); map.U.show('trees-circle');</code></li>
@@ -2965,221 +3125,12 @@ U.init(map);
 </ul>
 <h2>Adding sources</h2>
 <p>Methods that add sources return an object ("SourceBoundUtils" in this documentation) that can be chained to allow layers to be added to it:</p>
-<pre class='hljs'>map.U.addGeoJSONSource(<span class="hljs-string">&#x27;properties&#x27;</span>)
-.addCircleLayer(<span class="hljs-string">&#x27;properties-line&#x27;</span>, { <span class="hljs-attr">lineWidth</span>: <span class="hljs-number">3</span> })
-.addSymbolLayer(<span class="hljs-string">&#x27;properties-fill&#x27;</span>, { <span class="hljs-attr">fillColor</span>: <span class="hljs-string">&#x27;hsla(30,30%,60%,0.5)&#x27;</span> })</pre>
 <h3>Adding and removing layers</h3>
-<pre class='hljs'><span class="hljs-comment">// Conveniently add a line feature, mixing paint, layout and other properties.</span>
-<span class="hljs-comment">// Notice you can use camelCase for all property names.</span>
-map.U.addLineLayer(<span class="hljs-string">&#x27;mylines&#x27;</span>, <span class="hljs-string">&#x27;mysource&#x27;</span>, {
-    <span class="hljs-attr">lineWidth</span>: <span class="hljs-number">3</span>,
-    <span class="hljs-attr">lineCap</span>: <span class="hljs-string">&#x27;round&#x27;</span>,
-    <span class="hljs-attr">minzoom</span>: <span class="hljs-number">11</span>
-});
-
-<span class="hljs-comment">// Also addFillLayer, addFillExtrusionLayer, addRasterLayer, addVideoLayer, addSymbolLayer, addHillshadeLayer, addHeatmapLayer</span>
-map.U.addCircleLayer(<span class="hljs-string">&#x27;mycircles&#x27;</span>, <span class="hljs-string">&#x27;mysource&#x27;</span>, { <span class="hljs-attr">circleStrokeColor</span>: <span class="hljs-string">&#x27;red&#x27;</span> });
-<span class="hljs-comment">// if the layer already exists, calling add*Layer simply updates any of the properties</span>
-map.U.addCircleLayer(<span class="hljs-string">&#x27;mycircles&#x27;</span>, <span class="hljs-string">&#x27;mysource&#x27;</span>, { <span class="hljs-attr">circleStrokeColor</span>: <span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-attr">circleRadius</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">filter</span>: [<span class="hljs-string">&#x27;==&#x27;</span>, <span class="hljs-string">&#x27;type&#x27;</span>, <span class="hljs-string">&#x27;active&#x27;</span>});
-
-
-<span class="hljs-comment">// and of course add the layer &quot;before&quot; another layer if needed:</span>
-map.U.addLineLayer(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-string">&#x27;mysource&#x27;</span>, { <span class="hljs-attr">lineColor</span>: <span class="hljs-string">&#x27;red&#x27;</span> }, <span class="hljs-string">&#x27;toplayer&#x27;</span>);
-
-<span class="hljs-comment">// removeLayer() doesn&#x27;t throw errors if the layers don&#x27;t exist</span>
-map.U.removeLayer([<span class="hljs-string">&#x27;towns&#x27;</span>,<span class="hljs-string">&#x27;town-labels&#x27;</span>]);
-</pre>
 <h3>Adding and removing sources</h3>
-<pre class='hljs'><span class="hljs-comment">// Simpler way to create GeoJSON source:</span>
-map.U.addGeoJSON(<span class="hljs-string">&#x27;mysource&#x27;</span>, geojson);
-
-<span class="hljs-comment">// Or create a GeoJSON source with initially blank data. This is very convenient if you&#x27;re loading</span>
-<span class="hljs-comment">// the data separately and will call .setData() later.</span>
-map.U.addGeoJSON(<span class="hljs-string">&#x27;mysource&#x27;</span>);
-
-<span class="hljs-comment">// Simpler ways to create a vector tile source:</span>
-map.U.addVector(<span class="hljs-string">&#x27;mysource&#x27;</span>, <span class="hljs-string">&#x27;mapbox://foo.blah&#x27;</span>);
-map.U.addVector(<span class="hljs-string">&#x27;mysource&#x27;</span>, <span class="hljs-string">&#x27;https://example.com/tiles/{z}/{x}/{y}.pbf&#x27;</span>);
-
-<span class="hljs-comment">// Additional properties still work</span>
-map.U.addVector(<span class="hljs-string">&#x27;mysource&#x27;</span>, <span class="hljs-string">&#x27;https://example.com/tiles/{z}/{x}/{y}.pbf&#x27;</span>, { <span class="hljs-attr">maxzoom</span>: <span class="hljs-number">13</span> });
-
-<span class="hljs-comment">// There&#x27;s also addRaster(), addRasterDem(), addImage(), addVideo()</span>
-<span class="hljs-comment">// Calling any of the add* functions simply updates the source definition if it exists already.</span>
-
-<span class="hljs-comment">// Automatically removes any layers using these sources. Not an error if sources don&#x27;t exist.</span>
-map.U.removeSource([<span class="hljs-string">&#x27;buildings&#x27;</span>, <span class="hljs-string">&#x27;roads&#x27;</span>]);
-
-<span class="hljs-comment">// You can also use the returned object to add layers conveniently:</span>
-map.U.addGeoJSON(<span class="hljs-string">&#x27;buildings&#x27;</span>, <span class="hljs-string">&#x27;data/buildings.geojson&#x27;</span>)
-    .addFillExtrusion(<span class="hljs-string">&#x27;buildings-3d&#x27;</span>, {
-        <span class="hljs-attr">fillExtrusionHeight</span>: <span class="hljs-number">100</span>,
-        <span class="hljs-attr">fillExtrusionColor</span>: <span class="hljs-string">&#x27;grey&#x27;</span>
-    }).addLineLayer(<span class="hljs-string">&#x27;buildings-footprint&#x27;</span>, {
-        <span class="hljs-attr">lineColor</span>: <span class="hljs-string">&#x27;lightblue&#x27;</span>
-    });
-
-<span class="hljs-comment">// Replace the source on an existing layer. (Actually removes and re-adds it.)</span>
-map.U.setLayerSource(<span class="hljs-string">&#x27;buildings&#x27;</span>, <span class="hljs-string">&#x27;newsource&#x27;</span>);
-map.U.setLayerSource([<span class="hljs-string">&#x27;buildings-3d&#x27;</span>, <span class="hljs-string">&#x27;buildings-outline]&#x27;</span>, <span class="hljs-string">&#x27;newsource&#x27;</span>, <span class="hljs-string">&#x27;newsourcelayer&#x27;</span>);
-
-<span class="hljs-comment">// To change the source layer, pass a third argument, or null to clear it (if switching from vector tiles to geojson)</span>
-map.U.setLayerSource(<span class="hljs-string">&#x27;buildings&#x27;</span>, <span class="hljs-string">&#x27;mylocalbuildings&#x27;</span>, <span class="hljs-literal">null</span>);</pre>
 <h3>Setting properties and updating data</h3>
-<pre class='hljs'><span class="hljs-comment">// Every property has a setXxx() form:</span>
-map.U.setTextSize(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-number">12</span>);
-
-<span class="hljs-comment">// And they all work on multiple layers at once:</span>
-map.U.setLineWidth([<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-string">&#x27;mylayer-highlight&#x27;</span>], <span class="hljs-number">4</span>);
-map.U.setLineOpacity(<span class="hljs-regexp">/^border-/</span>, <span class="hljs-number">0</span>);
-map.U.setFillColor(<span class="hljs-function"><span class="hljs-params">layer</span> =&gt;</span> layer.source === <span class="hljs-string">&#x27;farms&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>);
-
-<span class="hljs-comment">// There&#x27;s also a more familiar setProperty() form.</span>
-map.U.setProperty(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-string">&#x27;line-width&#x27;</span>, <span class="hljs-number">3</span>);
-<span class="hljs-comment">// Existing properties aren&#x27;t touched</span>
-map.U.setProperty(<span class="hljs-string">&#x27;mylayer&#x27;</span>, {
-    <span class="hljs-attr">textSize</span>: <span class="hljs-number">12</span>,
-    <span class="hljs-attr">textColor</span>: <span class="hljs-string">&#x27;red&#x27;</span>
-});
-
-<span class="hljs-comment">// There&#x27;s a `get...` version of every function, too.</span>
-map.U.getFillColor(<span class="hljs-string">&#x27;water&#x27;</span>)
-
-<span class="hljs-comment">// Simpler way to update source data:</span>
-map.U.setData(<span class="hljs-string">&#x27;mysource&#x27;</span>, data);
-
-<span class="hljs-comment">// you can leave out the data parameter to clear out a GeoJSON source:</span>
-map.U.setData(<span class="hljs-string">&#x27;mysource&#x27;</span>);
-
-<span class="hljs-comment">// Easier to remember way to turn layers on and off:</span>
-map.U.show(<span class="hljs-string">&#x27;mylayer&#x27;</span>);
-map.U.hide(<span class="hljs-string">&#x27;mylayer&#x27;</span>);
-map.U.toggle([<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-string">&#x27;myotherlayer&#x27;</span>], isVisible);
-
-<span class="hljs-comment">// To avoid name clashes such as with &#x27;raster&#x27;, you can use a longer form ending</span>
-<span class="hljs-comment">// with either ...Layer() or ...Source()</span>
-
-map.U.addRasterSource(<span class="hljs-string">&#x27;myrastersource&#x27;</span>, { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;raster&#x27;</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;mapbox://mapbox.satellite&#x27;</span>, <span class="hljs-attr">tileSize</span>: <span class="hljs-number">256</span> });
-map.U.addRasterLayer(<span class="hljs-string">&#x27;myrasterlayer&#x27;</span>, <span class="hljs-string">&#x27;myrastersource&#x27;</span>, { <span class="hljs-attr">rasterSaturation</span>: <span class="hljs-number">0.5</span> });</pre>
 <h3>Hovering and clicking</h3>
-<pre class='hljs'><span class="hljs-comment">// Use the mouse &#x27;finger&#x27; cursor when hovering over this layer.</span>
-map.U.hoverPointer(<span class="hljs-string">&#x27;mylayer&#x27;</span>);
-
-<span class="hljs-comment">// If you pass several layers, it correctly handles moving from one layer to another</span>
-<span class="hljs-comment">// Use the mouse &#x27;finger&#x27; cursor when hovering over this layer.</span>
-map.U.hoverPointer([<span class="hljs-string">&#x27;regions-border&#x27;</span>, <span class="hljs-string">&#x27;regions-fill&#x27;</span>]);
-
-<span class="hljs-comment">// Sets a &quot;hover&quot; feature-state to be true or false as the mouse moves over features in this layer.</span>
-<span class="hljs-comment">// Requires that features have an `id`.</span>
-map.U.hoverFeatureState(<span class="hljs-string">&#x27;mylayer&#x27;</span>);
-
-<span class="hljs-comment">// Want to apply the hover feature-state to a different source?</span>
-<span class="hljs-comment">// For instance, you hover over a label, but want to highlight the surrounding boundary.</span>
-map.U.hoverFeatureState(<span class="hljs-string">&#x27;town-labels&#x27;</span>, <span class="hljs-string">&#x27;boundaries&#x27;</span>, <span class="hljs-string">&#x27;town-boundaries&#x27;</span>);
-
-<span class="hljs-comment">// You can also add additional event handlers:</span>
-map.U.hoverFeatureState(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-string">&#x27;mysource&#x27;</span>, <span class="hljs-string">&#x27;mysourcelayer&#x27;</span>,
-    <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Entered <span class="hljs-subst">${e.features[<span class="hljs-number">0</span>].id}</span>`</span>),
-    <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Left <span class="hljs-subst">${e.oldFeatureid}</span>`</span>);
-
-<span class="hljs-comment">// Shows a popup when a feature is hovered over or clicked.</span>
-<span class="hljs-comment">// The third argument is an options object, passed to the Popup constructor.</span>
-<span class="hljs-comment">// callback is called as: (feature, popup) =&gt; htmlString</span>
-<span class="hljs-comment">// Make sure you passed the mapboxgl library itself when initialising: U.init(map, mapboxgl).</span>
-map.U.hoverPopup(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-function"><span class="hljs-params">f</span> =&gt;</span> <span class="hljs-string">`&lt;h3&gt;<span class="hljs-subst">${f.properties.Name}</span>&lt;/h3&gt; <span class="hljs-subst">${f.properties.Description}</span>`</span>, { <span class="hljs-attr">anchor</span>: <span class="hljs-string">&#x27;left&#x27;</span> });
-map.U.clickPopup(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-function"><span class="hljs-params">f</span> =&gt;</span> <span class="hljs-string">`&lt;h3&gt;<span class="hljs-subst">${f.properties.Name}</span>&lt;/h3&gt; <span class="hljs-subst">${f.properties.Description}</span>`</span>, { <span class="hljs-attr">maxWidth</span>: <span class="hljs-number">500</span> });
-
-<span class="hljs-comment">// clickLayer() is like .on(&#x27;click)&#x27;, but can take an array and adds a &#x27;features&#x27; member</span>
-<span class="hljs-comment">// to the event, for what got clicked on.</span>
-map.U.clickLayer([<span class="hljs-string">&#x27;towns&#x27;</span>, <span class="hljs-string">&#x27;town-labels&#x27;</span>], <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> panel.selectedId = e.features[<span class="hljs-number">0</span>].id);
-
-<span class="hljs-comment">// clickOneLayer tests multiple layers in order, firing callback on the first one that</span>
-<span class="hljs-comment">// is hit. The callback is passed { feature, features, layer, event }.</span>
-map.U.clickOneLayer([<span class="hljs-string">&#x27;town-labels&#x27;</span>, <span class="hljs-string">&#x27;state-boundaries&#x27;</span>], <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-    <span class="hljs-keyword">if</span> (e.layer === <span class="hljs-string">&#x27;town-labels&#x27;</span>) {
-        setView(<span class="hljs-string">&#x27;town&#x27;</span>);
-        panel.selectedId = e.features[<span class="hljs-number">0</span>].id;
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e.layer === <span class="hljs-string">&#x27;state-boundaries&#x27;</span>) {
-        setView(<span class="hljs-string">&#x27;state&#x27;</span>);
-        panel.selectedId = e.features[<span class="hljs-number">0</span>].id;
-    }
-});
-
-<span class="hljs-comment">// Optionally pass in an extra callback which is fired for clicks that miss all layers:</span>
-map.U.clickOneLayer([<span class="hljs-string">&#x27;town-labels&#x27;</span>, <span class="hljs-string">&#x27;state-boundaries&#x27;</span>], <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {...}, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Missed everything&#x27;</span>);
-});
-
-<span class="hljs-comment">// All these functions return an &quot;undo&quot; function that removes the handlers added:</span>
-<span class="hljs-keyword">const</span> remove = map.U.hoverPopup(<span class="hljs-string">&#x27;mylayer&#x27;</span>, showPopupFunc);
-<span class="hljs-comment">//...</span>
-remove(); <span class="hljs-comment">// no more hover popup</span></pre>
 <h3>Other functions</h3>
-<pre class='hljs'><span class="hljs-comment">// Like on(&#x27;load&#x27;) but fires immediately (and reliably) any time after map already loaded.</span>
-map.U.onLoad(callback);
-<span class="hljs-comment">// returns a promise if no callback:</span>
-<span class="hljs-keyword">await</span> map.U.onLoad();
-
-<span class="hljs-comment">// Gets the layer definition. Mapbox&#x27;s `getLayer()` has weird paint and layout properties.</span>
-<span class="hljs-keyword">const</span> layer = map.U.getLayerStyle(<span class="hljs-string">&#x27;mylayer&#x27;</span>);
-
-<span class="hljs-comment">// Resets all other properties to default first. Ignores non-paint, non-layout properties.</span>
-map.setLayerStyle(<span class="hljs-string">&#x27;mylayer&#x27;</span>, {
-    <span class="hljs-attr">lineWidth</span>: <span class="hljs-number">3</span>
-});
-
-<span class="hljs-comment">// properties() converts an object to a layer object accepted by Mapbox-GL-JS</span>
-map.addLayer(map.U.properties({
-    <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;mylayer&#x27;</span>,
-    <span class="hljs-attr">source</span>: <span class="hljs-string">&#x27;mysource&#x27;</span>,
-    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;line&#x27;</span>,
-    <span class="hljs-attr">lineWidth</span>: <span class="hljs-number">3</span>,
-    <span class="hljs-attr">lineCap</span>: <span class="hljs-string">&#x27;round&#x27;</span>,
-    <span class="hljs-attr">minzoom</span>: <span class="hljs-number">11</span>,
-    <span class="hljs-attr">filter</span>: [<span class="hljs-string">&#x27;==&#x27;</span>, <span class="hljs-string">&#x27;status&#x27;</span>, <span class="hljs-string">&#x27;confirmed&#x27;</span>]
-}));
-
-<span class="hljs-comment">// layerStyle() is flexible, pass as many or as few of id, source, and type (in that order) as you like:</span>
-map.U.layerStyle(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-string">&#x27;mysource&#x27;</span>, <span class="hljs-string">&#x27;line&#x27;</span>, { ... })
-map.U.layerStyle(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-string">&#x27;mysource&#x27;</span>, { ... })
-map.U.layerStyle(<span class="hljs-string">&#x27;mylayer&#x27;</span>, { ... })
-map.U.layerStyle({ ... })
-
-
-<span class="hljs-comment">// Hide/show/toggle all the layers attached to this source</span>
-map.U.hideSource(<span class="hljs-string">&#x27;buildings&#x27;</span>);
-map.U.showSource(<span class="hljs-string">&#x27;buildings&#x27;</span>);
-map.U.toggleSource(<span class="hljs-string">&#x27;buildings&#x27;</span>, <span class="hljs-literal">true</span>);
-
-<span class="hljs-comment">// Update several filters at once.</span>
-map.U.setFilter([<span class="hljs-string">&#x27;buildings-fill&#x27;</span>, <span class="hljs-string">&#x27;buildings-outline&#x27;</span>, <span class="hljs-string">&#x27;buildings-label&#x27;</span>], [...]);
-
-<span class="hljs-comment">// Conveniently load an image into the map in one step</span>
-map.U.loadImage(<span class="hljs-string">&#x27;marker&#x27;</span>, <span class="hljs-string">&#x27;/assets/marker-pin.png&#x27;</span>);
-map.U.loadImage(<span class="hljs-string">&#x27;marker&#x27;</span>, <span class="hljs-string">&#x27;/assets/marker-pin@2x.png&#x27;</span>, { <span class="hljs-attr">pixelRatio</span>: <span class="hljs-number">2</span>}).then(<span class="hljs-comment">/* ... */</span>;
-
-
-<span class="hljs-comment">// Update the map style&#x27;s root &quot;transition&quot; property</span>
-map.U.setTransition({ <span class="hljs-attr">delay</span>: <span class="hljs-number">1000</span>, <span class="hljs-attr">delay</span>: <span class="hljs-number">0</span>});
-
-<span class="hljs-comment">// Get a list of fonts used in symbol layers with fontsUsed(). Useful for quickly getting some text displaying.</span>
-<span class="hljs-keyword">const</span> fonts = map.U.fontsInUse();
-map.U.addSymbolLayer(<span class="hljs-string">&#x27;labels&#x27;</span>, <span class="hljs-string">&#x27;mysource&#x27;</span>, { <span class="hljs-attr">textFont</span>: fonts[<span class="hljs-number">0</span>], <span class="hljs-attr">textField</span>: <span class="hljs-string">&#x27;{label}&#x27;</span> });</pre>
 <h3>Contrived example</h3>
-<pre class='hljs'>map.U.onload(<span class="hljs-function">() =&gt;</span> {
-    map.U.addGeoJSON(<span class="hljs-string">&#x27;towns&#x27;</span>);
-    map.U.addCircleLayer(<span class="hljs-string">&#x27;small-towns&#x27;</span>, <span class="hljs-string">&#x27;towns&#x27;</span>, { <span class="hljs-attr">circleColor</span>: <span class="hljs-string">&#x27;green&#x27;</span>, <span class="hljs-attr">filter</span>: [<span class="hljs-string">&#x27;==&#x27;</span>, <span class="hljs-string">&#x27;size&#x27;</span>, <span class="hljs-string">&#x27;small&#x27;</span>]});
-    map.U.addCircleLayer(<span class="hljs-string">&#x27;large-towns&#x27;</span>, <span class="hljs-string">&#x27;towns&#x27;</span>, {
-        <span class="hljs-attr">circleColor</span>: <span class="hljs-string">&#x27;red&#x27;</span>,
-        <span class="hljs-attr">filter</span>: [<span class="hljs-string">&#x27;==&#x27;</span>, <span class="hljs-string">&#x27;size&#x27;</span>, [<span class="hljs-string">&#x27;large&#x27;</span>]],
-        <span class="hljs-attr">circleStrokeWidth</span>: [<span class="hljs-string">&#x27;case&#x27;</span>, [<span class="hljs-string">&#x27;to-boolean&#x27;</span>, [<span class="hljs-string">&#x27;feature-state&#x27;</span>, <span class="hljs-string">&#x27;hover&#x27;</span>]], <span class="hljs-number">5</span>, <span class="hljs-number">1</span>]
-    );
-    map.U.setCircleRadius([<span class="hljs-string">&#x27;small-towns&#x27;</span>, <span class="hljs-string">&#x27;large-towns&#x27;</span>], <span class="hljs-number">12</span>);
-    map.U.hoverPointer([<span class="hljs-string">&#x27;small-towns&#x27;</span>, <span class="hljs-string">&#x27;large-towns&#x27;</span>]);
-    map.U.hoverFeatureState(<span class="hljs-string">&#x27;large-towns&#x27;</span>);
-    <span class="hljs-comment">// update the source layer when data is available</span>
-    d3.json(<span class="hljs-string">&#x27;http://example.com/towns.json&#x27;</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> map.U.setData(<span class="hljs-string">&#x27;towns&#x27;</span>, data));
-});</pre>
 <h2>Credits</h2>
 <p>Map-GL-Utils was written by, and maintained, by Steve Bennett, a <a href="https://hire.stevebennett.me">freelance map developer</a>.</p>
 <p>Documentation built with <a href="https://github.com/documentationjs/documentation">documentation.js</a>.</p>
@@ -12369,6 +12320,618 @@ map.U.addSymbolLayer(<span class="hljs-string">&#x27;labels&#x27;</span>, <span 
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='getskyatmospherecolor'>
+      getSkyAtmosphereColor
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the <code>sky-atmosphere-color</code> paint property for a layer.</p>
+
+    <div class='pre p1 fill-light mt0'>getSkyAtmosphereColor(layer: LayerRef): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getskyatmospherehalocolor'>
+      getSkyAtmosphereHaloColor
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the <code>sky-atmosphere-halo-color</code> paint property for a layer.</p>
+
+    <div class='pre p1 fill-light mt0'>getSkyAtmosphereHaloColor(layer: LayerRef): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getskyatmospheresun'>
+      getSkyAtmosphereSun
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the <code>sky-atmosphere-sun</code> paint property for a layer.</p>
+
+    <div class='pre p1 fill-light mt0'>getSkyAtmosphereSun(layer: LayerRef): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getskyatmospheresunintensity'>
+      getSkyAtmosphereSunIntensity
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the <code>sky-atmosphere-sun-intensity</code> paint property for a layer.</p>
+
+    <div class='pre p1 fill-light mt0'>getSkyAtmosphereSunIntensity(layer: LayerRef): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getskygradient'>
+      getSkyGradient
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the <code>sky-gradient</code> paint property for a layer.</p>
+
+    <div class='pre p1 fill-light mt0'>getSkyGradient(layer: LayerRef): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getskygradientcenter'>
+      getSkyGradientCenter
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the <code>sky-gradient-center</code> paint property for a layer.</p>
+
+    <div class='pre p1 fill-light mt0'>getSkyGradientCenter(layer: LayerRef): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getskygradientradius'>
+      getSkyGradientRadius
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the <code>sky-gradient-radius</code> paint property for a layer.</p>
+
+    <div class='pre p1 fill-light mt0'>getSkyGradientRadius(layer: LayerRef): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getskyopacity'>
+      getSkyOpacity
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the <code>sky-opacity</code> paint property for a layer.</p>
+
+    <div class='pre p1 fill-light mt0'>getSkyOpacity(layer: LayerRef): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getskytype'>
+      getSkyType
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the <code>sky-type</code> paint property for a layer.</p>
+
+    <div class='pre p1 fill-light mt0'>getSkyType(layer: LayerRef): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='getsymbolavoidedges'>
       getSymbolAvoidEdges
     </h3>
@@ -21296,6 +21859,690 @@ map.U.addSymbolLayer(<span class="hljs-string">&#x27;labels&#x27;</span>, <span 
   <p>Sets the <code>raster-saturation</code> paint property for one or more layers.</p>
 
     <div class='pre p1 fill-light mt0'>setRasterSaturation(layer: LayerRef, value: any): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setskyatmospherecolor'>
+      setSkyAtmosphereColor
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the <code>sky-atmosphere-color</code> paint property for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setSkyAtmosphereColor(layer: LayerRef, value: any): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setskyatmospherehalocolor'>
+      setSkyAtmosphereHaloColor
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the <code>sky-atmosphere-halo-color</code> paint property for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setSkyAtmosphereHaloColor(layer: LayerRef, value: any): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setskyatmospheresun'>
+      setSkyAtmosphereSun
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the <code>sky-atmosphere-sun</code> paint property for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setSkyAtmosphereSun(layer: LayerRef, value: any): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setskyatmospheresunintensity'>
+      setSkyAtmosphereSunIntensity
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the <code>sky-atmosphere-sun-intensity</code> paint property for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setSkyAtmosphereSunIntensity(layer: LayerRef, value: any): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setskygradient'>
+      setSkyGradient
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the <code>sky-gradient</code> paint property for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setSkyGradient(layer: LayerRef, value: any): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setskygradientcenter'>
+      setSkyGradientCenter
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the <code>sky-gradient-center</code> paint property for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setSkyGradientCenter(layer: LayerRef, value: any): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setskygradientradius'>
+      setSkyGradientRadius
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the <code>sky-gradient-radius</code> paint property for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setSkyGradientRadius(layer: LayerRef, value: any): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setskyopacity'>
+      setSkyOpacity
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the <code>sky-opacity</code> paint property for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setSkyOpacity(layer: LayerRef, value: any): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setskytype'>
+      setSkyType
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the <code>sky-type</code> paint property for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setSkyType(layer: LayerRef, value: any): void</div>
   
   
 
