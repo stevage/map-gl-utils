@@ -1,3 +1,5 @@
 toc:
   - name: Overview
     file: README.md
+  - name: Changelog
+    file: CHANGES.md
