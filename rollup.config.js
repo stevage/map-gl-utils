@@ -16,7 +16,7 @@ export default [
                 file: 'umd/index.min.js',
                 format: 'umd', // minified UMD version for browser
                 name: 'U',
-                plugins: [terser(), babel({ babelHelpers: 'bundled' })],
+                plugins: [terser()],
             },
         ],
         plugins: [
