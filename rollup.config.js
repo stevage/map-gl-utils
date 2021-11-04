@@ -8,10 +8,9 @@ export default [
         input: 'src/index.js',
         output: [
             {
-                file: 'umd/ndex.js',
+                file: 'umd/index.js',
                 format: 'umd', // UMD version for browser
                 name: 'U',
-                plugins: [],
             },
             {
                 file: 'umd/index.min.js',
