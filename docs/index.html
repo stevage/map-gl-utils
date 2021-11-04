@@ -39,6 +39,16 @@
               
                 
                 <li><a
+                  href='#changelog'
+                  class="h5 bold black caps">
+                  Changelog
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#addcirclelayer'
                   class="">
                   addCircleLayer
@@ -3137,6 +3147,64 @@
 <p>Packaging uses <a href="https://rollupjs.org/guide/en/">rollup.js</a> and <a href="https://babeljs.io/">Babel</a>.</p>
 <p><a href="https://flow.org/">Flow</a> is used internally, including types from <a href="https://github.com/mapbox/mapbox-gl-js">Mapbox GL JS</a>.</p>
 <p>Tests are run using <a href="https://jestjs.io/">Jest</a>.</p>
+
+  
+</section></div>
+          
+        
+          
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='changelog' class='mt0'>
+    Changelog
+  </h2>
+
+  
+    <h2>Changelog</h2>
+<h3>0.41.0</h3>
+<ul>
+<li>fix UMD packaging (thanks @lasseborly!)</li>
+<li>fix ESM packaging (class properties not transformed properly)</li>
+<li>update to Mapbox GL Style Spec 13.22 ("sky" properties)</li>
+</ul>
+<h3>0.40.0</h3>
+<ul>
+<li>rename to Map-GL-JS and explicitly support Maplibre GL JS</li>
+<li>add Flow types</li>
+<li>add JSdocs and use documentation.js to make documentation</li>
+<li>change the packaging again, so <code>dist/index.esm.js</code> is the default, ES module, and <code>umd/index.js</code> is the UMD module.</li>
+</ul>
+<h3>0.39.0</h3>
+<ul>
+<li>remove kebab-case dependency</li>
+</ul>
+<h3>0.38.0</h3>
+<ul>
+<li>scrapped the CommonJS build. NodeJS is able to handle ES modules these days.</li>
+<li>rewrote the "arrayify" logic</li>
+<li>correctly handle 'hover' transitions across overlapping layers</li>
+<li>probably correctly gives an "off" handler so this kind of thing works:
+<code>const off = map.U.hoverPointer(['layer1','layer2']); /* ... */ off()</code></li>
+<li>more tests</li>
+</ul>
+<h3>0.37.0</h3>
+<ul>
+<li><code>onLoad()</code> now returns a promise if no callback provided.</li>
+</ul>
+<h3>0.36.0</h3>
+<ul>
+<li>added UMD build so you can use directly in the browser at <a href="https://unpkg.com/mapbox-gl-utils">https://unpkg.com/mapbox-gl-utils</a> or <a href="https://unpkg.com/mapbox-gl-utils@0.36.0/dist/index.min.js">https://unpkg.com/mapbox-gl-utils@0.36.0/dist/index.min.js</a> . <a href="https://github.com/stevage/mapbox-gl-utils/issues/27">https://github.com/stevage/mapbox-gl-utils/issues/27</a></li>
+<li>added es6 build as "module" parameter in package.json</li>
+</ul>
+<h3>0.35.0</h3>
+<ul>
+<li>added <code>fontsInUse()</code> function <a href="https://github.com/stevage/mapbox-gl-utils/issues/26">https://github.com/stevage/mapbox-gl-utils/issues/26</a></li>
+<li>added <code>getLineColor()</code>, getTextFont() etc <a href="https://github.com/stevage/mapbox-gl-utils/issues/24">https://github.com/stevage/mapbox-gl-utils/issues/24</a></li>
+<li>change: <code>addXLayer()</code> and <code>addX()</code> are now idempotent: call once to add layer/source, again to update. <a href="https://github.com/stevage/mapbox-gl-utils/issues/25">https://github.com/stevage/mapbox-gl-utils/issues/25</a></li>
+<li>change: allow passing no data to <code>setData()</code> <a href="https://github.com/stevage/mapbox-gl-utils/issues/19">https://github.com/stevage/mapbox-gl-utils/issues/19</a></li>
+<li>bugfix: <code>addVector()</code> with extra argument didn't work <a href="https://github.com/stevage/mapbox-gl-utils/issues/22">https://github.com/stevage/mapbox-gl-utils/issues/22</a></li>
+<li>new change log :)</li>
+</ul>
 
   
 </section></div>
