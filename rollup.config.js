@@ -23,7 +23,10 @@ export default [
             flow(),
             commonjs(),
             nodeResolve(),
-            babel({ babelHelpers: 'bundled' }),
+            babel({
+                babelHelpers: 'bundled',
+                presets: ['@babel/preset-env'],
+            }),
         ],
     },
 ];
