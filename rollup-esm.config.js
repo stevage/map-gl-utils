@@ -1,6 +1,6 @@
+import babel from '@rollup/plugin-babel';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import flow from 'rollup-plugin-flow';
+
 export default [
     {
         input: 'src/index.js',
@@ -10,6 +10,13 @@ export default [
                 format: 'esm', // ES2015 modules version so consumers can tree-shake
             },
         ],
-        plugins: [flow(), commonjs(), nodeResolve()],
+        plugins: [
+            nodeResolve(),
+            babel({
+                babelHelpers: 'bundled',
+                plugins: ['@babel/plugin-proposal-class-properties'],
+                presets: ['@babel/preset-flow'],
+            }),
+        ],
     },
 ];
