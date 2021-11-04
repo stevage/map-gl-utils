@@ -221,6 +221,33 @@ export const UtilsFuncs = {
           /** Sets the `background-opacity` paint property for one or more layers. */
           setBackgroundOpacity (layer: LayerRef, value: any): void {},
 
+          /** Sets the `sky-type` paint property for one or more layers. */
+          setSkyType (layer: LayerRef, value: any): void {},
+
+          /** Sets the `sky-atmosphere-sun` paint property for one or more layers. */
+          setSkyAtmosphereSun (layer: LayerRef, value: any): void {},
+
+          /** Sets the `sky-atmosphere-sun-intensity` paint property for one or more layers. */
+          setSkyAtmosphereSunIntensity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `sky-gradient-center` paint property for one or more layers. */
+          setSkyGradientCenter (layer: LayerRef, value: any): void {},
+
+          /** Sets the `sky-gradient-radius` paint property for one or more layers. */
+          setSkyGradientRadius (layer: LayerRef, value: any): void {},
+
+          /** Sets the `sky-gradient` paint property for one or more layers. */
+          setSkyGradient (layer: LayerRef, value: any): void {},
+
+          /** Sets the `sky-atmosphere-halo-color` paint property for one or more layers. */
+          setSkyAtmosphereHaloColor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `sky-atmosphere-color` paint property for one or more layers. */
+          setSkyAtmosphereColor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `sky-opacity` paint property for one or more layers. */
+          setSkyOpacity (layer: LayerRef, value: any): void {},
+
           /** Sets the `visibility` layout property for one or more layers. */
           setVisibility (layer: LayerRef, value: any): void {},
 
@@ -585,7 +612,34 @@ export const UtilsFuncs = {
           getBackgroundPattern (layer: LayerRef): any {},
 
           /** Gets the `background-opacity` paint property for a layer. */
-          getBackgroundOpacity (layer: LayerRef): any {}
+          getBackgroundOpacity (layer: LayerRef): any {},
+
+          /** Gets the `sky-type` paint property for a layer. */
+          getSkyType (layer: LayerRef): any {},
+
+          /** Gets the `sky-atmosphere-sun` paint property for a layer. */
+          getSkyAtmosphereSun (layer: LayerRef): any {},
+
+          /** Gets the `sky-atmosphere-sun-intensity` paint property for a layer. */
+          getSkyAtmosphereSunIntensity (layer: LayerRef): any {},
+
+          /** Gets the `sky-gradient-center` paint property for a layer. */
+          getSkyGradientCenter (layer: LayerRef): any {},
+
+          /** Gets the `sky-gradient-radius` paint property for a layer. */
+          getSkyGradientRadius (layer: LayerRef): any {},
+
+          /** Gets the `sky-gradient` paint property for a layer. */
+          getSkyGradient (layer: LayerRef): any {},
+
+          /** Gets the `sky-atmosphere-halo-color` paint property for a layer. */
+          getSkyAtmosphereHaloColor (layer: LayerRef): any {},
+
+          /** Gets the `sky-atmosphere-color` paint property for a layer. */
+          getSkyAtmosphereColor (layer: LayerRef): any {},
+
+          /** Gets the `sky-opacity` paint property for a layer. */
+          getSkyOpacity (layer: LayerRef): any {}
 ,
           /** Gets the `visibility` layout property for a layer. */
           getVisibility (layer: LayerRef): any {},

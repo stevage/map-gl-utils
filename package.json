@@ -59,5 +59,6 @@
     "singleQuote": true,
     "arrowParens": "avoid",
     "tabWidth": 4
-  }
+  },
+  "dependencies": {}
 }
