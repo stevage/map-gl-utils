@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.41.0
+- fix UMD packaging (thanks @lasseborly!)
+- fix ESM packaging (class properties not transformed properly)
+- update to Mapbox GL Style Spec 13.22 ("sky" properties)
 ### 0.40.0
 - rename to Map-GL-JS and explicitly support Maplibre GL JS
 - add Flow types
