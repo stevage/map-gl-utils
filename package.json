@@ -1,6 +1,6 @@
 {
   "name": "map-gl-utils",
-  "version": "0.40.0",
+  "version": "0.41.0",
   "description": "Utility functions for Mapbox GL JS or Maplibre GL JS",
   "main": "umd/index.min.js",
   "module": "dist/index.esm.js",
