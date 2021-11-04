@@ -29,6 +29,7 @@
     "@rollup/plugin-commonjs": "^18.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.2.1",
+    "documentation": "^13.2.5",
     "flow-bin": "^0.151.0",
     "flow-remove-types": "^2.151.0",
     "jest": "^25.1.0",
