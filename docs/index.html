@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>map-gl-utils 0.41.0 | Documentation</title>
+  <title>map-gl-utils 0.42.0 | Documentation</title>
   <meta name='description' content='Utility functions for Mapbox GL JS or Maplibre GL JS'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>map-gl-utils</h3>
-          <div class='mb1'><code>0.41.0</code></div>
+          <div class='mb1'><code>0.42.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -382,6 +382,16 @@
                   href='#setfilter'
                   class="">
                   setFilter
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setlayersource'
+                  class="">
+                  setLayerSource
                   
                 </a>
                 
@@ -3161,6 +3171,10 @@
 
   
     <h2>Changelog</h2>
+<h3>0.42.0</h3>
+<ul>
+<li>fixed UMD packaging some more by removing <code>esmodules: true</code> from rollup config.</li>
+</ul>
 <h3>0.41.0</h3>
 <ul>
 <li>fix UMD packaging (thanks @lasseborly!)</li>
@@ -5915,6 +5929,56 @@
       
       <pre class='p1 overflow-auto round fill-light'>map.U.setFilter([<span class="hljs-string">&#x27;buildings-fill&#x27;</span>, <span class="hljs-string">&#x27;buildings-outline&#x27;</span>, <span class="hljs-string">&#x27;buildings-label&#x27;</span>], [<span class="hljs-string">&#x27;==&#x27;</span>,<span class="hljs-string">&#x27;level&#x27;</span>,<span class="hljs-string">&#x27;0&#x27;</span>]]);</pre>
     
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setlayersource'>
+      setLayerSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Changes the source of an existing layer, by removing and readding the source.</p>
+
+    <div class='pre p1 fill-light mt0'>setLayerSource</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   
 
   
