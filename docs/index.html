@@ -6212,7 +6212,37 @@ map.U.addSymbolLayer('labels', 'mysource', { textFont: fonts[0], textField: '{la
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layerId</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layer[s] whose source will be changed.
 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    New source ID to set.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceLayer</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    New source layer to set.
+
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -6221,6 +6251,14 @@ map.U.addSymbolLayer('labels', 'mysource', { textFont: fonts[0], textField: '{la
 
   
 
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>setLayerSource([<span class="hljs-string">&#x27;trees-circle&#x27;</span>, <span class="hljs-string">&#x27;trees-label&#x27;</span>], <span class="hljs-string">&#x27;allpoints&#x27;</span>, <span class="hljs-string">&#x27;trees&#x27;</span>)</pre>
+    
   
 
   

@@ -918,7 +918,13 @@ class MapGlUtils implements UtilsFuncs {
             this.map.removeSource(source);
         }
     });
-    /** Changes the source of an existing layer, by removing and readding the source. */
+    /** Changes the source of an existing layer, by removing and readding the source.
+     *  @example setLayerSource(['trees-circle', 'trees-label'], 'allpoints', 'trees')
+     *  @param {string|Array<string>|RegExp|function} layerId Layer[s] whose source will be changed.
+     *  @param {string} sourceId New source ID to set.
+     *  @param {string} [sourceLayer] New source layer to set.
+     *
+     */
     setLayerSource: LayerRefFunc2<string, string> = arrayify(function (
         layerId,
         source,
