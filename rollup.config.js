@@ -25,17 +25,7 @@ export default [
             nodeResolve(),
             babel({
                 babelHelpers: 'bundled',
-                presets: [
-                    [
-                        '@babel/preset-env',
-                        {
-                            targets: {
-                                esmodules: true,
-                            },
-                        },
-                    ],
-                    ['@babel/preset-flow'],
-                ],
+                presets: [['@babel/preset-env'], ['@babel/preset-flow']],
             }),
         ],
     },

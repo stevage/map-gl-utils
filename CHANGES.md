@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.42.0
+- fixed UMD packaging some more by removing `esmodules: true` from rollup config.
+
 ### 0.41.0
 - fix UMD packaging (thanks @lasseborly!)
 - fix ESM packaging (class properties not transformed properly)
