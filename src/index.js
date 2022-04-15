@@ -581,14 +581,28 @@ class MapGlUtils implements UtilsFuncs {
         const style = this.map.getStyle();
         const layerIndex = style.layers.findIndex(l => l.id === layerDef.id);
         const beforeIndex = style.layers.findIndex(l => l.id === before);
-        if (layerIndex >= 0) {
-            style.layers.splice(layerIndex, 1, layerDef);
-        } else if (beforeIndex >= 0) {
-            style.layers.splice(beforeIndex, 0, layerDef);
+        const useAddLayer = true; // using addLayer is many times faster than replacing the style, especially if it includes GeoJSON sources literally
+        if (useAddLayer) {
+            if (layerIndex >= 0) {
+                this.map.removeLayer(layerDef.id);
+                let readdBefore = before;
+                if (!before && style.layers[layerIndex + 1]) {
+                    readdBefore = style.layers[layerIndex + 1].id;
+                }
+                this.map.addLayer(layerDef, readdBefore);
+            } else {
+                this.map.addLayer(layerDef, before || undefined);
+            }
         } else {
-            style.layers.push(layerDef);
+            if (layerIndex >= 0) {
+                style.layers.splice(layerIndex, 1, layerDef);
+            } else if (beforeIndex >= 0) {
+                style.layers.splice(beforeIndex, 0, layerDef);
+            } else {
+                style.layers.push(layerDef);
+            }
+            this.map.setStyle(style);
         }
-        this.map.setStyle(style);
         return this._makeSource(source);
     }
     removeLayer: LayerRefFunc = arrayify(function (layer) {

@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.43.0
+- revert to internally using `map.addLayer` rather than `map.setStyle` for performance
+
 ### 0.42.0
 - fixed UMD packaging some more by removing `esmodules: true` from rollup config.
 
