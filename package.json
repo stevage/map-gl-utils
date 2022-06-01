@@ -1,6 +1,6 @@
 {
   "name": "map-gl-utils",
-  "version": "0.42.1",
+  "version": "0.43.0",
   "description": "Utility functions for Mapbox GL JS or Maplibre GL JS",
   "main": "umd/index.min.js",
   "module": "dist/index.esm.js",
@@ -23,6 +23,7 @@
     "@babel/cli": "^7.8.7",
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.18.2",
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-flow": "^7.13.13",
     "@mapbox/mapbox-gl-style-spec": "^13.22",
