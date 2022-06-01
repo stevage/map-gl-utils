@@ -220,6 +220,10 @@ map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer',
 map.U.hoverPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`, { anchor: 'left' });
 map.U.clickPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`, { maxWidth: 500 });
 
+// Show the popup on 'mousemove' instead of 'mouseenter' so it changes when moving between immediately-adjacent
+// features in the same layer, or follows the pointer when hovering area features.
+map.U.hoverPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`, {}, 'mousemove');
+
 // clickLayer() is like .on('click)', but can take an array and adds a 'features' member
 // to the event, for what got clicked on.
 map.U.clickLayer(['towns', 'town-labels'], e => panel.selectedId = e.features[0].id);
