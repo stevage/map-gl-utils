@@ -15,8 +15,7 @@
     "prepublish": "yarn run update-keys; yarn run rollup; yarn run rollup-esm; yarn run docs-only",
     "docs-only": "documentation build -f html -o docs --config documentation.yml --sort-order alpha src/index.js src/utilsGenerated.js",
     "docs": "node updateKeys; yarn run docs-only",
-    "docserve": "documentation serve --config documentation.yml --watch --sort-order alpha src/index.js src/utilsGenerated.js",
-    "prepare": "node_modules/rollup/dist/bin/rollup -c rollup-esm.config.js"
+    "docserve": "documentation serve --config documentation.yml --watch --sort-order alpha src/index.js src/utilsGenerated.js"
   },
   "author": "Steve Bennett <me@stevebennett.me> (http://stevebennett.me)",
   "license": "Apache-2.0",
