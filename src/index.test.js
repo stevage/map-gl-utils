@@ -1009,8 +1009,16 @@ describe('setRootProperty()', () => {
 });
 
 describe('zoom()', () => {
-    test('Makes a zoom expression', () => {
+    test('Makes a zoom expression with object', () => {
         const e = utils.zoom({ 18: 0, 19: 1 });
+        expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
+    });
+    test('Makes a zoom expression with array', () => {
+        const e = utils.zoom([18, 0, 19, 1]);
+        expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
+    });
+    test('Makes a zoom expression with numbers', () => {
+        const e = utils.zoom(18, 0, 19, 1);
         expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
     });
 });
@@ -1030,6 +1038,18 @@ describe('interpolate()', () => {
     });
     test('Makes an interpolate function with an expression', () => {
         const e = utils.interpolate(['get', 'size'], { 2: 15, 4: 30 });
+        expect(e).toEqual([
+            'interpolate',
+            ['linear'],
+            ['get', 'size'],
+            2,
+            15,
+            4,
+            30,
+        ]);
+    });
+    test('Makes an interpolate function with an expression and numbers', () => {
+        const e = utils.interpolate(['get', 'size'], 2, 15, 4, 30);
         expect(e).toEqual([
             'interpolate',
             ['linear'],

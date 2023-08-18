@@ -266,24 +266,32 @@ class MapGlUtils implements UtilsFuncs {
         return map;
     }
 
-    static zoom(stops) {
+    static zoom(stops, ...moreStops) {
         return [
             'interpolate',
             ['linear'],
             ['zoom'],
-            ...Object.entries(stops)
-                .map(([z, out]) => [+z, out])
-                .flat(),
+            ...(Array.isArray(stops)
+                ? stops
+                : typeof stops === 'object'
+                ? Object.entries(stops)
+                      .map(([z, out]) => [+z, out])
+                      .flat()
+                : [stops, ...moreStops]),
         ];
     }
-    static interpolate(expression, stops) {
+    static interpolate(expression, stops, ...moreStops) {
         return [
             'interpolate',
             ['linear'],
             typeof expression === 'string' ? ['get', expression] : expression,
-            ...Object.entries(stops)
-                .map(([z, out]) => [isNaN(+z) ? z : +z, out])
-                .flat(),
+            ...(Array.isArray(stops)
+                ? stops
+                : typeof stops === 'object'
+                ? Object.entries(stops)
+                      .map(([z, out]) => [isNaN(+z) ? z : +z, out])
+                      .flat()
+                : [stops, ...moreStops]),
         ];
     }
 
