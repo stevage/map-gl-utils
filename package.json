@@ -42,7 +42,8 @@
   },
   "files": [
     "dist/*",
-    "umd/*"
+    "umd/*",
+    "noflow/*"
   ],
   "keywords": [
     "mapbox",
