@@ -1007,3 +1007,56 @@ describe('setRootProperty()', () => {
         expect(map.getStyle().sprite).toEqual('http://example.com/sprite');
     });
 });
+
+describe('zoom()', () => {
+    test('Makes a zoom expression', () => {
+        const e = utils.zoom({ 18: 0, 19: 1 });
+        expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
+    });
+});
+
+describe('interpolate()', () => {
+    test('Makes an interpolate function with a string property', () => {
+        const e = utils.interpolate('size', { 2: 15, 4: 30 });
+        expect(e).toEqual([
+            'interpolate',
+            ['linear'],
+            ['get', 'size'],
+            2,
+            15,
+            4,
+            30,
+        ]);
+    });
+    test('Makes an interpolate function with an expression', () => {
+        const e = utils.interpolate(['get', 'size'], { 2: 15, 4: 30 });
+        expect(e).toEqual([
+            'interpolate',
+            ['linear'],
+            ['get', 'size'],
+            2,
+            15,
+            4,
+            30,
+        ]);
+    });
+});
+
+describe('match()', () => {
+    test('Makes a match expression with "default" case', () => {
+        expect(
+            utils.match('size', { small: 12, medium: 18, default: 24 })
+        ).toEqual(['match', ['get', 'size'], 'small', 12, 'medium', 18, 24]);
+    });
+    test('Makes a match expression with fallback argument', () => {
+        expect(utils.match('size', { small: 12, medium: 18 }, 24)).toEqual([
+            'match',
+            ['get', 'size'],
+            'small',
+            12,
+            'medium',
+            18,
+            24,
+        ]);
+    });
+});

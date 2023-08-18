@@ -266,6 +266,42 @@ class MapGlUtils implements UtilsFuncs {
         return map;
     }
 
+    static zoom(stops) {
+        return [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            ...Object.entries(stops)
+                .map(([z, out]) => [+z, out])
+                .flat(),
+        ];
+    }
+    static interpolate(expression, stops) {
+        return [
+            'interpolate',
+            ['linear'],
+            typeof expression === 'string' ? ['get', expression] : expression,
+            ...Object.entries(stops)
+                .map(([z, out]) => [isNaN(+z) ? z : +z, out])
+                .flat(),
+        ];
+    }
+
+    static match(expression, cases, fallback) {
+        if (cases.default) {
+            fallback = cases.default;
+            delete cases.default;
+        }
+        return [
+            'match',
+            typeof expression === 'string' ? ['get', expression] : expression,
+            ...Object.entries(cases)
+                .map(([z, out]) => [isNaN(+z) ? z : +z, out])
+                .flat(),
+            fallback,
+        ];
+    }
+
     /** Sets Map's cursor to 'pointer' whenever the mouse is over these layers.
         @returns A function to remove the handler.
      */

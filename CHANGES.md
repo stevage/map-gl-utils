@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.44.0
+- add match/interpolate/zoom convenience functions, somewhat experimental
+
 ### 0.43.0
 - revert to internally using `map.addLayer` rather than `map.setStyle` for performance
 
