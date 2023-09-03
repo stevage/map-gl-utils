@@ -420,12 +420,14 @@ class MapGlUtils implements UtilsFuncs {
     @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
     @param htmlFunc Function that receives feature and popup, returns HTML.
     @param {Object<PopupOptions>} popupOptions Options passed to `Popup()` to customise popup.
+    @param {string} showEvent mouse event to trigger the popup, defaults to "mouseenter"
     @example hoverPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`, { anchor: 'left' });
     */
     hoverPopup(
         layers: LayerRef,
         htmlFunc: LayerCallback,
-        popupOptions?: PopupOptions = {}
+        popupOptions?: PopupOptions = {},
+        showEvent?: string = 'mouseenter'
     ): OffHandler {
         if (!this._mapgl) {
             throw 'Mapbox GL JS or MapLibre GL JS object required when initialising';
@@ -448,10 +450,10 @@ class MapGlUtils implements UtilsFuncs {
                 popup.remove();
             };
 
-            this.map.on('mouseenter', layer, mouseenter);
+            this.map.on(showEvent, layer, mouseenter);
             this.map.on('mouseout', layer, mouseout);
             return () => {
-                this.map.off('mouseenter', layer, mouseenter);
+                this.map.off(showEvent, layer, mouseenter);
                 this.map.off('mouseout', layer, mouseout);
                 mouseout();
             };

@@ -979,6 +979,16 @@ describe('Hook functions return "remove" handlers', () => {
         expect(map.on).toHaveBeenCalledTimes(4);
         expect(map.off).toHaveBeenCalledTimes(4);
     });
+    test('hoverPopup on mousemove', () => {
+        map.U.addGeoJSON('source');
+        map.U.addLine('layer', 'source');
+        const remove = map.U.hoverPopup('layer', f => f.properties.name, {}, 'mousemove');
+        expect(map._handlers.mousemove).toBeDefined();
+        expect(map._handlers.mouseout).toBeDefined();
+        remove();
+        expect(map._handlers.mousemove).not.toBeDefined();
+        expect(map._handlers.mouseout).not.toBeDefined();
+    });
     test('clickPopup', () => {
         map.U.addGeoJSON('source');
         map.U.addLine('layer', 'source');
