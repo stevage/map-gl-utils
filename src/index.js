@@ -19,11 +19,13 @@ import type MapboxGl from 'mapbox-gl/src';
 import type Map from 'mapbox-gl/src/ui/map';
 import type Popup, { PopupOptions } from 'mapbox-gl/src/ui/popup';
 type UtilsMap = MapboxGl.Map & { U: ?Utils };
+
 type MapboxGlLib = {
     Map: Class<Map>,
     Popup: Class<Popup>,
-    ...
+    /*...*/ // plugin flow-remove-types started choking on ... and 'function'. No idea why.
 };
+
 import type { UtilsFuncs } from './utilsGenerated.flow';
 type PropName = string; // todo more specific?
 // not currently used - weird, makeSource is really returning something slightly different from normal MapGlUtils
@@ -82,7 +84,7 @@ export type LayerRef =
     | RegExp
     | (LayerSpecification => boolean);
 type SourceRef = LayerRef;
-type PropValue = string | Array<any> | null | number | { ... }; // so basically any
+type PropValue = string | Array<any> | null | number /*| { ... }*/; // so basically any
 
 // turn a thing, an array of things, a regex or a filter function, into an array
 const resolveArray = (things: LayerRef, map: MapboxGl.Map): Array<any> => {
@@ -143,7 +145,7 @@ const arrayify = (
 };
 
 type OffHandler = () => void;
-type LayerCallback = ({ ... }) => void; // todo
+type LayerCallback = () => /*{ ... }*/ void; // todo
 
 // assuming each function returns an 'off' handler, returns a function that calls them all
 const arrayifyAndOff = (
@@ -187,13 +189,24 @@ class MapGlUtils implements UtilsFuncs {
 
     static async newMap(
         mapboxgl: MapboxGlLib,
-        params?: { style?: { ... }, ... } = {}, //hrm should be MapOptions but that type seems incomplete?
+        params?: {
+            style?: {
+                /*...*/
+            },
+            /*...*/
+        } = {}, //hrm should be MapOptions but that type seems incomplete?
         options?: {
-            addLayers?: Array<{ ... }>,
-            addSources?: Array<{ ... }>,
+            addLayers?: Array<{
+                /*...*/
+            }>,
+            addSources?: Array<{
+                /*...*/
+            }>,
             transformStyle?: StyleSpecification => StyleSpecification,
-            mixStyles?: { ... }, // todo refine
-            ...
+            mixStyles?: {
+                /*...*/
+            }, // todo refine
+            /*...*/
         } = {}
     ): Promise<UtilsMap> {
         function addLayers(style: StyleSpecification, layers = []) {
@@ -348,14 +361,18 @@ class MapGlUtils implements UtilsFuncs {
         layer: LayerRef,
         source?: string,
         sourceLayer?: string,
-        enterCb: ({ ... }) => void,
-        leaveCb: ({ ... }) => void
+        enterCb: ({
+            /*...*/
+        }) => void,
+        leaveCb: ({
+            /*...*/
+        }) => void
     ) => () => void = arrayifyAndOff(function (
         layer: LayerRef,
         source?: string,
         sourceLayer: string,
-        enterCb: function,
-        leaveCb: function
+        enterCb /*: function*/,
+        leaveCb /*: function*/
     ): any {
         if (Array.isArray(source)) {
             // assume we have array of [source, sourceLayer]
@@ -468,7 +485,9 @@ class MapGlUtils implements UtilsFuncs {
     */
     clickPopup(
         layers: LayerRef,
-        htmlFunc: ({ ... }) => void,
+        htmlFunc: ({
+            /*...*/
+        }) => void,
         popupOptions?: PopupOptions = {}
     ): OffHandler {
         if (!this._mapgl) {
@@ -582,7 +601,9 @@ class MapGlUtils implements UtilsFuncs {
         id: string,
         source: string,
         type: string,
-        props: { ... },
+        props: {
+            /*...*/
+        },
         before: ?string
     ): SourceBoundUtils {
         this._mapAddLayerBefore(
@@ -596,7 +617,9 @@ class MapGlUtils implements UtilsFuncs {
         id: string,
         source: SourceOrData,
         type: string,
-        props: { ... },
+        props: {
+            /*...*/
+        },
         before?: string
     ): ?SourceBoundUtils {
         this._mapAddLayerBefore(
@@ -661,23 +684,77 @@ class MapGlUtils implements UtilsFuncs {
     });
     // The bodies of these functions are added later by `makeAddLayer`
     /** Adds a layer of type `line`.*/
-    addLineLayer(id: string, props: { ... }, before?: string): void {}
+    addLineLayer(
+        id: string,
+        props: {
+            /*...*/
+        },
+        before?: string
+    ): void {}
     /** Adds a layer of type `fill`.*/
-    addFillLayer(id: string, props: { ... }, before?: string): void {}
+    addFillLayer(
+        id: string,
+        props: {
+            /*...*/
+        },
+        before?: string
+    ): void {}
     /** Adds a layer of type `circle`.*/
-    addCircleLayer(id: string, props: { ... }, before?: string): void {}
+    addCircleLayer(
+        id: string,
+        props: {
+            /*...*/
+        },
+        before?: string
+    ): void {}
     /** Adds a layer of type `symbol`.*/
-    addSymbolLayer(id: string, props: { ... }, before?: string): void {}
+    addSymbolLayer(
+        id: string,
+        props: {
+            /*...*/
+        },
+        before?: string
+    ): void {}
     /** Adds a layer of type `video`.*/
-    addVideoLayer(id: string, props: { ... }, before?: string): void {}
+    addVideoLayer(
+        id: string,
+        props: {
+            /*...*/
+        },
+        before?: string
+    ): void {}
     /** Adds a layer of type `raster`.*/
-    addRasterLayer(id: string, props: { ... }, before?: string): void {}
+    addRasterLayer(
+        id: string,
+        props: {
+            /*...*/
+        },
+        before?: string
+    ): void {}
     /** Adds a layer of type `fill-extrusion`.*/
-    addFillExtrusionLayer(id: string, props: { ... }, before?: string): void {}
+    addFillExtrusionLayer(
+        id: string,
+        props: {
+            /*...*/
+        },
+        before?: string
+    ): void {}
     /** Adds a layer of type `heatmap`.*/
-    addHeatmapLayer(id: string, props: { ... }, before?: string): void {}
+    addHeatmapLayer(
+        id: string,
+        props: {
+            /*...*/
+        },
+        before?: string
+    ): void {}
     /** Adds a layer of type `hillshade`.*/
-    addHillshadeLayer(id: string, props: { ... }, before?: string): void {}
+    addHillshadeLayer(
+        id: string,
+        props: {
+            /*...*/
+        },
+        before?: string
+    ): void {}
 
     /** Create a GeoJSON layer. */
     addGeoJSONSource(
@@ -719,8 +796,14 @@ class MapGlUtils implements UtilsFuncs {
     */
     addVectorSource(
         sourceId: string,
-        props: string | { ... },
-        extraProps?: { ... } = {}
+        props:
+            | string
+            | {
+                  /*...*/
+              },
+        extraProps?: {
+            /*...*/
+        } = {}
     ): SourceBoundUtils {
         if (typeof props === 'string') {
             if (props.match(/\{z\}/)) {
@@ -746,8 +829,14 @@ class MapGlUtils implements UtilsFuncs {
     }
     addVector(
         sourceId: string,
-        props: string | { ... },
-        extraProps?: { ... } = {}
+        props:
+            | string
+            | {
+                  /*...*/
+              },
+        extraProps?: {
+            /*...*/
+        } = {}
     ): SourceBoundUtils {
         return this.addVectorSource(sourceId, props, extraProps);
     }
@@ -839,7 +928,11 @@ class MapGlUtils implements UtilsFuncs {
         }
     });
     /** Converts a set of properties in pascalCase or kebab-case into a layer objectwith layout and paint properties. */
-    properties(props?: { ... }): ?{ ... } {
+    properties(props?: {
+        /*...*/
+    }): ?{
+        /*...*/
+    } {
         if (!props) {
             return undefined;
         }
@@ -877,9 +970,13 @@ class MapGlUtils implements UtilsFuncs {
     getLayerStyle(layerId: string): LayerSpecification {
         return this.map.getStyle().layers.find(l => l.id === layerId);
     }
-    setLayerStyle: LayerRefFunc1<{ ... }> = arrayify(function (
-        layer: LayerRef | { id: string, ... },
-        style: { ... }
+    setLayerStyle: LayerRefFunc1<{
+        /*...*/
+    }> = arrayify(function (
+        layer: LayerRef | { id: string /*...*/ },
+        style: {
+            /*...*/
+        }
     ) {
         const clearProps = (oldObj = {}, newObj = {}) =>
             Object.keys(oldObj).forEach(key => {
@@ -1084,7 +1181,7 @@ class MapGlUtils implements UtilsFuncs {
                     fonts.push(
                         ...fontExpr.stops.flat().filter(Array.isArray).flat()
                     );
-                } catch {
+                } catch (e) {
                     console.log("Couldn't process font expression:", fontExpr);
                 }
             } else if (fontExpr.every(f => typeof f === 'string')) {
