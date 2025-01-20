@@ -1,11 +1,11 @@
 {
   "name": "map-gl-utils",
-  "version": "0.46.0-rc.6",
+  "version": "0.46.0-rc.7",
   "description": "Utility functions for Mapbox GL JS or Maplibre GL JS",
   "main": "umd/index.min.js",
   "module": "dist/index.esm.js",
   "type": "module",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/src/index.d.ts",
   "scripts": {
     "test": "node node_modules/jest/bin/jest src",
     "update-keys": "node updateKeys",
