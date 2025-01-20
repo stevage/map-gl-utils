@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "pretest": "node node_modules/flow-remove-types/flow-remove-types -d noflow src",
-    "test": "node node_modules/jest/bin/jest noflow/",
+    "test": "node node_modules/jest/bin/jest src",
     "update-keys": "node updateKeys",
     "babel": "babel src -d dist",
     "rollup": "node_modules/rollup/dist/bin/rollup -c rollup.config.js",
@@ -26,19 +26,24 @@
     "@babel/plugin-transform-modules-commonjs": "7.18.2",
     "@babel/preset-env": "7.14.2",
     "@babel/preset-typescript": "^7.26.0",
-    "@mapbox/mapbox-gl-style-spec": "13.22",
+    "@mapbox/mapbox-gl-style-spec": "^14",
     "@rollup/plugin-babel": "5.3.0",
     "@rollup/plugin-commonjs": "18.0.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "11.2.1",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/geojson": "^7946.0.15",
+    "@types/jest": "^29.5.14",
     "documentation": "13.2.5",
     "flow-remove-types": "2.255.0",
     "jest": "29.5",
     "mapbox-gl": "^3.8.0",
     "rollup": "2.45.1",
-    "rollup-plugin-flow": "1.1.1",
     "rollup-plugin-terser": "7.0.2",
-    "typescript": "^5.7.3"
+    "rollup-plugin-ts": "^3.4.5",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.3",
+    "utility-types": "^3.11.0"
   },
   "files": [
     "dist/*",
@@ -55,7 +60,7 @@
     "maps"
   ],
   "repository": "github:stevage/map-gl-utils",
-  "jest": {
+  "oldjest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
   },

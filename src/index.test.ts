@@ -1,3 +1,4 @@
+//@ts-nocheck
 import utils from './index';
 const mockMap = jest.fn(params => {
     let map;
