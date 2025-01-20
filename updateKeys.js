@@ -7,6 +7,18 @@ import fs from 'fs';
 const upperCamelCase = s =>
     s.replace(/(^|-)([a-z])/g, (x, y, l) => `${l.toUpperCase()}`);
 
+// write a typescript file
+function writeLayerTypeDefs(fileName, propNames) {
+    let out = '';
+    out += '// Automatically generated type file. \n';
+    out += `export type UtilsLayerDef = Partial<Record<\n`;
+    out += propNames.map(p => `  '${upperCamelCase(p)}' `).join('|\n');
+    out += '|\n';
+    out += propNames.map(p => `  '${p}' `).join('|\n');
+    out += ', any>>\n';
+    fs.writeFileSync(fileName, out);
+}
+
 function writeUtilsFuncsTS(fileName, propNames) {
     function setFunc(propName) {
         return `  set${upperCamelCase(
@@ -16,7 +28,7 @@ function writeUtilsFuncsTS(fileName, propNames) {
     function getFunc(propName) {
         return `  get${upperCamelCase(propName)}: (layer: LayerRef) => any`;
     }
-    let out = `//@flow\n`;
+    let out = '';
     out += '// Automatically generated type file. \n';
     out += `import type { LayerRef } from './index';\n`;
     out += `export interface UtilsFuncs {\n`;
@@ -40,7 +52,7 @@ function writeUtilsFuncsJS(fileName, paints, layouts) {
           /** Gets the \`${propName}\` ${type} property for a layer. */
           get${upperCamelCase(propName)} (layer: LayerRef): any {}`;
     }
-    let out = `//@flow\n`;
+    let out = '';
     out += '// Automatically generated for documentation.';
     out += `import type { LayerRef } from './index';\n`;
     out += `export const UtilsFuncs = {\n`;
@@ -90,7 +102,10 @@ export default {
 );
 writeUtilsFuncsTS('src/utilsGenerated.ts', [...out.paints, ...out.layouts]);
 writeUtilsFuncsJS('src/utilsGenerated.js', out.paints, out.layouts);
-
+writeLayerTypeDefs('src/layerTypeDefsGenerated.ts', [
+    ...out.paints,
+    ...out.layouts,
+]);
 console.log(
     `Wrote updated ${outFileES} based on Mapbox-GL style spec ${styleSpecVersion}.`
 );

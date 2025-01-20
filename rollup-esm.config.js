@@ -1,9 +1,12 @@
 import babel from '@rollup/plugin-babel';
+import ts from '@rollup/plugin-typescript';
+import json from '@rollup/plugin-json';
+
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default [
     {
-        input: 'src/index.js',
+        input: 'src/index.ts',
         output: [
             {
                 file: 'dist/index.esm.js',
@@ -12,10 +15,14 @@ export default [
         ],
         plugins: [
             nodeResolve(),
+            ts({
+                declarationDir: 'dist',
+            }),
+            json(),
             babel({
                 babelHelpers: 'bundled',
                 plugins: ['@babel/plugin-proposal-class-properties'],
-                presets: ['@babel/preset-flow'],
+                presets: ['@babel/preset-typescript'],
             }),
         ],
     },

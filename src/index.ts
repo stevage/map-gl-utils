@@ -13,10 +13,11 @@ import type {
     VideoSourceSpecification,
 } from '@mapbox/mapbox-gl-style-spec/types';
 import type { GeoJSON } from 'geojson';
-import type { StyleImageMetadata } from 'mapbox-gl/src/style/style_image';
+// import type { StyleImageMetadata } from 'mapbox-gl/src/style/style_image';
 import type MapboxGl from 'mapbox-gl';
 import type {
     DataDrivenPropertyValueSpecification,
+    ExpressionSpecification,
     FunctionSpecification,
     GeoJSONSource,
     LayoutSpecification,
@@ -25,6 +26,17 @@ import type {
     PaintSpecification,
 } from 'mapbox-gl';
 import type { Popup, PopupOptions } from 'mapbox-gl';
+
+// copied from mapbox-gl
+type StyleImageMetadata = {
+    pixelRatio: number;
+    sdf: boolean;
+    usvg: boolean;
+    stretchX?: Array<[number, number]>;
+    stretchY?: Array<[number, number]>;
+    content?: [number, number, number, number];
+};
+
 type UtilsMap = MapboxGLMap & {
     U: MapGlUtils | null | undefined;
 };
@@ -33,8 +45,8 @@ type MapboxGlLib = {
     Popup: Class<Popup>; // plugin flow-remove-types started choking on ... and 'function'. No idea why.
 };
 
-// TSTODO
 import type { UtilsFuncs } from './utilsGenerated';
+import type { UtilsLayerDef as UtilsLayerDefBasic } from './layerTypeDefsGenerated';
 type PropName = string; // todo more specific?
 
 // not currently used - weird, makeSource is really returning something slightly different from normal MapGlUtils
@@ -46,9 +58,8 @@ type PropName = string; // todo more specific?
 type SourceBoundUtils = MapGlUtils;
 
 // our more general type for layer definitions, where kebab-case or camelCase allowed, can have layout and paint objects or not, etc
-type UtilsLayerDef = {
-    [key: string]: any;
-};
+
+type UtilsLayerDef = UtilsLayerDefBasic | LayerSpecification;
 
 const kebabCase = (s: string) =>
     s.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
@@ -104,8 +115,7 @@ export type LayerRef =
     | RegExp
     | ((arg0: LayerSpecification) => boolean);
 type SourceRef = LayerRef;
-type PropValue = string | Array<any> | null | number;
-/*| { ... }*/ // so basically any
+type PropValue = string | ExpressionSpecification | null | number;
 
 // turn a thing, an array of things, a regex or a filter function, into an array
 const resolveArray = (things: LayerRef, map: MapboxGLMap): Array<any> => {
@@ -212,12 +222,15 @@ const layerTypes = [
 
 // @ts-expect-error[prop-missing]
 
-class MapGlUtils implements UtilsFuncs {
+class _MapGlUtils implements UtilsFuncs {
     _loaded: boolean = false;
     _mapgl: MapboxGlLib | null | undefined = null;
     // technically map is briefly null before initialisation
     //@ts-expect-error[prop-missing]
     map: UtilsMap; // | null = null;
+
+    //@ts-ignore
+
     update: (sourceId: string, data?: GeoJSON) => void;
 
     /** Initialises Map-GL-Utils on existing map object.
@@ -225,7 +238,7 @@ class MapGlUtils implements UtilsFuncs {
       @returns Initialised MapGlUtils object.
   */
     static init(map: UtilsMap, mapgl?: MapboxGlLib): MapGlUtils {
-        map.U = new MapGlUtils();
+        map.U = new _MapGlUtils() as MapGlUtils;
         map.U._mapgl = mapgl;
         map.U.map = map;
         return map.U;
@@ -252,7 +265,7 @@ class MapGlUtils implements UtilsFuncs {
             layers: UtilsLayerDef[] = []
         ) {
             style.layers = [
-                ...style.layers, // $FlowFixMe[incompatible-type]
+                ...style.layers,
                 ...layers.map(l => this.layerStyle(l)),
             ];
         }
@@ -272,7 +285,7 @@ class MapGlUtils implements UtilsFuncs {
         function mixStyles(
             this: MapGlUtils,
             style: StyleSpecification,
-            mixStyles = {}
+            mixStyles: { [key: string]: any } = {}
         ) {
             Object.keys(mixStyles).forEach(sourceId => {
                 const layers = mixStyles[sourceId].layers;
@@ -281,6 +294,7 @@ class MapGlUtils implements UtilsFuncs {
                 style.layers = [
                     ...style.layers,
                     ...layers.map((l: UtilsLayerDef) =>
+                        // @ts-ignore too complicated
                         this.layerStyle({
                             source: sourceId,
                             ...l,
@@ -318,7 +332,7 @@ class MapGlUtils implements UtilsFuncs {
                 style = styleParam;
             }
 
-            const u = new MapGlUtils();
+            const u = new _MapGlUtils() as MapGlUtils;
             addLayers.call(u, style, options.addLayers);
             addSources(style, options.addSources);
             transformStyle(style, options.transformStyle ?? (x => x));
@@ -326,8 +340,8 @@ class MapGlUtils implements UtilsFuncs {
             params.style = style;
         }
 
-        const map: UtilsMap = new mapboxgl.Map(params);
-        MapGlUtils.init(map, mapboxgl);
+        const map: UtilsMap = new mapboxgl.Map(params) as UtilsMap;
+        _MapGlUtils.init(map, mapboxgl);
         return map;
     }
 
@@ -442,7 +456,7 @@ class MapGlUtils implements UtilsFuncs {
         leaveCb?: (arg0: {}) => void
     ) => () => void = arrayifyAndOff(function (
         this: MapGlUtils,
-        layer: LayerRef,
+        layer: string,
         source?: string,
         sourceLayer?: string,
         enterCb?,
@@ -459,7 +473,7 @@ class MapGlUtils implements UtilsFuncs {
         }
 
         if (source === undefined) {
-            const l = this.getLayerStyle(layer);
+            const l = this.getLayerStyle(layer) as LayerSpecification;
             source = l.source;
             sourceLayer = l['source-layer'];
         }
@@ -589,7 +603,8 @@ class MapGlUtils implements UtilsFuncs {
         const popup = new this._mapgl.Popup({ ...popupOptions });
         return arrayifyAndOff(function (this: MapGlUtils, layer, htmlFunc) {
             const click = (e: MapMouseEvent) => {
-                if (e.features[0]) {
+                if (e.features?.[0]) {
+                    // @ts-ignore // geometrycollection v unlikely
                     popup.setLngLat(e.features[0].geometry.coordinates.slice());
                     popup.setHTML(htmlFunc(e.features[0], popup));
                     popup.addTo(this.map);
@@ -704,7 +719,7 @@ class MapGlUtils implements UtilsFuncs {
         before: string | null | undefined
     ): SourceBoundUtils {
         this._mapAddLayerBefore(
-            this.layerStyle(id, source, type, props),
+            this.layerStyle(id, source, type, props) as LayerSpecification,
             before
         );
 
@@ -741,10 +756,15 @@ class MapGlUtils implements UtilsFuncs {
         layerId: string,
         source: string,
         type: string,
-        props: SourceSpecification,
+        props: UtilsLayerDef,
         before?: string
     ): SourceBoundUtils {
-        const layerDef = this.layerStyle(layerId, source, type, props);
+        const layerDef = this.layerStyle(
+            layerId,
+            source,
+            type,
+            props
+        ) as LayerSpecification;
         const style = this.map.getStyle();
         if (!style) throw 'Map has no style';
         const layerIndex = style.layers.findIndex(l => l.id === layerDef.id);
@@ -948,32 +968,34 @@ class MapGlUtils implements UtilsFuncs {
     /** Sets a paint or layout property on one or more layers.
   @example setProperty(['buildings-fill', 'parks-fill'], 'fillOpacity', 0.5)
   */
-    setProperty: LayerRefFunc2<string, PropValue> = arrayify(function (
-        this: MapGlUtils,
-        layerRef: LayerRef,
-        prop: string | undefined,
-        value?: PropValue | undefined
-    ) {
-        if (typeof prop === 'object') {
-            Object.keys(prop).forEach(k =>
-                this.setProperty(layerRef, k, prop[k])
-            );
-        } else {
-            const kprop = kebabCase(prop ?? '');
-            const layers = resolveArray(layerRef, this.map);
-            for (const layer of layers) {
-                if (isPaintProp(kprop)) {
-                    // @ts-ignore
-                    this.map.setPaintProperty(layer, kprop, value);
-                } else if (isLayoutProp(kprop)) {
-                    // @ts-ignore
-                    this.map.setLayoutProperty(layer, kprop, value);
-                } else {
-                    // ignore properties such as minzoom, type, filter, etc for now.
+    setProperty: LayerRefFunc2<string, PropValue | undefined> = arrayify(
+        function (
+            this: MapGlUtils,
+            layerRef: LayerRef,
+            prop: string | undefined,
+            value?: PropValue | undefined // TODO should undefined be coerced to null?
+        ) {
+            if (typeof prop === 'object') {
+                Object.keys(prop).forEach(k =>
+                    this.setProperty(layerRef, k, prop[k])
+                );
+            } else {
+                const kprop = kebabCase(prop ?? '');
+                const layers = resolveArray(layerRef, this.map);
+                for (const layer of layers) {
+                    if (isPaintProp(kprop)) {
+                        // @ts-ignore
+                        this.map.setPaintProperty(layer, kprop, value);
+                    } else if (isLayoutProp(kprop)) {
+                        // @ts-ignore
+                        this.map.setLayoutProperty(layer, kprop, value);
+                    } else {
+                        // ignore properties such as minzoom, type, filter, etc for now.
+                    }
                 }
             }
         }
-    });
+    );
 
     /** Converts a set of properties in pascalCase or kebab-case into a layer objectwith layout and paint properties. */
     properties(props?: {} /*...*/): {} | null | undefined {
@@ -1015,10 +1037,9 @@ class MapGlUtils implements UtilsFuncs {
     }
 
     // layerStyle([id,] [source,] [type,] props)
+    // this is also used for source definitions
     // TODO somehow make this type safe.
-    layerStyle(
-        ...args: Array<string | UtilsLayerDef>
-    ): $Shape<LayerSpecification> {
+    layerStyle(...args: Array<string | UtilsLayerDef>): LayerSpecification {
         const [id, source, type] = args;
         const props = args.find(
             arg => typeof arg === 'object' && !Array.isArray(arg)
@@ -1027,7 +1048,10 @@ class MapGlUtils implements UtilsFuncs {
             typeof props === 'object' ? this.properties(props) || {} : {};
         if (typeof id === 'string') ret.id = id;
         if (typeof source === 'string') ret.source = source;
+        // @ts-ignore
         if (typeof type === 'string') ret.type = type;
+
+        //@ts-ignore - yes, maybe we should actually check
         return ret;
     }
 
@@ -1039,16 +1063,19 @@ class MapGlUtils implements UtilsFuncs {
 
     setLayerStyle: LayerRefFunc1<{}> = arrayify(function (
         this: MapGlUtils,
-        layer: LayerRef,
+        layer: string | LayerSpecification,
         // | {
         //       id: string;
         //   },
-        style: {}
+        style?: UtilsLayerDef
     ) {
-        const clearProps = (oldObj = {}, newObj = {}) =>
+        const clearProps = (
+            oldObj: { [key: string]: any } = {},
+            newObj: { [key: string]: any } = {}
+        ) =>
             Object.keys(oldObj).forEach(key => {
                 if (!(key in newObj)) {
-                    this.setProperty(layer, key, undefined);
+                    this.setProperty(layer as string, key, undefined);
                 }
             });
 
@@ -1063,13 +1090,17 @@ class MapGlUtils implements UtilsFuncs {
             // $FlowFixMe[prop-missing]
             layer = style.id;
         }
-        // TODO arrayify
-        const oldStyle = this.getLayerStyle(layer);
-        const newStyle = this.properties(style);
-        clearProps(oldStyle.paint, newStyle.paint);
-        clearProps(oldStyle.layout, newStyle.layout);
+        const oldStyle = this.getLayerStyle(layer as string);
+        const newStyle: { [key: string]: any } | null | undefined =
+            this.properties(style);
+        clearProps(oldStyle?.paint, newStyle?.paint);
+        clearProps(oldStyle?.layout, newStyle?.layout);
         // Hmm, this gets murky, what exactly is meant to happen with non-paint, non-layout props?
-        this.setProperty(layer, { ...newStyle.paint, ...newStyle.layout });
+        this.setProperty(
+            layer as string,
+            { ...newStyle?.paint, ...newStyle?.layout },
+            undefined
+        );
     });
 
     /** Replaces the current data for a GeoJSON layer.
@@ -1093,7 +1124,6 @@ class MapGlUtils implements UtilsFuncs {
         this: MapGlUtils,
         layer: LayerRef
     ) {
-        // @ts-expect-error gets added by makeSetProperty
         this.setVisibility(layer, 'visible');
     });
 
@@ -1101,7 +1131,6 @@ class MapGlUtils implements UtilsFuncs {
   @param {string|Array<string>|RegExp|function} Layer to toggle.
    */
     hide: LayerRefFunc0 = arrayify(function (this: MapGlUtils, layer) {
-        // @ts-expect-error gets added by makeSetProperty
         this.setVisibility(layer, 'none');
     });
 
@@ -1110,7 +1139,7 @@ class MapGlUtils implements UtilsFuncs {
   @param {boolean} state True for visible, false for hidden.
   */
     toggle: LayerRefFunc1<boolean> = arrayify(function (
-        this: MapGlUtils,
+        this: UtilsFuncs,
         layer,
         state
     ) {
@@ -1118,7 +1147,10 @@ class MapGlUtils implements UtilsFuncs {
     });
 
     /** Makes all layers depending on a given source visible. */
-    showSource: SourceRefFunc0 = arrayify(function (this: MapGlUtils, source) {
+    showSource: SourceRefFunc0 = arrayify(function (
+        this: MapGlUtils & UtilsFuncs,
+        source
+    ) {
         this.setVisibility(this.layersBySource(source), 'visible');
     });
 
@@ -1219,9 +1251,14 @@ class MapGlUtils implements UtilsFuncs {
     }
 
     /** Set a property on the style's root, such as `light` or `transition`. */
-    setRootProperty(propName: string, val: PropValue) {
+    setRootProperty(
+        propName: string,
+        val: PropValue | TransitionSpecification
+    ) {
         const style = this.map.getStyle();
+        // @ts-ignore
         style[kebabCase(propName)] = val;
+        // @ts-ignore
         this.map.setStyle(style);
     }
 
@@ -1242,7 +1279,7 @@ class MapGlUtils implements UtilsFuncs {
         ) {
             return new Promise((resolve, reject) => {
                 this.map.loadImage(url, (error, image) => {
-                    if (error) {
+                    if (error || !image) {
                         console.error(`Error loading image ${url}`, error);
                         reject(`Error loading image ${url}`);
                     } else {
@@ -1266,7 +1303,7 @@ class MapGlUtils implements UtilsFuncs {
     fontsInUse(): Array<string> {
         // TODO add tests
         // TODO: find fonts burried within ['format', ... { 'text-font': ... }] expressions
-        function findLiterals(expr) {
+        function findLiterals(expr: ExpressionSpecification) {
             if (Array.isArray(expr)) {
                 if (expr[0] === 'literal') {
                     ///
@@ -1313,6 +1350,7 @@ class MapGlUtils implements UtilsFuncs {
 
                 fonts.push(...fontExpr);
             } else {
+                // @ts-ignore
                 findLiterals(fontExpr);
             }
         }
@@ -1322,29 +1360,40 @@ class MapGlUtils implements UtilsFuncs {
 
     _makeSource(sourceId: string): SourceBoundUtils {
         // returns an object on which we can call .addLine() etc.
-        const out = new MapGlUtils();
+        const out = new _MapGlUtils();
         out.map = this.map;
         out._mapgl = this._mapgl;
         layerTypes.forEach(function (type) {
             makeAddLayer(type, out, sourceId);
         });
-        return out;
+        return out as MapGlUtils;
     }
 } // idempotent version
 
 const makeAddLayer = (
     layerType: LayerSpecification['type'],
-    obj: MapGlUtils,
+    obj: _MapGlUtils,
     fixedSource?: string
 ) => {
     let func;
 
     if (fixedSource) {
-        func = function (this: MapGlUtils, id: string, options, before) {
+        func = function (
+            this: MapGlUtils,
+            id: string,
+            options: UtilsLayerDef,
+            before: string
+        ) {
             return this.setLayer(id, fixedSource, layerType, options, before);
         };
     } else {
-        func = function (this: MapGlUtils, id, source, options, before) {
+        func = function (
+            this: MapGlUtils,
+            id: string,
+            source: string,
+            options: UtilsLayerDef,
+            before: string
+        ) {
             return this.setLayer(id, source, layerType, options, before);
         };
     }
@@ -1358,7 +1407,7 @@ const makeAddLayer = (
 };
 
 // Object.assign(Utils.prototype, UtilsExtra);
-function initClass(U: MapGlUtils) {
+function initClass(U: _MapGlUtils) {
     const makeSetProp = (
         prop: PropName,
         setPropFunc: 'setPaintProperty' | 'setLayoutProperty'
@@ -1403,8 +1452,6 @@ function initClass(U: MapGlUtils) {
         U[funcName + 'Source'] = U[funcName];
     }
 
-    U.update = U.setData; // deprecated
-
     // Turn every property into a 'setTextSize()', 'setLineColor()' etc.
     allProps.paints.forEach(prop => makeSetProp(prop, 'setPaintProperty'));
     allProps.layouts.forEach(prop => makeSetProp(prop, 'setLayoutProperty'));
@@ -1413,6 +1460,8 @@ function initClass(U: MapGlUtils) {
     layerTypes.forEach(layerType => makeAddLayer(layerType, U));
 }
 
-const U = MapGlUtils.prototype;
+export type MapGlUtils = _MapGlUtils & UtilsFuncs;
+
+const U = _MapGlUtils.prototype;
 initClass(U);
-export default MapGlUtils;
+export default _MapGlUtils;

@@ -1,4 +1,3 @@
-//@flow
 // Automatically generated for documentation.import type { LayerRef } from './index';
 export const UtilsFuncs = {
 

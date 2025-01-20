@@ -1,4 +1,3 @@
-//@flow
 // Automatically generated type file. 
 import type { LayerRef } from './index';
 export interface UtilsFuncs {

@@ -6,7 +6,6 @@
   "module": "dist/index.esm.js",
   "type": "module",
   "scripts": {
-    "pretest": "node node_modules/flow-remove-types/flow-remove-types -d noflow src",
     "test": "node node_modules/jest/bin/jest src",
     "update-keys": "node updateKeys",
     "babel": "babel src -d dist",
@@ -29,7 +28,7 @@
     "@mapbox/mapbox-gl-style-spec": "^14",
     "@rollup/plugin-babel": "5.3.0",
     "@rollup/plugin-commonjs": "18.0.0",
-    "@rollup/plugin-json": "4.1.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "11.2.1",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/geojson": "^7946.0.15",
@@ -47,8 +46,7 @@
   },
   "files": [
     "dist/*",
-    "umd/*",
-    "noflow/*"
+    "umd/*"
   ],
   "keywords": [
     "mapbox",
