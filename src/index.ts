@@ -366,7 +366,7 @@ class _MapGlUtils implements UtilsFuncs {
         return [
             'step',
             typeof expression === 'string' ? ['get', expression] : expression,
-            ...(Array.isArray(lowest) ? lowest : [lowest]),
+            ...(Array.isArray(lowest) && !stops ? lowest : [lowest]),
             ...(Array.isArray(stops)
                 ? stops
                 : typeof stops === 'object'

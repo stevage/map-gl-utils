@@ -1136,6 +1136,22 @@ describe('stepZoom()', () => {
         const e = utils.stepZoom(2, 8, 3);
         expect(e).toEqual(['step', ['zoom'], 2, 8, 3]);
     });
+
+    test('Makes a step zoom expression with an expression as an output value', () => {
+        const e = utils.stepZoom(['get', 'nameShort'], {
+            9: ['get', 'name'],
+            11: ['get', 'nameLong'],
+        });
+        expect(e).toEqual([
+            'step',
+            ['zoom'],
+            ['get', 'nameShort'],
+            9,
+            ['get', 'name'],
+            11,
+            ['get', 'nameLong'],
+        ]);
+    });
 });
 describe('match()', () => {
     test('Makes a match expression with "default" case', () => {
