@@ -345,30 +345,54 @@ class _MapGlUtils implements UtilsFuncs {
         return map;
     }
 
-    static zoom(
+    static interpolateZoom(
         stops: number | { [s: string]: unknown } | ArrayLike<unknown>,
         ...moreStops: (number | undefined)[]
     ) {
+        return this.interpolate(['zoom'], stops, ...moreStops);
+    }
+
+    static zoom = _MapGlUtils.interpolateZoom;
+
+    static step(
+        expression: ExpressionSpecification,
+        lowest: number,
+        stops:
+            | [number, ExpressionSpecification][]
+            | { number: ExpressionSpecification }
+            | number,
+        ...moreStops: (number | ExpressionSpecification)[]
+    ) {
         return [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
+            'step',
+            typeof expression === 'string' ? ['get', expression] : expression,
+            ...(Array.isArray(lowest) ? lowest : [lowest]),
             ...(Array.isArray(stops)
                 ? stops
                 : typeof stops === 'object'
                 ? Object.entries(stops)
-                      .map(([z, out]) => [+z, out])
-                      //@ts-ignore
+                      .map(([z, out]) => [isNaN(+z) ? z : +z, out])
+                      // @ts-ignore
                       .flat()
                 : [stops, ...moreStops]),
         ];
     }
 
-    static interpolateZoom = _MapGlUtils.zoom;
+    static stepZoom(
+        lowest: number,
+        stops:
+            | [number, ExpressionSpecification][]
+            | { number: ExpressionSpecification }
+            | number,
+        ...moreStops: (number | ExpressionSpecification)[]
+    ) {
+        // @ts-ignore
+        return this.step(['zoom'], lowest, stops, ...moreStops);
+    }
 
     static interpolate(
-        expression: string | string[],
-        stops: number | ArrayLike<unknown> | { [s: string]: unknown },
+        expression: string | ExpressionSpecification,
+        stops: number | { [s: string]: unknown } | ArrayLike<unknown>,
         ...moreStops: (number | undefined)[]
     ) {
         return [
@@ -379,7 +403,7 @@ class _MapGlUtils implements UtilsFuncs {
                 ? stops
                 : typeof stops === 'object'
                 ? Object.entries(stops)
-                      .map(([z, out]) => [isNaN(+z) ? z : +z, out])
+                      .map(([z, out]) => [+z, out])
                       //@ts-ignore
                       .flat()
                 : [stops, ...moreStops]),

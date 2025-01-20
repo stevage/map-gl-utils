@@ -1054,20 +1054,20 @@ describe('setRootProperty()', () => {
         expect(map.getStyle().sprite).toEqual('http://example.com/sprite');
     });
 });
-describe('zoom()', () => {
+describe('interpolateZoom()', () => {
     test('Makes a zoom expression with object', () => {
-        const e = utils.zoom({
+        const e = utils.interpolateZoom({
             18: 0,
             19: 1,
         });
         expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
     });
     test('Makes a zoom expression with array', () => {
-        const e = utils.zoom([18, 0, 19, 1]);
+        const e = utils.interpolateZoom([18, 0, 19, 1]);
         expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
     });
     test('Makes a zoom expression with numbers', () => {
-        const e = utils.zoom(18, 0, 19, 1);
+        const e = utils.interpolateZoom(18, 0, 19, 1);
         expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
     });
 
@@ -1118,6 +1118,23 @@ describe('interpolate()', () => {
             4,
             30,
         ]);
+    });
+});
+
+describe('stepZoom()', () => {
+    test('Makes a step zoom expression with object', () => {
+        const e = utils.stepZoom(2, {
+            8: 3,
+        });
+        expect(e).toEqual(['step', ['zoom'], 2, 8, 3]);
+    });
+    test('Makes a step zoom expression with array', () => {
+        const e = utils.stepZoom([2, 8, 3]);
+        expect(e).toEqual(['step', ['zoom'], 2, 8, 3]);
+    });
+    test('Makes a step zoom expression with raw values', () => {
+        const e = utils.stepZoom(2, 8, 3);
+        expect(e).toEqual(['step', ['zoom'], 2, 8, 3]);
     });
 });
 describe('match()', () => {
