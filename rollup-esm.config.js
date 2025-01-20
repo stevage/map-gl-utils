@@ -17,6 +17,8 @@ export default [
             nodeResolve(),
             ts({
                 declarationDir: 'dist/types',
+                rootDir: 'src',
+                outDir: 'dist',
             }),
             json(),
             babel({
