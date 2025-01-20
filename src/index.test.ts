@@ -1070,6 +1070,11 @@ describe('zoom()', () => {
         const e = utils.zoom(18, 0, 19, 1);
         expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
     });
+
+    test('Can call it as interpolateZoom', () => {
+        const e = utils.interpolateZoom(18, 0, 19, 1);
+        expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
+    });
 });
 describe('interpolate()', () => {
     test('Makes an interpolate function with a string property', () => {

@@ -364,6 +364,8 @@ class _MapGlUtils implements UtilsFuncs {
         ];
     }
 
+    static interpolateZoom = _MapGlUtils.zoom;
+
     static interpolate(
         expression: string | string[],
         stops: number | ArrayLike<unknown> | { [s: string]: unknown },
