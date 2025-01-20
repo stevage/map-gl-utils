@@ -24,7 +24,7 @@ export default [
             commonjs(),
             nodeResolve(),
             ts({
-                declarationDir: 'umd',
+                declarationDir: 'umd/types',
             }),
             json(),
             babel({

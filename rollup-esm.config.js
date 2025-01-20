@@ -16,7 +16,7 @@ export default [
         plugins: [
             nodeResolve(),
             ts({
-                declarationDir: 'dist',
+                declarationDir: 'dist/types',
             }),
             json(),
             babel({
