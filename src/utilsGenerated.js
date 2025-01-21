@@ -1,4 +1,3 @@
-//@flow
 // Automatically generated for documentation.import type { LayerRef } from './index';
 export const UtilsFuncs = {
 
@@ -23,6 +22,12 @@ export const UtilsFuncs = {
           /** Sets the `fill-pattern` paint property for one or more layers. */
           setFillPattern (layer: LayerRef, value: any): void {},
 
+          /** Sets the `fill-emissive-strength` paint property for one or more layers. */
+          setFillEmissiveStrength (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-z-offset` paint property for one or more layers. */
+          setFillZOffset (layer: LayerRef, value: any): void {},
+
           /** Sets the `fill-extrusion-opacity` paint property for one or more layers. */
           setFillExtrusionOpacity (layer: LayerRef, value: any): void {},
 
@@ -44,8 +49,62 @@ export const UtilsFuncs = {
           /** Sets the `fill-extrusion-base` paint property for one or more layers. */
           setFillExtrusionBase (layer: LayerRef, value: any): void {},
 
+          /** Sets the `fill-extrusion-height-alignment` paint property for one or more layers. */
+          setFillExtrusionHeightAlignment (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-base-alignment` paint property for one or more layers. */
+          setFillExtrusionBaseAlignment (layer: LayerRef, value: any): void {},
+
           /** Sets the `fill-extrusion-vertical-gradient` paint property for one or more layers. */
           setFillExtrusionVerticalGradient (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-ambient-occlusion-intensity` paint property for one or more layers. */
+          setFillExtrusionAmbientOcclusionIntensity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-ambient-occlusion-radius` paint property for one or more layers. */
+          setFillExtrusionAmbientOcclusionRadius (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-ambient-occlusion-wall-radius` paint property for one or more layers. */
+          setFillExtrusionAmbientOcclusionWallRadius (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-ambient-occlusion-ground-radius` paint property for one or more layers. */
+          setFillExtrusionAmbientOcclusionGroundRadius (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-ambient-occlusion-ground-attenuation` paint property for one or more layers. */
+          setFillExtrusionAmbientOcclusionGroundAttenuation (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-flood-light-color` paint property for one or more layers. */
+          setFillExtrusionFloodLightColor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-flood-light-intensity` paint property for one or more layers. */
+          setFillExtrusionFloodLightIntensity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-flood-light-wall-radius` paint property for one or more layers. */
+          setFillExtrusionFloodLightWallRadius (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-flood-light-ground-radius` paint property for one or more layers. */
+          setFillExtrusionFloodLightGroundRadius (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-flood-light-ground-attenuation` paint property for one or more layers. */
+          setFillExtrusionFloodLightGroundAttenuation (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-vertical-scale` paint property for one or more layers. */
+          setFillExtrusionVerticalScale (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-rounded-roof` paint property for one or more layers. */
+          setFillExtrusionRoundedRoof (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-cutoff-fade-range` paint property for one or more layers. */
+          setFillExtrusionCutoffFadeRange (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-emissive-strength` paint property for one or more layers. */
+          setFillExtrusionEmissiveStrength (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-line-width` paint property for one or more layers. */
+          setFillExtrusionLineWidth (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-cast-shadows` paint property for one or more layers. */
+          setFillExtrusionCastShadows (layer: LayerRef, value: any): void {},
 
           /** Sets the `line-opacity` paint property for one or more layers. */
           setLineOpacity (layer: LayerRef, value: any): void {},
@@ -80,6 +139,27 @@ export const UtilsFuncs = {
           /** Sets the `line-gradient` paint property for one or more layers. */
           setLineGradient (layer: LayerRef, value: any): void {},
 
+          /** Sets the `line-trim-offset` paint property for one or more layers. */
+          setLineTrimOffset (layer: LayerRef, value: any): void {},
+
+          /** Sets the `line-trim-fade-range` paint property for one or more layers. */
+          setLineTrimFadeRange (layer: LayerRef, value: any): void {},
+
+          /** Sets the `line-trim-color` paint property for one or more layers. */
+          setLineTrimColor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `line-emissive-strength` paint property for one or more layers. */
+          setLineEmissiveStrength (layer: LayerRef, value: any): void {},
+
+          /** Sets the `line-border-width` paint property for one or more layers. */
+          setLineBorderWidth (layer: LayerRef, value: any): void {},
+
+          /** Sets the `line-border-color` paint property for one or more layers. */
+          setLineBorderColor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `line-occlusion-opacity` paint property for one or more layers. */
+          setLineOcclusionOpacity (layer: LayerRef, value: any): void {},
+
           /** Sets the `circle-radius` paint property for one or more layers. */
           setCircleRadius (layer: LayerRef, value: any): void {},
 
@@ -113,6 +193,9 @@ export const UtilsFuncs = {
           /** Sets the `circle-stroke-opacity` paint property for one or more layers. */
           setCircleStrokeOpacity (layer: LayerRef, value: any): void {},
 
+          /** Sets the `circle-emissive-strength` paint property for one or more layers. */
+          setCircleEmissiveStrength (layer: LayerRef, value: any): void {},
+
           /** Sets the `heatmap-radius` paint property for one or more layers. */
           setHeatmapRadius (layer: LayerRef, value: any): void {},
 
@@ -130,6 +213,15 @@ export const UtilsFuncs = {
 
           /** Sets the `icon-opacity` paint property for one or more layers. */
           setIconOpacity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `icon-occlusion-opacity` paint property for one or more layers. */
+          setIconOcclusionOpacity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `icon-emissive-strength` paint property for one or more layers. */
+          setIconEmissiveStrength (layer: LayerRef, value: any): void {},
+
+          /** Sets the `text-emissive-strength` paint property for one or more layers. */
+          setTextEmissiveStrength (layer: LayerRef, value: any): void {},
 
           /** Sets the `icon-color` paint property for one or more layers. */
           setIconColor (layer: LayerRef, value: any): void {},
@@ -149,8 +241,14 @@ export const UtilsFuncs = {
           /** Sets the `icon-translate-anchor` paint property for one or more layers. */
           setIconTranslateAnchor (layer: LayerRef, value: any): void {},
 
+          /** Sets the `icon-image-cross-fade` paint property for one or more layers. */
+          setIconImageCrossFade (layer: LayerRef, value: any): void {},
+
           /** Sets the `text-opacity` paint property for one or more layers. */
           setTextOpacity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `text-occlusion-opacity` paint property for one or more layers. */
+          setTextOcclusionOpacity (layer: LayerRef, value: any): void {},
 
           /** Sets the `text-color` paint property for one or more layers. */
           setTextColor (layer: LayerRef, value: any): void {},
@@ -170,8 +268,32 @@ export const UtilsFuncs = {
           /** Sets the `text-translate-anchor` paint property for one or more layers. */
           setTextTranslateAnchor (layer: LayerRef, value: any): void {},
 
+          /** Sets the `icon-color-saturation` paint property for one or more layers. */
+          setIconColorSaturation (layer: LayerRef, value: any): void {},
+
+          /** Sets the `icon-color-contrast` paint property for one or more layers. */
+          setIconColorContrast (layer: LayerRef, value: any): void {},
+
+          /** Sets the `icon-color-brightness-min` paint property for one or more layers. */
+          setIconColorBrightnessMin (layer: LayerRef, value: any): void {},
+
+          /** Sets the `icon-color-brightness-max` paint property for one or more layers. */
+          setIconColorBrightnessMax (layer: LayerRef, value: any): void {},
+
+          /** Sets the `symbol-z-offset` paint property for one or more layers. */
+          setSymbolZOffset (layer: LayerRef, value: any): void {},
+
           /** Sets the `raster-opacity` paint property for one or more layers. */
           setRasterOpacity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-color` paint property for one or more layers. */
+          setRasterColor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-color-mix` paint property for one or more layers. */
+          setRasterColorMix (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-color-range` paint property for one or more layers. */
+          setRasterColorRange (layer: LayerRef, value: any): void {},
 
           /** Sets the `raster-hue-rotate` paint property for one or more layers. */
           setRasterHueRotate (layer: LayerRef, value: any): void {},
@@ -194,6 +316,39 @@ export const UtilsFuncs = {
           /** Sets the `raster-fade-duration` paint property for one or more layers. */
           setRasterFadeDuration (layer: LayerRef, value: any): void {},
 
+          /** Sets the `raster-emissive-strength` paint property for one or more layers. */
+          setRasterEmissiveStrength (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-array-band` paint property for one or more layers. */
+          setRasterArrayBand (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-elevation` paint property for one or more layers. */
+          setRasterElevation (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-particle-array-band` paint property for one or more layers. */
+          setRasterParticleArrayBand (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-particle-count` paint property for one or more layers. */
+          setRasterParticleCount (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-particle-color` paint property for one or more layers. */
+          setRasterParticleColor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-particle-max-speed` paint property for one or more layers. */
+          setRasterParticleMaxSpeed (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-particle-speed-factor` paint property for one or more layers. */
+          setRasterParticleSpeedFactor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-particle-fade-opacity-factor` paint property for one or more layers. */
+          setRasterParticleFadeOpacityFactor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-particle-reset-rate-factor` paint property for one or more layers. */
+          setRasterParticleResetRateFactor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `raster-particle-elevation` paint property for one or more layers. */
+          setRasterParticleElevation (layer: LayerRef, value: any): void {},
+
           /** Sets the `hillshade-illumination-direction` paint property for one or more layers. */
           setHillshadeIlluminationDirection (layer: LayerRef, value: any): void {},
 
@@ -212,6 +367,12 @@ export const UtilsFuncs = {
           /** Sets the `hillshade-accent-color` paint property for one or more layers. */
           setHillshadeAccentColor (layer: LayerRef, value: any): void {},
 
+          /** Sets the `hillshade-emissive-strength` paint property for one or more layers. */
+          setHillshadeEmissiveStrength (layer: LayerRef, value: any): void {},
+
+          /** Sets the `background-pitch-alignment` paint property for one or more layers. */
+          setBackgroundPitchAlignment (layer: LayerRef, value: any): void {},
+
           /** Sets the `background-color` paint property for one or more layers. */
           setBackgroundColor (layer: LayerRef, value: any): void {},
 
@@ -220,6 +381,9 @@ export const UtilsFuncs = {
 
           /** Sets the `background-opacity` paint property for one or more layers. */
           setBackgroundOpacity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `background-emissive-strength` paint property for one or more layers. */
+          setBackgroundEmissiveStrength (layer: LayerRef, value: any): void {},
 
           /** Sets the `sky-type` paint property for one or more layers. */
           setSkyType (layer: LayerRef, value: any): void {},
@@ -248,14 +412,74 @@ export const UtilsFuncs = {
           /** Sets the `sky-opacity` paint property for one or more layers. */
           setSkyOpacity (layer: LayerRef, value: any): void {},
 
+          /** Sets the `model-opacity` paint property for one or more layers. */
+          setModelOpacity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-rotation` paint property for one or more layers. */
+          setModelRotation (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-scale` paint property for one or more layers. */
+          setModelScale (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-translation` paint property for one or more layers. */
+          setModelTranslation (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-color` paint property for one or more layers. */
+          setModelColor (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-color-mix-intensity` paint property for one or more layers. */
+          setModelColorMixIntensity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-type` paint property for one or more layers. */
+          setModelType (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-cast-shadows` paint property for one or more layers. */
+          setModelCastShadows (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-receive-shadows` paint property for one or more layers. */
+          setModelReceiveShadows (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-ambient-occlusion-intensity` paint property for one or more layers. */
+          setModelAmbientOcclusionIntensity (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-emissive-strength` paint property for one or more layers. */
+          setModelEmissiveStrength (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-roughness` paint property for one or more layers. */
+          setModelRoughness (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-height-based-emissive-strength-multiplier` paint property for one or more layers. */
+          setModelHeightBasedEmissiveStrengthMultiplier (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-cutoff-fade-range` paint property for one or more layers. */
+          setModelCutoffFadeRange (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-front-cutoff` paint property for one or more layers. */
+          setModelFrontCutoff (layer: LayerRef, value: any): void {},
+
           /** Sets the `visibility` layout property for one or more layers. */
           setVisibility (layer: LayerRef, value: any): void {},
+
+          /** Sets the `model-id` layout property for one or more layers. */
+          setModelId (layer: LayerRef, value: any): void {},
+
+          /** Sets the `clip-layer-types` layout property for one or more layers. */
+          setClipLayerTypes (layer: LayerRef, value: any): void {},
+
+          /** Sets the `clip-layer-scope` layout property for one or more layers. */
+          setClipLayerScope (layer: LayerRef, value: any): void {},
 
           /** Sets the `fill-sort-key` layout property for one or more layers. */
           setFillSortKey (layer: LayerRef, value: any): void {},
 
+          /** Sets the `fill-elevation-reference` layout property for one or more layers. */
+          setFillElevationReference (layer: LayerRef, value: any): void {},
+
           /** Sets the `circle-sort-key` layout property for one or more layers. */
           setCircleSortKey (layer: LayerRef, value: any): void {},
+
+          /** Sets the `fill-extrusion-edge-radius` layout property for one or more layers. */
+          setFillExtrusionEdgeRadius (layer: LayerRef, value: any): void {},
 
           /** Sets the `line-cap` layout property for one or more layers. */
           setLineCap (layer: LayerRef, value: any): void {},
@@ -272,6 +496,18 @@ export const UtilsFuncs = {
           /** Sets the `line-sort-key` layout property for one or more layers. */
           setLineSortKey (layer: LayerRef, value: any): void {},
 
+          /** Sets the `line-z-offset` layout property for one or more layers. */
+          setLineZOffset (layer: LayerRef, value: any): void {},
+
+          /** Sets the `line-elevation-reference` layout property for one or more layers. */
+          setLineElevationReference (layer: LayerRef, value: any): void {},
+
+          /** Sets the `line-cross-slope` layout property for one or more layers. */
+          setLineCrossSlope (layer: LayerRef, value: any): void {},
+
+          /** Sets the `line-width-unit` layout property for one or more layers. */
+          setLineWidthUnit (layer: LayerRef, value: any): void {},
+
           /** Sets the `symbol-placement` layout property for one or more layers. */
           setSymbolPlacement (layer: LayerRef, value: any): void {},
 
@@ -287,6 +523,12 @@ export const UtilsFuncs = {
           /** Sets the `symbol-z-order` layout property for one or more layers. */
           setSymbolZOrder (layer: LayerRef, value: any): void {},
 
+          /** Sets the `symbol-z-elevate` layout property for one or more layers. */
+          setSymbolZElevate (layer: LayerRef, value: any): void {},
+
+          /** Sets the `symbol-elevation-reference` layout property for one or more layers. */
+          setSymbolElevationReference (layer: LayerRef, value: any): void {},
+
           /** Sets the `icon-allow-overlap` layout property for one or more layers. */
           setIconAllowOverlap (layer: LayerRef, value: any): void {},
 
@@ -301,6 +543,9 @@ export const UtilsFuncs = {
 
           /** Sets the `icon-size` layout property for one or more layers. */
           setIconSize (layer: LayerRef, value: any): void {},
+
+          /** Sets the `icon-size-scale-range` layout property for one or more layers. */
+          setIconSizeScaleRange (layer: LayerRef, value: any): void {},
 
           /** Sets the `icon-text-fit` layout property for one or more layers. */
           setIconTextFit (layer: LayerRef, value: any): void {},
@@ -343,6 +588,9 @@ export const UtilsFuncs = {
 
           /** Sets the `text-size` layout property for one or more layers. */
           setTextSize (layer: LayerRef, value: any): void {},
+
+          /** Sets the `text-size-scale-range` layout property for one or more layers. */
+          setTextSizeScaleRange (layer: LayerRef, value: any): void {},
 
           /** Sets the `text-max-width` layout property for one or more layers. */
           setTextMaxWidth (layer: LayerRef, value: any): void {},
@@ -416,6 +664,12 @@ export const UtilsFuncs = {
           /** Gets the `fill-pattern` paint property for a layer. */
           getFillPattern (layer: LayerRef): any {},
 
+          /** Gets the `fill-emissive-strength` paint property for a layer. */
+          getFillEmissiveStrength (layer: LayerRef): any {},
+
+          /** Gets the `fill-z-offset` paint property for a layer. */
+          getFillZOffset (layer: LayerRef): any {},
+
           /** Gets the `fill-extrusion-opacity` paint property for a layer. */
           getFillExtrusionOpacity (layer: LayerRef): any {},
 
@@ -437,8 +691,62 @@ export const UtilsFuncs = {
           /** Gets the `fill-extrusion-base` paint property for a layer. */
           getFillExtrusionBase (layer: LayerRef): any {},
 
+          /** Gets the `fill-extrusion-height-alignment` paint property for a layer. */
+          getFillExtrusionHeightAlignment (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-base-alignment` paint property for a layer. */
+          getFillExtrusionBaseAlignment (layer: LayerRef): any {},
+
           /** Gets the `fill-extrusion-vertical-gradient` paint property for a layer. */
           getFillExtrusionVerticalGradient (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-ambient-occlusion-intensity` paint property for a layer. */
+          getFillExtrusionAmbientOcclusionIntensity (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-ambient-occlusion-radius` paint property for a layer. */
+          getFillExtrusionAmbientOcclusionRadius (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-ambient-occlusion-wall-radius` paint property for a layer. */
+          getFillExtrusionAmbientOcclusionWallRadius (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-ambient-occlusion-ground-radius` paint property for a layer. */
+          getFillExtrusionAmbientOcclusionGroundRadius (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-ambient-occlusion-ground-attenuation` paint property for a layer. */
+          getFillExtrusionAmbientOcclusionGroundAttenuation (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-flood-light-color` paint property for a layer. */
+          getFillExtrusionFloodLightColor (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-flood-light-intensity` paint property for a layer. */
+          getFillExtrusionFloodLightIntensity (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-flood-light-wall-radius` paint property for a layer. */
+          getFillExtrusionFloodLightWallRadius (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-flood-light-ground-radius` paint property for a layer. */
+          getFillExtrusionFloodLightGroundRadius (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-flood-light-ground-attenuation` paint property for a layer. */
+          getFillExtrusionFloodLightGroundAttenuation (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-vertical-scale` paint property for a layer. */
+          getFillExtrusionVerticalScale (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-rounded-roof` paint property for a layer. */
+          getFillExtrusionRoundedRoof (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-cutoff-fade-range` paint property for a layer. */
+          getFillExtrusionCutoffFadeRange (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-emissive-strength` paint property for a layer. */
+          getFillExtrusionEmissiveStrength (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-line-width` paint property for a layer. */
+          getFillExtrusionLineWidth (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-cast-shadows` paint property for a layer. */
+          getFillExtrusionCastShadows (layer: LayerRef): any {},
 
           /** Gets the `line-opacity` paint property for a layer. */
           getLineOpacity (layer: LayerRef): any {},
@@ -473,6 +781,27 @@ export const UtilsFuncs = {
           /** Gets the `line-gradient` paint property for a layer. */
           getLineGradient (layer: LayerRef): any {},
 
+          /** Gets the `line-trim-offset` paint property for a layer. */
+          getLineTrimOffset (layer: LayerRef): any {},
+
+          /** Gets the `line-trim-fade-range` paint property for a layer. */
+          getLineTrimFadeRange (layer: LayerRef): any {},
+
+          /** Gets the `line-trim-color` paint property for a layer. */
+          getLineTrimColor (layer: LayerRef): any {},
+
+          /** Gets the `line-emissive-strength` paint property for a layer. */
+          getLineEmissiveStrength (layer: LayerRef): any {},
+
+          /** Gets the `line-border-width` paint property for a layer. */
+          getLineBorderWidth (layer: LayerRef): any {},
+
+          /** Gets the `line-border-color` paint property for a layer. */
+          getLineBorderColor (layer: LayerRef): any {},
+
+          /** Gets the `line-occlusion-opacity` paint property for a layer. */
+          getLineOcclusionOpacity (layer: LayerRef): any {},
+
           /** Gets the `circle-radius` paint property for a layer. */
           getCircleRadius (layer: LayerRef): any {},
 
@@ -506,6 +835,9 @@ export const UtilsFuncs = {
           /** Gets the `circle-stroke-opacity` paint property for a layer. */
           getCircleStrokeOpacity (layer: LayerRef): any {},
 
+          /** Gets the `circle-emissive-strength` paint property for a layer. */
+          getCircleEmissiveStrength (layer: LayerRef): any {},
+
           /** Gets the `heatmap-radius` paint property for a layer. */
           getHeatmapRadius (layer: LayerRef): any {},
 
@@ -523,6 +855,15 @@ export const UtilsFuncs = {
 
           /** Gets the `icon-opacity` paint property for a layer. */
           getIconOpacity (layer: LayerRef): any {},
+
+          /** Gets the `icon-occlusion-opacity` paint property for a layer. */
+          getIconOcclusionOpacity (layer: LayerRef): any {},
+
+          /** Gets the `icon-emissive-strength` paint property for a layer. */
+          getIconEmissiveStrength (layer: LayerRef): any {},
+
+          /** Gets the `text-emissive-strength` paint property for a layer. */
+          getTextEmissiveStrength (layer: LayerRef): any {},
 
           /** Gets the `icon-color` paint property for a layer. */
           getIconColor (layer: LayerRef): any {},
@@ -542,8 +883,14 @@ export const UtilsFuncs = {
           /** Gets the `icon-translate-anchor` paint property for a layer. */
           getIconTranslateAnchor (layer: LayerRef): any {},
 
+          /** Gets the `icon-image-cross-fade` paint property for a layer. */
+          getIconImageCrossFade (layer: LayerRef): any {},
+
           /** Gets the `text-opacity` paint property for a layer. */
           getTextOpacity (layer: LayerRef): any {},
+
+          /** Gets the `text-occlusion-opacity` paint property for a layer. */
+          getTextOcclusionOpacity (layer: LayerRef): any {},
 
           /** Gets the `text-color` paint property for a layer. */
           getTextColor (layer: LayerRef): any {},
@@ -563,8 +910,32 @@ export const UtilsFuncs = {
           /** Gets the `text-translate-anchor` paint property for a layer. */
           getTextTranslateAnchor (layer: LayerRef): any {},
 
+          /** Gets the `icon-color-saturation` paint property for a layer. */
+          getIconColorSaturation (layer: LayerRef): any {},
+
+          /** Gets the `icon-color-contrast` paint property for a layer. */
+          getIconColorContrast (layer: LayerRef): any {},
+
+          /** Gets the `icon-color-brightness-min` paint property for a layer. */
+          getIconColorBrightnessMin (layer: LayerRef): any {},
+
+          /** Gets the `icon-color-brightness-max` paint property for a layer. */
+          getIconColorBrightnessMax (layer: LayerRef): any {},
+
+          /** Gets the `symbol-z-offset` paint property for a layer. */
+          getSymbolZOffset (layer: LayerRef): any {},
+
           /** Gets the `raster-opacity` paint property for a layer. */
           getRasterOpacity (layer: LayerRef): any {},
+
+          /** Gets the `raster-color` paint property for a layer. */
+          getRasterColor (layer: LayerRef): any {},
+
+          /** Gets the `raster-color-mix` paint property for a layer. */
+          getRasterColorMix (layer: LayerRef): any {},
+
+          /** Gets the `raster-color-range` paint property for a layer. */
+          getRasterColorRange (layer: LayerRef): any {},
 
           /** Gets the `raster-hue-rotate` paint property for a layer. */
           getRasterHueRotate (layer: LayerRef): any {},
@@ -587,6 +958,39 @@ export const UtilsFuncs = {
           /** Gets the `raster-fade-duration` paint property for a layer. */
           getRasterFadeDuration (layer: LayerRef): any {},
 
+          /** Gets the `raster-emissive-strength` paint property for a layer. */
+          getRasterEmissiveStrength (layer: LayerRef): any {},
+
+          /** Gets the `raster-array-band` paint property for a layer. */
+          getRasterArrayBand (layer: LayerRef): any {},
+
+          /** Gets the `raster-elevation` paint property for a layer. */
+          getRasterElevation (layer: LayerRef): any {},
+
+          /** Gets the `raster-particle-array-band` paint property for a layer. */
+          getRasterParticleArrayBand (layer: LayerRef): any {},
+
+          /** Gets the `raster-particle-count` paint property for a layer. */
+          getRasterParticleCount (layer: LayerRef): any {},
+
+          /** Gets the `raster-particle-color` paint property for a layer. */
+          getRasterParticleColor (layer: LayerRef): any {},
+
+          /** Gets the `raster-particle-max-speed` paint property for a layer. */
+          getRasterParticleMaxSpeed (layer: LayerRef): any {},
+
+          /** Gets the `raster-particle-speed-factor` paint property for a layer. */
+          getRasterParticleSpeedFactor (layer: LayerRef): any {},
+
+          /** Gets the `raster-particle-fade-opacity-factor` paint property for a layer. */
+          getRasterParticleFadeOpacityFactor (layer: LayerRef): any {},
+
+          /** Gets the `raster-particle-reset-rate-factor` paint property for a layer. */
+          getRasterParticleResetRateFactor (layer: LayerRef): any {},
+
+          /** Gets the `raster-particle-elevation` paint property for a layer. */
+          getRasterParticleElevation (layer: LayerRef): any {},
+
           /** Gets the `hillshade-illumination-direction` paint property for a layer. */
           getHillshadeIlluminationDirection (layer: LayerRef): any {},
 
@@ -605,6 +1009,12 @@ export const UtilsFuncs = {
           /** Gets the `hillshade-accent-color` paint property for a layer. */
           getHillshadeAccentColor (layer: LayerRef): any {},
 
+          /** Gets the `hillshade-emissive-strength` paint property for a layer. */
+          getHillshadeEmissiveStrength (layer: LayerRef): any {},
+
+          /** Gets the `background-pitch-alignment` paint property for a layer. */
+          getBackgroundPitchAlignment (layer: LayerRef): any {},
+
           /** Gets the `background-color` paint property for a layer. */
           getBackgroundColor (layer: LayerRef): any {},
 
@@ -613,6 +1023,9 @@ export const UtilsFuncs = {
 
           /** Gets the `background-opacity` paint property for a layer. */
           getBackgroundOpacity (layer: LayerRef): any {},
+
+          /** Gets the `background-emissive-strength` paint property for a layer. */
+          getBackgroundEmissiveStrength (layer: LayerRef): any {},
 
           /** Gets the `sky-type` paint property for a layer. */
           getSkyType (layer: LayerRef): any {},
@@ -639,16 +1052,76 @@ export const UtilsFuncs = {
           getSkyAtmosphereColor (layer: LayerRef): any {},
 
           /** Gets the `sky-opacity` paint property for a layer. */
-          getSkyOpacity (layer: LayerRef): any {}
+          getSkyOpacity (layer: LayerRef): any {},
+
+          /** Gets the `model-opacity` paint property for a layer. */
+          getModelOpacity (layer: LayerRef): any {},
+
+          /** Gets the `model-rotation` paint property for a layer. */
+          getModelRotation (layer: LayerRef): any {},
+
+          /** Gets the `model-scale` paint property for a layer. */
+          getModelScale (layer: LayerRef): any {},
+
+          /** Gets the `model-translation` paint property for a layer. */
+          getModelTranslation (layer: LayerRef): any {},
+
+          /** Gets the `model-color` paint property for a layer. */
+          getModelColor (layer: LayerRef): any {},
+
+          /** Gets the `model-color-mix-intensity` paint property for a layer. */
+          getModelColorMixIntensity (layer: LayerRef): any {},
+
+          /** Gets the `model-type` paint property for a layer. */
+          getModelType (layer: LayerRef): any {},
+
+          /** Gets the `model-cast-shadows` paint property for a layer. */
+          getModelCastShadows (layer: LayerRef): any {},
+
+          /** Gets the `model-receive-shadows` paint property for a layer. */
+          getModelReceiveShadows (layer: LayerRef): any {},
+
+          /** Gets the `model-ambient-occlusion-intensity` paint property for a layer. */
+          getModelAmbientOcclusionIntensity (layer: LayerRef): any {},
+
+          /** Gets the `model-emissive-strength` paint property for a layer. */
+          getModelEmissiveStrength (layer: LayerRef): any {},
+
+          /** Gets the `model-roughness` paint property for a layer. */
+          getModelRoughness (layer: LayerRef): any {},
+
+          /** Gets the `model-height-based-emissive-strength-multiplier` paint property for a layer. */
+          getModelHeightBasedEmissiveStrengthMultiplier (layer: LayerRef): any {},
+
+          /** Gets the `model-cutoff-fade-range` paint property for a layer. */
+          getModelCutoffFadeRange (layer: LayerRef): any {},
+
+          /** Gets the `model-front-cutoff` paint property for a layer. */
+          getModelFrontCutoff (layer: LayerRef): any {}
 ,
           /** Gets the `visibility` layout property for a layer. */
           getVisibility (layer: LayerRef): any {},
 
+          /** Gets the `model-id` layout property for a layer. */
+          getModelId (layer: LayerRef): any {},
+
+          /** Gets the `clip-layer-types` layout property for a layer. */
+          getClipLayerTypes (layer: LayerRef): any {},
+
+          /** Gets the `clip-layer-scope` layout property for a layer. */
+          getClipLayerScope (layer: LayerRef): any {},
+
           /** Gets the `fill-sort-key` layout property for a layer. */
           getFillSortKey (layer: LayerRef): any {},
 
+          /** Gets the `fill-elevation-reference` layout property for a layer. */
+          getFillElevationReference (layer: LayerRef): any {},
+
           /** Gets the `circle-sort-key` layout property for a layer. */
           getCircleSortKey (layer: LayerRef): any {},
+
+          /** Gets the `fill-extrusion-edge-radius` layout property for a layer. */
+          getFillExtrusionEdgeRadius (layer: LayerRef): any {},
 
           /** Gets the `line-cap` layout property for a layer. */
           getLineCap (layer: LayerRef): any {},
@@ -665,6 +1138,18 @@ export const UtilsFuncs = {
           /** Gets the `line-sort-key` layout property for a layer. */
           getLineSortKey (layer: LayerRef): any {},
 
+          /** Gets the `line-z-offset` layout property for a layer. */
+          getLineZOffset (layer: LayerRef): any {},
+
+          /** Gets the `line-elevation-reference` layout property for a layer. */
+          getLineElevationReference (layer: LayerRef): any {},
+
+          /** Gets the `line-cross-slope` layout property for a layer. */
+          getLineCrossSlope (layer: LayerRef): any {},
+
+          /** Gets the `line-width-unit` layout property for a layer. */
+          getLineWidthUnit (layer: LayerRef): any {},
+
           /** Gets the `symbol-placement` layout property for a layer. */
           getSymbolPlacement (layer: LayerRef): any {},
 
@@ -680,6 +1165,12 @@ export const UtilsFuncs = {
           /** Gets the `symbol-z-order` layout property for a layer. */
           getSymbolZOrder (layer: LayerRef): any {},
 
+          /** Gets the `symbol-z-elevate` layout property for a layer. */
+          getSymbolZElevate (layer: LayerRef): any {},
+
+          /** Gets the `symbol-elevation-reference` layout property for a layer. */
+          getSymbolElevationReference (layer: LayerRef): any {},
+
           /** Gets the `icon-allow-overlap` layout property for a layer. */
           getIconAllowOverlap (layer: LayerRef): any {},
 
@@ -694,6 +1185,9 @@ export const UtilsFuncs = {
 
           /** Gets the `icon-size` layout property for a layer. */
           getIconSize (layer: LayerRef): any {},
+
+          /** Gets the `icon-size-scale-range` layout property for a layer. */
+          getIconSizeScaleRange (layer: LayerRef): any {},
 
           /** Gets the `icon-text-fit` layout property for a layer. */
           getIconTextFit (layer: LayerRef): any {},
@@ -736,6 +1230,9 @@ export const UtilsFuncs = {
 
           /** Gets the `text-size` layout property for a layer. */
           getTextSize (layer: LayerRef): any {},
+
+          /** Gets the `text-size-scale-range` layout property for a layer. */
+          getTextSizeScaleRange (layer: LayerRef): any {},
 
           /** Gets the `text-max-width` layout property for a layer. */
           getTextMaxWidth (layer: LayerRef): any {},

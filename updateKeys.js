@@ -3,11 +3,23 @@ Generates the list of paint and layout properties from the Mapbox-GL-JS style sp
 Should be run when new properties are added to that spec.
 */
 import fs from 'fs';
-const kebabCase = s => s.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
+// const kebabCase = s => s.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
 const upperCamelCase = s =>
     s.replace(/(^|-)([a-z])/g, (x, y, l) => `${l.toUpperCase()}`);
 
-function writeUtilsFuncsFlow(fileName, propNames) {
+// write a typescript file
+function writeLayerTypeDefs(fileName, propNames) {
+    let out = '';
+    out += '// Automatically generated type file. \n';
+    out += `export type UtilsLayerDef = Partial<Record<\n`;
+    out += propNames.map(p => `  '${upperCamelCase(p)}' `).join('|\n');
+    out += '|\n';
+    out += propNames.map(p => `  '${p}' `).join('|\n');
+    out += ', any>>\n';
+    fs.writeFileSync(fileName, out);
+}
+
+function writeUtilsFuncsTS(fileName, propNames) {
     function setFunc(propName) {
         return `  set${upperCamelCase(
             propName
@@ -16,8 +28,8 @@ function writeUtilsFuncsFlow(fileName, propNames) {
     function getFunc(propName) {
         return `  get${upperCamelCase(propName)}: (layer: LayerRef) => any`;
     }
-    let out = `//@flow\n`;
-    out += '// Automatically generated type file.';
+    let out = '';
+    out += '// Automatically generated type file. \n';
     out += `import type { LayerRef } from './index';\n`;
     out += `export interface UtilsFuncs {\n`;
     out += propNames.map(setFunc).join(',\n') + `,\n`;
@@ -40,7 +52,7 @@ function writeUtilsFuncsJS(fileName, paints, layouts) {
           /** Gets the \`${propName}\` ${type} property for a layer. */
           get${upperCamelCase(propName)} (layer: LayerRef): any {}`;
     }
-    let out = `//@flow\n`;
+    let out = '';
     out += '// Automatically generated for documentation.';
     out += `import type { LayerRef } from './index';\n`;
     out += `export const UtilsFuncs = {\n`;
@@ -78,7 +90,7 @@ Object.keys(styleSpec)
 out.paints = Array.from(new Set(out.paints));
 out.layouts = Array.from(new Set(out.layouts));
 
-const outFileES = 'src/keys.js';
+const outFileES = 'src/keys-js.js';
 // fs.writeFileSync(outFileES, 'export default ' + JSON.stringify(out));
 fs.writeFileSync(
     outFileES,
@@ -88,12 +100,12 @@ export default {
     layouts: '${out.layouts.join(',')}'.split(','),
 }`
 );
-writeUtilsFuncsFlow('src/utilsGenerated.flow.js', [
+writeUtilsFuncsTS('src/utilsGenerated.ts', [...out.paints, ...out.layouts]);
+writeUtilsFuncsJS('src/utilsGenerated.js', out.paints, out.layouts);
+writeLayerTypeDefs('src/layerTypeDefsGenerated.ts', [
     ...out.paints,
     ...out.layouts,
 ]);
-writeUtilsFuncsJS('src/utilsGenerated.js', out.paints, out.layouts);
-
 console.log(
     `Wrote updated ${outFileES} based on Mapbox-GL style spec ${styleSpecVersion}.`
 );

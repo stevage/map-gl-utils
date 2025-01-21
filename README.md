@@ -37,6 +37,13 @@ const map = new mapgl.Map({ ... });
 import U from 'map-gl-utils';
 U.init(map);
 
+// if you need to explicitly import the ESM version:
+import U from 'map-gl-utils/dist/index.esm.js'
+U.init(map);
+
+
+
+
 // A small number of methods (eg hoverPopup) require access to the maplibre-gl/mapbox-gl library itself, in order to instantiate other objects.
 require('map-gl-utils').init(map, mapgl);
 ```
@@ -48,12 +55,7 @@ The default distribution is an ES2015 module with no transpiling. If you experie
 require('map-gl-utils/umd').init(map);
 ```
 
-If you want to use Flow types:
-
-```
-import type MapGlUtils from 'map-gl-utils/src/index'
-```
-
+Typescript types are included in `dist/types/index.d.ts`.
 
 ### Guide
 
@@ -328,6 +330,6 @@ Documentation built with [documentation.js](https://github.com/documentationjs/d
 
 Packaging uses [rollup.js](https://rollupjs.org/guide/en/) and [Babel](https://babeljs.io/).
 
-[Flow](https://flow.org/) is used internally, including types from [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js).
+Typescript is used internally, including types from [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js).
 
 Tests are run using [Jest](https://jestjs.io/).

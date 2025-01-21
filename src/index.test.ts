@@ -1,7 +1,10 @@
-import utils from './index.js';
+//@ts-nocheck
+import utils from './index';
 const mockMap = jest.fn(params => {
     let map;
-    const style = { cursor: '' };
+    const style = {
+        cursor: '',
+    };
     return (map = {
         _style: {
             layers: [],
@@ -25,12 +28,15 @@ const mockMap = jest.fn(params => {
         addLayer: jest
             .fn((layer, before) => {
                 let index = map._style.layers.length;
+
                 if (before) {
                     index = map._style.layers.findIndex(l => l.id === before);
+
                     if (index < 0) {
                         index = map._style.layers.length;
                     }
                 }
+
                 map._style.layers.splice(index, 0, layer);
             })
             .mockName('addLayer'),
@@ -65,10 +71,11 @@ const mockMap = jest.fn(params => {
         once: jest.fn((event, cb) => (map._handlers[event] = cb)),
         on: jest.fn((event, cb) => (map._handlers[event] = cb)),
         off: jest.fn((event, cb) => (map._handlers[event] = undefined)),
-        getCanvas: jest.fn(() => ({ style })),
+        getCanvas: jest.fn(() => ({
+            style,
+        })),
     });
 });
-
 const mockMapboxgl = jest.fn(() => {
     return {
         Popup: function () {
@@ -81,13 +88,11 @@ const mockMapboxgl = jest.fn(() => {
         }),
     };
 });
-
 let map, U;
 beforeEach(() => {
     map = mockMap();
     U = utils.init(map, mockMapboxgl());
 });
-
 const geojson = {
     type: 'FeatureCollection',
     features: [
@@ -103,11 +108,11 @@ const geojson = {
         },
     ],
 };
-
 describe('Initialisation', () => {
     test('Attaches itself to map object', () => {
         expect(map.U).toBeDefined();
         expect('setProperty' in map.U).toBe(true); // it's on a prototype, so...
+
         expect(map.setProperty).toBe(undefined);
     });
     test('Provides hoverPointer function', () => {
@@ -219,7 +224,6 @@ describe('setProperty()', () => {
         );
     });
 });
-
 describe('Streamlined setFoo() for layers', () => {
     test('Supports setLineWidth', () => {
         map.U.setLineWidth('mylayer', 3);
@@ -250,7 +254,6 @@ describe('Streamlined setFoo() for layers', () => {
         map.U.addLine('cool-line', 'mysource');
         map.U.addLine('cooler-line', 'mysource');
         map.U.addLine('crap-line', 'mysource');
-
         map.U.setLineWidth(/cool/, 4);
         expect(map.setPaintProperty).toBeCalledWith(
             'cool-line',
@@ -269,10 +272,15 @@ describe('Streamlined setFoo() for layers', () => {
         );
     });
     test('Supports multiple layers with filter function', () => {
-        map.U.addLine('blue-line', 'mysource', { lineColor: 'blue' });
-        map.U.addLine('also-blue-line', 'mysource', { lineColor: 'blue' });
-        map.U.addLine('red-line', 'mysource', { lineColor: 'red' });
-
+        map.U.addLine('blue-line', 'mysource', {
+            lineColor: 'blue',
+        });
+        map.U.addLine('also-blue-line', 'mysource', {
+            lineColor: 'blue',
+        });
+        map.U.addLine('red-line', 'mysource', {
+            lineColor: 'red',
+        });
         map.U.setLineWidth(layer => layer.paint['line-color'] === 'blue', 4);
         expect(map.setPaintProperty).toBeCalledWith(
             'blue-line',
@@ -291,7 +299,6 @@ describe('Streamlined setFoo() for layers', () => {
         );
     });
 });
-
 describe('getLineWidth() etc', () => {
     test('getLineWidth calls getPaintProperty', () => {
         map.U.getLineWidth('mylayer');
@@ -302,7 +309,6 @@ describe('getLineWidth() etc', () => {
         expect(map.getLayoutProperty).toBeCalledWith('mylayer', 'text-size');
     });
 });
-
 describe('properties()', () => {
     test('Handles multiple mixed properties', () => {
         const style = U.properties({
@@ -342,7 +348,6 @@ describe('properties()', () => {
         });
     });
 });
-
 describe('add()', () => {
     test('Adds line type with no style props', () => {
         map.U.add('mylayer', 'things', 'line');
@@ -353,7 +358,9 @@ describe('add()', () => {
         });
     });
     test('Supports paint prop', () => {
-        map.U.add('mylayer', 'things', 'line', { lineWidth: 3 });
+        map.U.add('mylayer', 'things', 'line', {
+            lineWidth: 3,
+        });
         expect(map.addLayer).toBeCalledWith({
             id: 'mylayer',
             type: 'line',
@@ -364,7 +371,10 @@ describe('add()', () => {
         });
     });
     test('Supports non-style props', () => {
-        map.U.add('mylayer', 'things', 'line', { lineWidth: 3, minzoom: 3 });
+        map.U.add('mylayer', 'things', 'line', {
+            lineWidth: 3,
+            minzoom: 3,
+        });
         expect(map.addLayer).toBeCalledWith({
             id: 'mylayer',
             type: 'line',
@@ -375,12 +385,14 @@ describe('add()', () => {
             minzoom: 3,
         });
     });
-
     test('Supports sneaky geojson by URL', () => {
         map.U.add('mylayer', 'myfile.geojson', 'line');
         expect(map.addLayer).toBeCalledWith({
             id: 'mylayer',
-            source: { type: 'geojson', data: 'myfile.geojson' },
+            source: {
+                type: 'geojson',
+                data: 'myfile.geojson',
+            },
             type: 'line',
         });
     });
@@ -392,7 +404,10 @@ describe('add()', () => {
         map.U.add('mylayer', geojson, 'line');
         expect(map.addLayer).toBeCalledWith({
             id: 'mylayer',
-            source: { type: 'geojson', data: geojson },
+            source: {
+                type: 'geojson',
+                data: geojson,
+            },
             type: 'line',
         });
     });
@@ -400,40 +415,52 @@ describe('add()', () => {
         map.U.add('mylayer', 'mapbox://myuser.aoeuaoeu', 'fill-extrusion');
         expect(map.addLayer).toBeCalledWith({
             id: 'mylayer',
-            source: { type: 'vector', url: 'mapbox://myuser.aoeuaoeu' },
+            source: {
+                type: 'vector',
+                url: 'mapbox://myuser.aoeuaoeu',
+            },
             type: 'fill-extrusion',
         });
     });
     test('Plain "add" respects "before" property', () => {
-        map.U.add('someotherlayer', 'things', 'line', { lineColor: 'blue' });
+        map.U.add('someotherlayer', 'things', 'line', {
+            lineColor: 'blue',
+        });
         map.U.add(
             'mylayer',
             'things',
             'line',
-            { lineColor: 'green' },
+            {
+                lineColor: 'green',
+            },
             'someotherlayer'
         );
         expect(map.getStyle().layers[0].id).toEqual('mylayer');
     });
 });
-
 describe('addLine()', () => {
     test('Adds line type with no style props', () => {
-        map.U.addLine('mylayer', 'things', { lineWidth: 3, minzoom: 3 });
+        map.U.addLine('mylayer', 'things', {
+            lineWidth: 3,
+            minzoom: 3,
+        });
         expect(map.getStyle().layers[0].type).toEqual('line');
     });
     test('addLine() respects "before" property', () => {
-        map.U.add('someotherlayer', 'things', 'line', { lineColor: 'blue' });
+        map.U.add('someotherlayer', 'things', 'line', {
+            lineColor: 'blue',
+        });
         map.U.addLine(
             'mylayer',
             'things',
-            { lineColor: 'green' },
+            {
+                lineColor: 'green',
+            },
             'someotherlayer'
         );
         expect(map.getStyle().layers[0].id).toEqual('mylayer');
     });
 });
-
 describe('addGeoJSON', () => {
     test('Adds a GeoJSON source by data', () => {
         map.U.addGeoJSON('mysource', geojson);
@@ -460,10 +487,11 @@ describe('addGeoJSON', () => {
         });
     });
 });
-
 describe('Streamlined addVector', () => {
     test('addVector({url: "mapbox://..."})', () => {
-        map.U.addVector('mysource', { url: 'mapbox://foo.blah' });
+        map.U.addVector('mysource', {
+            url: 'mapbox://foo.blah',
+        });
         expect(map.getStyle().sources['mysource']).toEqual({
             type: 'vector',
             url: 'mapbox://foo.blah',
@@ -477,7 +505,9 @@ describe('Streamlined addVector', () => {
         });
     });
     test('addVector("mapbox://", { maxzoom: 13 })', () => {
-        map.U.addVector('mysource', 'mapbox://foo.blah', { maxzoom: 13 });
+        map.U.addVector('mysource', 'mapbox://foo.blah', {
+            maxzoom: 13,
+        });
         expect(map.getStyle().sources['mysource']).toEqual({
             type: 'vector',
             url: 'mapbox://foo.blah',
@@ -498,7 +528,9 @@ describe('Streamlined addVector', () => {
         map.U.addVector(
             'mysource',
             'http://tiles.example.com/tiles/{z}/{x}/{y}.pbf',
-            { maxzoom: 13 }
+            {
+                maxzoom: 13,
+            }
         );
         expect(map.getStyle().sources['mysource']).toEqual({
             type: 'vector',
@@ -507,7 +539,6 @@ describe('Streamlined addVector', () => {
         });
     });
 });
-
 describe('Adding layers to a source', () => {
     test('addVector().addLine(...)', () => {
         map.U.addVector('mysource', 'mapbox://foo.blah').addLine('foo-line', {
@@ -518,7 +549,9 @@ describe('Adding layers to a source', () => {
             id: 'foo-line',
             source: 'mysource',
             'source-layer': 'mylines',
-            paint: { 'line-color': 'blue' },
+            paint: {
+                'line-color': 'blue',
+            },
             type: 'line',
         });
     });
@@ -535,7 +568,6 @@ describe('Adding layers to a source', () => {
         expect(map.getStyle().layers.length).toEqual(2);
     });
 });
-
 describe('setData()', () => {
     test('Calls setData with correct source', () => {
         map.U.setData('mysource', geojson);
@@ -544,14 +576,12 @@ describe('setData()', () => {
         expect(source.setData).toBeCalledWith(geojson);
     });
 });
-
 describe('setFilter()', () => {
     test('Calls setFilter twice when given two layers', () => {
         map.U.setFilter(['mylayer1', 'mylayer2'], ['==', 'id', 13]);
         expect(map.setFilter).toBeCalledTimes(2);
     });
 });
-
 describe('onLoad()', () => {
     test('Fires immediately if needed', () => {
         const cb = jest.fn();
@@ -559,7 +589,6 @@ describe('onLoad()', () => {
         expect(cb).toBeCalled();
     });
 });
-
 describe('show(), hide(), toggle()', () => {
     test('Show a layer', () => {
         map.U.show('mylayer');
@@ -612,10 +641,11 @@ describe('show(), hide(), toggle()', () => {
         );
     });
 });
-
 describe('removeLayer()', () => {
     test('Removes a layer. ', () => {
-        map.addLayer({ id: 'mylayer' });
+        map.addLayer({
+            id: 'mylayer',
+        });
         map.U.removeLayer(['mylayer']);
         expect(map.removeLayer).toBeCalledWith('mylayer');
         expect(map.getStyle().layers.length).toBe(0);
@@ -636,26 +666,36 @@ describe('removeLayer()', () => {
         expect(console.error).not.toBeCalled();
     });
     test('Removes multiple layers. ', () => {
-        map.addLayer({ id: 'mylayer' });
-        map.addLayer({ id: 'mylayer2' });
-        map.addLayer({ id: 'mylayer3' });
+        map.addLayer({
+            id: 'mylayer',
+        });
+        map.addLayer({
+            id: 'mylayer2',
+        });
+        map.addLayer({
+            id: 'mylayer3',
+        });
         map.U.removeLayer(['mylayer', 'mylayer2']);
         expect(map.removeLayer).toBeCalledWith('mylayer');
         expect(map.removeLayer).toBeCalledWith('mylayer2');
         expect(map.getStyle().layers.length).toBe(1);
     });
-
     test('Removes multiple layers with regex. ', () => {
-        map.addLayer({ id: 'mylayer' });
-        map.addLayer({ id: 'mylayer2' });
-        map.addLayer({ id: 'someotherlayer3' });
+        map.addLayer({
+            id: 'mylayer',
+        });
+        map.addLayer({
+            id: 'mylayer2',
+        });
+        map.addLayer({
+            id: 'someotherlayer3',
+        });
         map.U.removeLayer(/mylayer/);
         expect(map.getStyle().layers.length).toBe(1);
         expect(map.removeLayer).toBeCalledWith('mylayer');
         expect(map.removeLayer).toBeCalledWith('mylayer2');
     });
 });
-
 describe('hideSource(), showSource(), toggleSource()', () => {
     test('Hides layers attached to a source.', () => {
         map.U.addVector('mysource', 'mapbox://foo.blah');
@@ -671,8 +711,7 @@ describe('hideSource(), showSource(), toggleSource()', () => {
             'fill1',
             'visibility',
             'none',
-        ]);
-        // expect(map.setLayoutProperty).toBeCalledWith('fill1', 'visibility', 'none');
+        ]); // expect(map.setLayoutProperty).toBeCalledWith('fill1', 'visibility', 'none');
     });
     test('Shows layers attached to a source.', () => {
         map.U.addVector('mysource', 'mapbox://foo.blah');
@@ -688,8 +727,7 @@ describe('hideSource(), showSource(), toggleSource()', () => {
             'fill1',
             'visibility',
             'visible',
-        ]);
-        // expect(map.setLayoutProperty).toBeCalledWith('fill1', 'visibility', 'none');
+        ]); // expect(map.setLayoutProperty).toBeCalledWith('fill1', 'visibility', 'none');
     });
     test('Toggles layers attached to a source.', () => {
         map.U.addVector('mysource', 'mapbox://foo.blah');
@@ -711,11 +749,9 @@ describe('hideSource(), showSource(), toggleSource()', () => {
             'line1',
             'visibility',
             'none',
-        ]);
-        // expect(map.setLayoutProperty).toBeCalledWith('fill1', 'visibility', 'none');
+        ]); // expect(map.setLayoutProperty).toBeCalledWith('fill1', 'visibility', 'none');
     });
 });
-
 describe('removeSource', () => {
     test('Removes all layers attached to a source.', () => {
         map.U.addVector('mysource', 'mapbox://foo.blah');
@@ -727,10 +763,11 @@ describe('removeSource', () => {
         expect(map.removeSource.mock.calls[0]).toEqual(['mysource']);
     });
 });
-
 describe('getLayerStyle()', () => {
     test('Works', () => {
-        map.U.addLine('myline', 'mysource', { lineWidth: 3 });
+        map.U.addLine('myline', 'mysource', {
+            lineWidth: 3,
+        });
         expect(map.U.getLayerStyle('myline')).toEqual({
             type: 'line',
             id: 'myline',
@@ -741,7 +778,6 @@ describe('getLayerStyle()', () => {
         });
     });
 });
-
 describe('layerStyle()', () => {
     const output = {
         id: 'mylayer',
@@ -753,7 +789,9 @@ describe('layerStyle()', () => {
     };
     test('Works with id, source, type, props', () => {
         expect(
-            map.U.layerStyle('mylayer', 'mysource', 'line', { lineWidth: 3 })
+            map.U.layerStyle('mylayer', 'mysource', 'line', {
+                lineWidth: 3,
+            })
         ).toEqual(output);
     });
     test('Works with id, source, props', () => {
@@ -784,7 +822,6 @@ describe('layerStyle()', () => {
         ).toEqual(output);
     });
 });
-
 describe('addLayer()', () => {
     const output = {
         id: 'mylayer',
@@ -795,11 +832,16 @@ describe('addLayer()', () => {
         },
     };
     test('Works with id, source, type, props', () => {
-        map.U.addLayer('mylayer', 'mysource', 'line', { lineWidth: 3 });
+        map.U.addLayer('mylayer', 'mysource', 'line', {
+            lineWidth: 3,
+        });
         expect(map.addLayer).toBeCalledWith(output);
     });
     test('Works with id, source, props', () => {
-        map.U.addLayer('mylayer', 'mysource', { type: 'line', lineWidth: 3 });
+        map.U.addLayer('mylayer', 'mysource', {
+            type: 'line',
+            lineWidth: 3,
+        });
         expect(map.addLayer).toBeCalledWith(output);
     });
     test('Works with id, props', () => {
@@ -820,7 +862,6 @@ describe('addLayer()', () => {
         expect(map.addLayer).toBeCalledWith(output);
     });
 });
-
 describe('setLayerStyle()', () => {
     test('Clears unused properties first', () => {
         map.U.addLine('myline', 'mysource', {
@@ -855,28 +896,32 @@ describe('setLayerStyle()', () => {
         expect(map.setPaintProperty).toBeCalledWith('myline', 'line-width', 3);
     });
 });
-
 describe('setLayerSource()', () => {
     test('Works on first layer', () => {
         map.U.addLine('line1', 'mysource', {
             sourceLayer: 'old',
             lineWidth: 5,
         });
-        map.U.addLine('line2', 'mysource', { lineWidth: 5 });
+        map.U.addLine('line2', 'mysource', {
+            lineWidth: 5,
+        });
         map.U.setLayerSource('line1', 'newsource', 'new');
         expect(map.getStyle().layers[0].source).toEqual('newsource');
         expect(map.getStyle().layers[0]['source-layer']).toEqual('new');
         expect(map.getStyle().layers.length).toEqual(2);
     });
     test('Works on last layer', () => {
-        map.U.addLine('line1', 'mysource', { lineWidth: 5 });
-        map.U.addLine('line2', 'mysource', { lineWidth: 5 });
+        map.U.addLine('line1', 'mysource', {
+            lineWidth: 5,
+        });
+        map.U.addLine('line2', 'mysource', {
+            lineWidth: 5,
+        });
         map.U.setLayerSource('line2', 'newsource');
         expect(map.getStyle().layers[1].source).toEqual('newsource');
         expect(map.getStyle().layers.length).toEqual(2);
     });
 });
-
 describe("Rasters aren't ambiguous", () => {
     test('Adding raster source', () => {
         map.U.addRasterSource('myrastersource', {
@@ -908,7 +953,6 @@ describe("Rasters aren't ambiguous", () => {
         );
     });
 });
-
 describe('Hook functions return "remove" handlers', () => {
     test('clickOneLayer', () => {
         map.U.addGeoJSON('source');
@@ -942,8 +986,12 @@ describe('Hook functions return "remove" handlers', () => {
     test('hoverFeatureState with two sources', () => {
         map.U.addGeoJSON('source1');
         map.U.addGeoJSON('source2');
-        map.U.addLine('layer1', 'source1', { sourceLayer: 'sourceLayer1' });
-        map.U.addLine('layer2', 'source2', { sourceLayer: 'sourceLayer2' });
+        map.U.addLine('layer1', 'source1', {
+            sourceLayer: 'sourceLayer1',
+        });
+        map.U.addLine('layer2', 'source2', {
+            sourceLayer: 'sourceLayer2',
+        });
         const remove = map.U.hoverFeatureState('layer1', [
             ['source1', 'sourceLayer1'],
             ['source2', 'sourceLayer2'],
@@ -1000,32 +1048,40 @@ describe('Hook functions return "remove" handlers', () => {
         expect(map.off).toHaveBeenCalledTimes(3);
     });
 });
-
 describe('setRootProperty()', () => {
     test('Can set sprite property', () => {
         map.U.setRootProperty('sprite', 'http://example.com/sprite');
         expect(map.getStyle().sprite).toEqual('http://example.com/sprite');
     });
 });
-
-describe('zoom()', () => {
+describe('interpolateZoom()', () => {
     test('Makes a zoom expression with object', () => {
-        const e = utils.zoom({ 18: 0, 19: 1 });
+        const e = utils.interpolateZoom({
+            18: 0,
+            19: 1,
+        });
         expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
     });
     test('Makes a zoom expression with array', () => {
-        const e = utils.zoom([18, 0, 19, 1]);
+        const e = utils.interpolateZoom([18, 0, 19, 1]);
         expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
     });
     test('Makes a zoom expression with numbers', () => {
-        const e = utils.zoom(18, 0, 19, 1);
+        const e = utils.interpolateZoom(18, 0, 19, 1);
+        expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
+    });
+
+    test('Can call it as interpolateZoom', () => {
+        const e = utils.interpolateZoom(18, 0, 19, 1);
         expect(e).toEqual(['interpolate', ['linear'], ['zoom'], 18, 0, 19, 1]);
     });
 });
-
 describe('interpolate()', () => {
     test('Makes an interpolate function with a string property', () => {
-        const e = utils.interpolate('size', { 2: 15, 4: 30 });
+        const e = utils.interpolate('size', {
+            2: 15,
+            4: 30,
+        });
         expect(e).toEqual([
             'interpolate',
             ['linear'],
@@ -1037,7 +1093,10 @@ describe('interpolate()', () => {
         ]);
     });
     test('Makes an interpolate function with an expression', () => {
-        const e = utils.interpolate(['get', 'size'], { 2: 15, 4: 30 });
+        const e = utils.interpolate(['get', 'size'], {
+            2: 15,
+            4: 30,
+        });
         expect(e).toEqual([
             'interpolate',
             ['linear'],
@@ -1062,21 +1121,58 @@ describe('interpolate()', () => {
     });
 });
 
+describe('stepZoom()', () => {
+    test('Makes a step zoom expression with object', () => {
+        const e = utils.stepZoom(2, {
+            8: 3,
+        });
+        expect(e).toEqual(['step', ['zoom'], 2, 8, 3]);
+    });
+    test('Makes a step zoom expression with array', () => {
+        const e = utils.stepZoom([2, 8, 3]);
+        expect(e).toEqual(['step', ['zoom'], 2, 8, 3]);
+    });
+    test('Makes a step zoom expression with raw values', () => {
+        const e = utils.stepZoom(2, 8, 3);
+        expect(e).toEqual(['step', ['zoom'], 2, 8, 3]);
+    });
+
+    test('Makes a step zoom expression with an expression as an output value', () => {
+        const e = utils.stepZoom(['get', 'nameShort'], {
+            9: ['get', 'name'],
+            11: ['get', 'nameLong'],
+        });
+        expect(e).toEqual([
+            'step',
+            ['zoom'],
+            ['get', 'nameShort'],
+            9,
+            ['get', 'name'],
+            11,
+            ['get', 'nameLong'],
+        ]);
+    });
+});
 describe('match()', () => {
     test('Makes a match expression with "default" case', () => {
         expect(
-            utils.match('size', { small: 12, medium: 18, default: 24 })
+            utils.match('size', {
+                small: 12,
+                medium: 18,
+                default: 24,
+            })
         ).toEqual(['match', ['get', 'size'], 'small', 12, 'medium', 18, 24]);
     });
     test('Makes a match expression with fallback argument', () => {
-        expect(utils.match('size', { small: 12, medium: 18 }, 24)).toEqual([
-            'match',
-            ['get', 'size'],
-            'small',
-            12,
-            'medium',
-            18,
-            24,
-        ]);
+        expect(
+            utils.match(
+                'size',
+                {
+                    small: 12,
+                    medium: 18,
+                },
+                24
+            )
+        ).toEqual(['match', ['get', 'size'], 'small', 12, 'medium', 18, 24]);
     });
 });
