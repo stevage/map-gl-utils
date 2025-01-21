@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>map-gl-utils 0.46.0-rc.9 | Documentation</title>
+  <title>map-gl-utils 0.46.0-rc.10 | Documentation</title>
   <meta name='description' content='Utility functions for Mapbox GL JS or Maplibre GL JS'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>map-gl-utils</h3>
-          <div class='mb1'><code>0.46.0-rc.9</code></div>
+          <div class='mb1'><code>0.46.0-rc.10</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -4372,6 +4372,13 @@ const map = new mapgl.Map({ ... });
 import U from 'map-gl-utils';
 U.init(map);
 
+// if you need to explicitly import the ESM version:
+import U from 'map-gl-utils/dist/index.esm.js'
+U.init(map);
+
+
+
+
 // A small number of methods (eg hoverPopup) require access to the maplibre-gl/mapbox-gl library itself, in order to instantiate other objects.
 require('map-gl-utils').init(map, mapgl);
 </code></pre>
@@ -4379,9 +4386,7 @@ require('map-gl-utils').init(map, mapgl);
 <pre><code>// Adds U property to map, containing these methods.
 require('map-gl-utils/umd').init(map);
 </code></pre>
-<p>If you want to use Flow types:</p>
-<pre><code>import type MapGlUtils from 'map-gl-utils/src/index'
-</code></pre>
+<p>Typescript types are included in <code>dist/types/index.d.ts</code>.</p>
 <h3>Guide</h3>
 <h2>Working with layers</h2>
 <p>The <code>props</code> object passed when adding a layer can freely mix paint, layout and other properties. Property keys can be specified in camelCase or kebab-case:</p>
@@ -4627,7 +4632,7 @@ map.U.addSymbolLayer('labels', 'mysource', { textFont: fonts[0], textField: '{la
 <p>Map-GL-Utils was written by, and maintained, by Steve Bennett, a <a href="https://hire.stevebennett.me">freelance map developer</a>.</p>
 <p>Documentation built with <a href="https://github.com/documentationjs/documentation">documentation.js</a>.</p>
 <p>Packaging uses <a href="https://rollupjs.org/guide/en/">rollup.js</a> and <a href="https://babeljs.io/">Babel</a>.</p>
-<p><a href="https://flow.org/">Flow</a> is used internally, including types from <a href="https://github.com/mapbox/mapbox-gl-js">Mapbox GL JS</a>.</p>
+<p>Typescript is used internally, including types from <a href="https://github.com/mapbox/mapbox-gl-js">Mapbox GL JS</a>.</p>
 <p>Tests are run using <a href="https://jestjs.io/">Jest</a>.</p>
 
   

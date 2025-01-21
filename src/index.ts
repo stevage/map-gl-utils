@@ -38,7 +38,7 @@ type StyleImageMetadata = {
 };
 
 export type UtilsMap = MapboxGLMap & {
-    U: MapGlUtils | null | undefined;
+    U: MapGlUtils;
 };
 type MapboxGlLib = {
     Map: Class<MapboxGLMap>;
