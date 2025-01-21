@@ -6699,6 +6699,12 @@
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">clickLayer</span>(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(e.<span class="hljs-property">features</span>[<span class="hljs-number">0</span>].<span class="hljs-property">properties</span>.<span class="hljs-property">Name</span>));</pre>
+    
+  
 
   
 
@@ -6800,6 +6806,12 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">clickOneLayer</span>([<span class="hljs-string">&#x27;pois-label&#x27;</span>,<span class="hljs-string">&#x27;region-label&#x27;</span>], <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(e.<span class="hljs-property">features</span>[<span class="hljs-number">0</span>].<span class="hljs-property">properties</span>.<span class="hljs-property">Name</span>), <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;missed&#x27;</span>));</pre>
+    
   
 
   
@@ -7236,17 +7248,49 @@
           
         </div>
       
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>enterCb</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>?)</code>
+	    Callback when entering feature.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>leaveCb</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>?)</code>
+	    Callback when leaving feature.
+
+          </div>
+          
+        </div>
+      
     </div>
   
 
   
 
   
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        A function to remove the handler.
 
+      
+    
   
 
   
 
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">hoverFeatureState</span>(<span class="hljs-string">&#x27;buildings-fill&#x27;</span>, <span class="hljs-string">&#x27;composite&#x27;</span>, <span class="hljs-string">&#x27;buildings&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(e.<span class="hljs-property">features</span>[<span class="hljs-number">0</span>].<span class="hljs-property">properties</span>.<span class="hljs-property">Name</span>), <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;left&#x27;</span>));</pre>
+    
   
 
   
@@ -7308,7 +7352,7 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>any</code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a></code>:
         A function to remove the handler.
 
       
@@ -7319,6 +7363,12 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">hoverLayer</span>(<span class="hljs-string">&#x27;pois-symbol&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(e.<span class="hljs-property">features</span>[<span class="hljs-number">0</span>].<span class="hljs-property">properties</span>.<span class="hljs-property">Name</span>));</pre>
+    
   
 
   
@@ -7390,6 +7440,12 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">hoverPointer</span>(<span class="hljs-string">&#x27;poi-circle&#x27;</span>);</pre>
+    
   
 
   

@@ -447,8 +447,9 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /** Sets Map's cursor to 'pointer' whenever the mouse is over these layers.
-      @returns A function to remove the handler.
-   */
+     * @returns A function to remove the handler.
+     * @example hoverPointer('poi-circle');
+     */
     hoverPointer(layerOrLayers: LayerRef): () => void {
         const layers = resolveArray(layerOrLayers, this.map);
 
@@ -484,11 +485,15 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /**
-  Updates feature-state of features in the connected source[s] whenever hovering over a feature in these layers.
-  @param layer Layer(s) to add handler to.
-  @param {string|Array} [source] Source whose features will be updated. If not provided, use the source defined for the layer.
-  @param {string} [sourceLayer] Source layer (if using vector source)
-  */
+     * Updates feature-state of features in the connected source[s] whenever hovering over a feature in these layers.
+     * @param layer Layer(s) to add handler to.
+     * @param {string|Array} [source] Source whose features will be updated. If not provided, use the source defined for the layer.
+     * @param {string} [sourceLayer] Source layer (if using vector source)
+     * @param {function} [enterCb] Callback when entering feature.
+     * @param {function} [leaveCb] Callback when leaving feature.
+     * @returns A function to remove the handler.
+     * @example hoverFeatureState('buildings-fill', 'composite', 'buildings', e => console.log(e.features[0].properties.Name), e => console.log('left'));
+     */
     hoverFeatureState: (
         layer: LayerRef,
         source?: string,
@@ -626,12 +631,12 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /** Show a popup whenever a feature in these layers is clicked.
-      @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
-      @param htmlFunc Function that receives feature and popup, returns HTML.
-      @param {Object<PopupOptions>} popupOptions Options passed to `Popup()` to customise popup.
-       @returns A function that removes the handler.
-      @example clickPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`, { maxWidth: 500 });
-   */
+     * @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
+     * @param htmlFunc Function that receives feature and popup, returns HTML.
+     * @param {Object<PopupOptions>} popupOptions Options passed to `Popup()` to customise popup.
+     *  @returns A function that removes the handler.
+     * @example clickPopup('mylayer', f => `<h3>${f.properties.Name}</h3> ${f.properties.Description}`, { maxWidth: 500 });
+     */
     clickPopup(
         layers: LayerRef,
         htmlFunc: (arg0: {}) => void,
@@ -658,10 +663,11 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /** Fire a callback whenever a feature in these layers is clicked.
-      @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
-      @param {function} cb Callback that receives event with .features property
-      @returns A function that removes the handler.
-  */
+     *  @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
+     *  @param {function} cb Callback that receives event with .features property
+     * @returns A function that removes the handler.
+     * @example clickLayer('mylayer', e => console.log(e.features[0].properties.Name));
+     */
     clickLayer: (arg0: LayerRef, arg1: LayerCallback) => OffHandler =
         arrayifyAndOff(function (this: MapGlUtils, layer, cb) {
             const click = (e: MapMouseEvent) => {
@@ -676,12 +682,13 @@ class _MapGlUtils implements UtilsFuncs {
         });
 
     /**
-  Detects a click in the first of a series of layers given, and fires a callback.
-  @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
-  @param cb Callback, receives `{ event, layer, feature, features }`.
-  @param noMatchCb Callback when a click happens that misses all these layers. Receives `{ event }`.
-  @returns A function to remove the handler.
-  */
+     * Detects a click in the first of a series of layers given, and fires a callback.
+     * @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
+     * @param cb Callback, receives `{ event, layer, feature, features }`.
+     * @param noMatchCb Callback when a click happens that misses all these layers. Receives `{ event }`.
+     * @returns A function to remove the handler.
+     * @example clickOneLayer(['pois-label','region-label'], e => console.log(e.features[0].properties.Name), e => console.log('missed'));
+     */
     clickOneLayer(
         layerRef: LayerRef,
         cb: LayerCallback,
@@ -722,10 +729,11 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /**
-  Fires a callback when mouse hovers over a feature in these layers.
-  @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
-  @returns A function to remove the handler.
-  */
+     * Fires a callback when mouse hovers over a feature in these layers.
+     * @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
+     * @returns {function} A function to remove the handler.
+     * @example hoverLayer('pois-symbol', e => console.log(e.features[0].properties.Name));
+     */
     hoverLayer: (layers: LayerRef, cb: LayerCallback) => OffHandler =
         arrayifyAndOff(function (this: MapGlUtils, layer, cb) {
             const click = (e: MapMouseEvent) => {
