@@ -799,7 +799,9 @@ class _MapGlUtils implements UtilsFuncs {
         const layerIndex = style.layers.findIndex(l => l.id === layerDef.id);
         const beforeIndex = style.layers.findIndex(l => l.id === before);
         const useAddLayer = true; // using addLayer is many times faster than replacing the style, especially if it includes GeoJSON sources literally
-
+        if (beforeIndex < 0) {
+            before = undefined;
+        }
         if (useAddLayer) {
             if (layerIndex >= 0) {
                 this.map.removeLayer(layerDef.id);
