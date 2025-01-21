@@ -12,7 +12,7 @@ import type {
     ImageSourceSpecification,
     VideoSourceSpecification,
 } from '@mapbox/mapbox-gl-style-spec/types';
-import type { GeoJSON } from 'geojson';
+import type { Feature, GeoJSON, Geometry, GeometryCollection } from 'geojson';
 // import type { StyleImageMetadata } from 'mapbox-gl/src/style/style_image';
 import type MapboxGl from 'mapbox-gl';
 import type {
@@ -916,30 +916,50 @@ class _MapGlUtils implements UtilsFuncs {
         before?: string
     ): void {}
 
-    /** Create a GeoJSON layer. */
+    /** Create a GeoJSON source or update properties if already present.
+     * @param sourceId ID of the new source.
+     * @param {GeoJSON} [geojson] Optional GeoJSON data.
+     * @param {object} [props] Properties defining the source, per the style spec.
+     */
     addGeoJSONSource(
-        id: string,
+        sourceId: string,
         geojson?: GeoJSON | null | undefined,
         props?: GeoJSONSourceSpecification | null | undefined
     ): SourceBoundUtils {
+        if (
+            geojson &&
+            !(
+                geojson.type === 'FeatureCollection' ||
+                geojson.type === 'GeometryCollection' ||
+                (geojson as Feature).geometry ||
+                (geojson as Exclude<Geometry, GeometryCollection>).coordinates
+            )
+        ) {
+            props = geojson as unknown as GeoJSONSourceSpecification;
+            geojson = undefined;
+        }
         if (!geojson)
             geojson = {
                 type: 'FeatureCollection',
                 features: [],
             };
-        return this.addSource(id, {
+        return this.addSource(sourceId, {
             type: 'geojson',
             data: geojson ?? undefined,
             ...props,
         });
     }
-
+    /** Create a GeoJSON source or update properties if already present.
+     * @param sourceId ID of the new source.
+     * @param {GeoJSON} [geojson] Optional GeoJSON data.
+     * @param {object} [props] Properties defining the source, per the style spec.
+     */
     addGeoJSON(
-        id: string,
+        sourceId: string,
         geojson?: GeoJSON | null | undefined,
         props?: GeoJSONSourceSpecification | null | undefined
     ): SourceBoundUtils {
-        return this.addGeoJSONSource(id, geojson, props);
+        return this.addGeoJSONSource(sourceId, geojson, props);
     }
 
     addSource(id: string, sourceDef: SourceSpecification): SourceBoundUtils {

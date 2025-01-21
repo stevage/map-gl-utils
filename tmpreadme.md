@@ -17,19 +17,19 @@ Full documentation: https://stevage.github.io/map-gl-utils
 
 To use without any build process:
 
-```js
+```
 <script src="https://unpkg.com/map-gl-utils"></script>
 ```
 
 then
 
-```js
+```
 U.init(map)
 ```
 
 With Webpack etc:
 
-```js
+```
 const mapgl = require('maplibre-gl'); // or require('mapbox-gl');
 const map = new mapgl.Map({ ... });
 
@@ -50,7 +50,7 @@ require('map-gl-utils').init(map, mapgl);
 
 The default distribution is an ES2015 module with no transpiling. If you experience any syntax issues (such as using older JavaScript versions), use the UMD bundle instead:
 
-```js
+```
 // Adds U property to map, containing these methods.
 require('map-gl-utils/umd').init(map);
 ```
@@ -63,7 +63,7 @@ Typescript types are included in `dist/types/index.d.ts`.
 
 The `props` object passed when adding a layer can freely mix paint, layout and other properties. Property keys can be specified in camelCase or kebab-case:
 
-```js
+```
 map.U.addCircleLayer('trees-circle', 'trees', {
     circleColor: 'green', // paint property
     circleRadius: ['interpolate', ['zoom'], 12, 3, 15, 5], // paint property
@@ -82,7 +82,7 @@ Almost every method that works with existing layers (eg, `show()`) can work with
 
 Methods that add sources return an object ("SourceBoundUtils" in this documentation) that can be chained to allow layers to be added to it:
 
-```js
+```
 map.U.addGeoJSONSource('properties')
 .addCircleLayer('properties-line', { lineWidth: 3 })
 .addSymbolLayer('properties-fill', { fillColor: 'hsla(30,30%,60%,0.5)' })
@@ -90,7 +90,7 @@ map.U.addGeoJSONSource('properties')
 
 ### Adding and removing layers
 
-```js
+```
 // Conveniently add a line feature, mixing paint, layout and other properties.
 // Notice you can use camelCase for all property names.
 map.U.addLineLayer('mylines', 'mysource', {
@@ -114,7 +114,7 @@ map.U.removeLayer(['towns','town-labels']);
 ```
 ### Adding and removing sources
 
-```js
+```
 // Simpler way to create GeoJSON source:
 map.U.addGeoJSON('mysource', geojson);
 
@@ -154,7 +154,7 @@ map.U.setLayerSource('buildings', 'mylocalbuildings', null);
 
 ### Setting properties and updating data
 
-```js
+```
 // Every property has a setXxx() form:
 map.U.setTextSize('mylayer', 12);
 
@@ -194,7 +194,7 @@ map.U.addRasterLayer('myrasterlayer', 'myrastersource', { rasterSaturation: 0.5 
 
 ### Hovering and clicking
 
-```js
+```
 // Use the mouse 'finger' cursor when hovering over this layer.
 map.U.hoverPointer('mylayer');
 
@@ -251,7 +251,7 @@ remove(); // no more hover popup
 
 ### Other functions
 
-```js
+```
 // Like on('load') but fires immediately (and reliably) any time after map already loaded.
 map.U.onLoad(callback);
 // returns a promise if no callback:
@@ -305,7 +305,7 @@ map.U.addSymbolLayer('labels', 'mysource', { textFont: fonts[0], textField: '{la
 ```
 
 ### Contrived example
-```js
+```
 map.U.onload(() => {
     map.U.addGeoJSON('towns');
     map.U.addCircleLayer('small-towns', 'towns', { circleColor: 'green', filter: ['==', 'size', 'small']});
