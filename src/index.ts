@@ -348,7 +348,7 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /**
-     * Generates an ["interpolate", ["linear"], input, lowest, ...stops] expression.
+     * Generates an `["interpolate", ["linear"], ["zoom"], lowest, ...stops] expression.`
      * @param stops Object of zoom: value pairs.
      */
     static interpolateZoom(
@@ -411,7 +411,7 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /**
-     * Generates a ["interpolate", ["linear"], input, lowest, ...stops] expression.
+     * Generates an `["interpolate", ["linear"], input, lowest, ...stops]` expression.
      * @example interpolate('size', { 2: 15, 4: 30, })
      */
     static interpolate(
