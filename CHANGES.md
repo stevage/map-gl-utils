@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.50.0
+- convert from Flow to TypeScript.
+- probably mess up the packaging once more.
+
 ### 0.44.0
 - add match/interpolate/zoom convenience functions, somewhat experimental
 
