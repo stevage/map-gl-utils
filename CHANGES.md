@@ -4,6 +4,9 @@
 - convert from Flow to TypeScript.
 - probably mess up the packaging once more.
 
+### 0.45.0-0
+- fixing packaging issues ("regeneratorRuntime is not defined")
+
 ### 0.44.0
 - add match/interpolate/zoom convenience functions, somewhat experimental
 

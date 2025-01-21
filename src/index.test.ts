@@ -25,6 +25,7 @@ const mockMap = jest.fn(params => {
         getPaintProperty: jest.fn().mockName('getPaintProperty'),
         getLayoutProperty: jest.fn().mockName('getLayoutProperty'),
         setFilter: jest.fn().mockName('setFilter'),
+        getLayer: jest.fn(id => map._style.layers.find(l => l.id === id)),
         addLayer: jest
             .fn((layer, before) => {
                 let index = map._style.layers.length;
@@ -422,7 +423,7 @@ describe('add()', () => {
             type: 'fill-extrusion',
         });
     });
-    test('Plain "add" respects "before" property', () => {
+    test('Plain add respects before property', () => {
         map.U.add('someotherlayer', 'things', 'line', {
             lineColor: 'blue',
         });

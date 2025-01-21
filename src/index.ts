@@ -923,11 +923,12 @@ class _MapGlUtils implements UtilsFuncs {
      */
     addGeoJSONSource(
         sourceId: string,
-        geojson?: GeoJSON | null | undefined,
+        geojson?: GeoJSON | string | null | undefined,
         props?: GeoJSONSourceSpecification | null | undefined
     ): SourceBoundUtils {
         if (
             geojson &&
+            typeof geojson === 'object' &&
             !(
                 geojson.type === 'FeatureCollection' ||
                 geojson.type === 'GeometryCollection' ||
@@ -1387,10 +1388,16 @@ class _MapGlUtils implements UtilsFuncs {
             return this.map.addImage(id, url, options);
         }
     }
-
+    /** Forcibly prevents the map's pitch or bearing being changed by the user. */
     lockOrientation(): void {
+        const bearing = this.map.getBearing();
+        const pitch = this.map.getPitch();
         this.map.touchZoomRotate.disableRotation();
         this.map.dragRotate.disable();
+        this.map.on('move', () => {
+            if (this.map.getBearing() !== bearing) this.map.setBearing(bearing);
+            if (this.map.getPitch() !== pitch) this.map.setPitch(pitch);
+        });
     }
 
     /** Gets array of font names in use, determined by traversing style. Does not detect fonts in all possible situations.

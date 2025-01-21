@@ -1,6 +1,6 @@
 {
   "name": "map-gl-utils",
-  "version": "0.50.1",
+  "version": "0.50.2",
   "description": "Utility functions for Mapbox GL JS or Maplibre GL JS",
   "main": "umd/index.min.js",
   "module": "dist/index.esm.js",
@@ -59,7 +59,10 @@
     "layers",
     "maps"
   ],
-  "repository": "github:stevage/map-gl-utils",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevage/map-gl-utils.git"
+  },
   "oldjest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true

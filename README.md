@@ -5,13 +5,26 @@ Full documentation: https://stevage.github.io/map-gl-utils
 ## Major features:
 
 * No need to distinguish between paint, layout and other properties.
-* All properties can be expressed as camelCase rather than kebab-case.
-* Layer operations can act on multiple layers (given by array, regex or filter function), not just one.
+* All properties can be expressed as camelCase (`lineWidth`) rather than kebab-case (`line-width`).
+* Layer operations can act on multiple layers (given by array, regex or filter function): `setLineColor(/road-*/, 'red')`.
 * Source types, layer types and property names are incorporated into function names: `addGeoJSON()`, `addCircleLayer()`, `setCircleRadius()`, `getTextFont()`...
 * Adding layers and sources is idempotent: call `addLineLayer()` multiple times to create, then update the layer.
-* Some other convenience functions: `show()`, `hide()`, `onLoad()`, `setData()`, `fontsInUse()`
+* Some other convenience functions:
+  * `show()`, `hide()`, `toggle(true/false)`: hide/show one or more layers
+  * `onLoad()`: async function triggers after load, or immediately if map is already loaded
+  * `setData()`: conveniently update a GeoJSON source
+  * `fontsInUse()`: list of all fonts in the current style
+  * `lockOrientation()`: disable rotation and tilting behaviour
+  * `layerStyle(id)`: retrieve the layer definition for a layer
+  * `setTransition()`: set the `transition` property of the style
+
 * Better click and hover functions: `hoverPointer()`, `hoverFeatureState()`, `hoverPopup()`, `clickLayer()`
-* Some functions behave better: `removeLayer()` (not an error if layer doesn't exist), `removeSource()` (removes attached layers automatically), `setFilter()` (works on multiple layers at once), `setData()` clears data if no GeoJSON provided.
+* Some functions behave better:
+  * `removeLayer()` (not an error if layer doesn't exist),
+  * `removeSource()` (removes attached layers automatically),
+  * `setFilter()` (works on multiple layers at once),
+  * `setData()` clears data if no GeoJSON provided.
+  * `loadImage()` loads and adds an image in one step.
 
 ## Usage
 
@@ -30,21 +43,19 @@ U.init(map)
 With Webpack etc:
 
 ```js
-const mapgl = require('maplibre-gl'); // or require('mapbox-gl');
+import mapgl from ('maplibre-gl'); // or require('mapbox-gl');
+import U from 'map-gl-utils'
 const map = new mapgl.Map({ ... });
-
-// or:
-import U from 'map-gl-utils';
 U.init(map);
 
 // if you need to explicitly import the ESM version:
 import U from 'map-gl-utils/dist/index.esm.js'
-U.init(map);
 
 
 
 
-// A small number of methods (eg hoverPopup) require access to the maplibre-gl/mapbox-gl library itself, in order to instantiate other objects.
+// A small number of methods (eg hoverPopup) require access to the maplibre-gl/mapbox-gl
+// library itself, in order to instantiate other objects.
 require('map-gl-utils').init(map, mapgl);
 ```
 
