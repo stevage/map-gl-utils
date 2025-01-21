@@ -234,9 +234,11 @@ class _MapGlUtils implements UtilsFuncs {
     update: (sourceId: string, data?: GeoJSON) => void;
 
     /** Initialises Map-GL-Utils on existing map object.
-      @param mapgl Mapbox-GL-JS or Maplibre-GL-JS library. Only needed for later use by `hoverPopup()` etc.
-      @returns Initialised MapGlUtils object.
-  */
+     * @param map Map object to attach to.
+     * @param mapgl Mapbox-GL-JS or Maplibre-GL-JS library. Only needed for later use by `hoverPopup()` etc.
+     * @returns Initialised MapGlUtils object.
+     * @example MapGlUtils.init(map, maplibregl);
+     */
     static init(map: UtilsMap, mapgl?: MapboxGlLib): MapGlUtils {
         map.U = new _MapGlUtils() as MapGlUtils;
         map.U._mapgl = mapgl;
