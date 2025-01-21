@@ -25,6 +25,11 @@ Full documentation: https://stevage.github.io/map-gl-utils
   * `setFilter()` (works on multiple layers at once),
   * `setData()` clears data if no GeoJSON provided.
   * `loadImage()` loads and adds an image in one step.
+* Expression syntactic sugar (called statically):
+  * `U.stepZoom(2, { 8: 3 })` => `['step', ['zoom'], 2, 8, 3]`
+  * `U.interpolateZoom({ 14: 2, 16: 4 })` => `['interpolate', ['linear'], ['zoom'], 14, 2, 16, 4]`
+  * `U.interpolate('size', {2: 15, 4: 30 }')` => `['interpolate', ['get', 'size'], 2, 15, 4, 13]`
+  * `U.match('size', { small: 12, medium: 18, default: 24 })` => `['match', ['get', 'size'], 'small', 12, 'medium', 18, 24]`
 
 ## Usage
 

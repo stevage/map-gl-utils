@@ -354,6 +354,9 @@ class _MapGlUtils implements UtilsFuncs {
 
     static zoom = _MapGlUtils.interpolateZoom;
 
+    /**
+     * Generates a ["step", input, lowest, ...steps] expression.
+     */
     static step(
         expression: ExpressionSpecification,
         lowest: number,
@@ -378,6 +381,10 @@ class _MapGlUtils implements UtilsFuncs {
         ];
     }
 
+    /**
+     * Generates a ["step", ["zoom"], lowest, ...steps] expression.
+     * @example stepZoom(2, { 8: 3, })
+     */
     static stepZoom(
         lowest: number,
         stops:
@@ -390,6 +397,10 @@ class _MapGlUtils implements UtilsFuncs {
         return this.step(['zoom'], lowest, stops, ...moreStops);
     }
 
+    /**
+     * Generates a ["interpolate", ["linear"], input, lowest, ...stops] expression.
+     * @example interpolate('size', { 2: 15, 4: 30, })
+     */
     static interpolate(
         expression: string | ExpressionSpecification,
         stops: number | { [s: string]: unknown } | ArrayLike<unknown>,
@@ -409,7 +420,11 @@ class _MapGlUtils implements UtilsFuncs {
                 : [stops, ...moreStops]),
         ];
     }
-
+    /**
+     * Generates a ["match", input, output, default] expression.
+     * @example MapGlUtils.match('type', { 'house': '🏠', 'tree': '🌲' }, '❓')
+     *
+     */
     static match(
         expression: string,
         cases: { [s: string]: unknown; default?: any },
