@@ -179,6 +179,16 @@
               
                 
                 <li><a
+                  href='#addsource'
+                  class="">
+                  addSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#addsymbollayer'
                   class="">
                   addSymbolLayer
@@ -369,6 +379,16 @@
               
                 
                 <li><a
+                  href='#removelayer'
+                  class="">
+                  removeLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#removesource'
                   class="">
                   removeSource
@@ -402,6 +422,16 @@
                   href='#setlayersource'
                   class="">
                   setLayerSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setlayerstyle'
+                  class="">
+                  setLayerStyle
                   
                 </a>
                 
@@ -5738,7 +5768,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
+	    ID of the new layer.
+
           </div>
           
         </div>
@@ -5746,7 +5777,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
+	    ID of the source to use.
+
           </div>
           
         </div>
@@ -5754,7 +5786,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>type</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
+	    Type of the layer.
+
           </div>
           
         </div>
@@ -5762,7 +5795,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>props</span> <code class='quiet'>({})</code>
-	    
+	    Properties defining the layer, per the style spec. Keys can be in camelCase, and paint and layout keys freely mixed.
+
           </div>
           
         </div>
@@ -5770,7 +5804,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>before</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>))</code>
-	    
+	    ID of the layer to insert before.
+
           </div>
           
         </div>
@@ -6131,6 +6166,93 @@
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addsource'>
+      addSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds or updates a source in the style.</p>
+
+    <div class='pre p1 fill-light mt0'>addSource(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, sourceDef: SourceSpecification): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new source.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceDef</span> <code class='quiet'>(SourceSpecification)</code>
+	    Properties defining the source, per the style spec.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>:
+        A SourceBoundUtils object for chaining.
+
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">addSource</span>(<span class="hljs-string">&#x27;mysource&#x27;</span>, { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;geojson&#x27;</span>, <span class="hljs-attr">data</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;FeatureCollection&#x27;</span>, <span class="hljs-attr">features</span>: [] } });</pre>
+    
   
 
   
@@ -7391,7 +7513,7 @@
   </div>
   
 
-  <p>Adds an image for use as a symbol layer, from a URL.</p>
+  <p>Adds an image for use in a symbol layer, from a URL.</p>
 
     <div class='pre p1 fill-light mt0'>loadImage(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, url: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, options: StyleImageMetadata?): any</div>
   
@@ -7411,7 +7533,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
+	    ID of the image.
+
           </div>
           
         </div>
@@ -7419,7 +7542,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>url</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
+	    URL of the image.
+
           </div>
           
         </div>
@@ -7427,7 +7551,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>options</span> <code class='quiet'>(StyleImageMetadata?)</code>
-	    
+	    Options for the image.
+
           </div>
           
         </div>
@@ -7609,7 +7734,7 @@
 
   <p>Converts a set of properties in pascalCase or kebab-case into a layer objectwith layout and paint properties.</p>
 
-    <div class='pre p1 fill-light mt0'>properties(props: {}?): ({} | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</div>
+    <div class='pre p1 fill-light mt0'>properties(props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
   
   
 
@@ -7626,8 +7751,9 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>props</span> <code class='quiet'>({}?)</code>
-	    
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Properties to convert.
+
           </div>
           
         </div>
@@ -7640,7 +7766,10 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>({} | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</code>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        Layer object with layout and paint properties.
+
+      
     
   
 
@@ -7648,6 +7777,91 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">properties</span>({ <span class="hljs-attr">fillOpacity</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">fillColor</span>: <span class="hljs-string">&#x27;red&#x27;</span> })
+<span class="hljs-comment">// { paint: { &#x27;fill-opacity&#x27;: 0.5, &#x27;fill-color&#x27;: &#x27;red&#x27; } }</span></pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='removelayer'>
+      removeLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Removes one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>removeLayer</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layers to remove.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        void
+
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">removeLayer</span>([<span class="hljs-string">&#x27;tree-labels&#x27;</span>,<span class="hljs-string">&#x27;building-labels&#x27;</span>])</pre>
+    
   
 
   
@@ -7957,6 +8171,85 @@
     
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">setLayerSource</span>([<span class="hljs-string">&#x27;trees-circle&#x27;</span>, <span class="hljs-string">&#x27;trees-label&#x27;</span>], <span class="hljs-string">&#x27;allpoints&#x27;</span>, <span class="hljs-string">&#x27;trees&#x27;</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setlayerstyle'>
+      setLayerStyle
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Updates multiple properties for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setLayerStyle</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layers to update.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Properties to update.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">setLayerStyle</span>(<span class="hljs-string">&#x27;buildings-fill&#x27;</span>, { <span class="hljs-attr">fillOpacity</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">fillColor</span>: <span class="hljs-string">&#x27;red&#x27;</span> });</pre>
     
   
 

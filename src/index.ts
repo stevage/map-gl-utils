@@ -753,7 +753,13 @@ class _MapGlUtils implements UtilsFuncs {
         }
     }
 
-    /** Adds a layer, given an id, source, type, and properties.
+    /**
+     * Adds a layer, given an id, source, type, and properties.
+     * @param id ID of the new layer.
+     * @param source ID of the source to use.
+     * @param type Type of the layer.
+     * @param [props] Properties defining the layer, per the style spec. Keys can be in camelCase, and paint and layout keys freely mixed.
+     * @param [before] ID of the layer to insert before.
      */
     addLayer(
         id: string,
@@ -845,6 +851,12 @@ class _MapGlUtils implements UtilsFuncs {
         return this._makeSource(source);
     }
 
+    /**
+     * Removes one or more layers.
+     * @param {string|Array<string>|RegExp|function} layers Layers to remove.
+     * @returns void
+     * @example removeLayer(['tree-labels','building-labels'])
+     */
     removeLayer: LayerRefFunc = arrayify(function (this: MapGlUtils, layer) {
         const swallowError = (data: { error: { message: string } }) => {
             if (!data.error.message.match(/does not exist/)) {
@@ -978,6 +990,13 @@ class _MapGlUtils implements UtilsFuncs {
         return this.addGeoJSONSource(sourceId, geojson, props);
     }
 
+    /**
+     * Adds or updates a source in the style.
+     * @param id ID of the new source.
+     * @param sourceDef Properties defining the source, per the style spec.
+     * @returns A SourceBoundUtils object for chaining.
+     * @example addSource('mysource', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+     */
     addSource(id: string, sourceDef: SourceSpecification): SourceBoundUtils {
         const style = this.map.getStyle();
         if (!style) throw 'Map has no style';
@@ -994,11 +1013,11 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /** Adds a `vector` source
-  @param sourceId ID of the new source.
-  @param {string} [data] Optional URL of source tiles (.../{z}/{x}/{y}...), mapbox:// URL or TileJSON endpoint.
-  @param {object} props Properties defining the source, per the style spec.
-   @example addVector('mysource', 'http://example.com/tiles/{z}/{x}/{y}.pbf', { maxzoom: 13 });
-  */
+     * @param sourceId ID of the new source.
+     * @param {string} [data] Optional URL of source tiles (.../{z}/{x}/{y}...), mapbox:// URL or TileJSON endpoint.
+     * @param {object} props Properties defining the source, per the style spec.
+     * @example addVector('mysource', 'http://example.com/tiles/{z}/{x}/{y}.pbf', { maxzoom: 13 });
+     */
     addVectorSource(
         sourceId: string,
         props: string | {},
@@ -1111,7 +1130,13 @@ class _MapGlUtils implements UtilsFuncs {
         }
     );
 
-    /** Converts a set of properties in pascalCase or kebab-case into a layer objectwith layout and paint properties. */
+    /**
+     * Converts a set of properties in pascalCase or kebab-case into a layer objectwith layout and paint properties.
+     * @param {object} props Properties to convert.
+     * @returns {object} Layer object with layout and paint properties.
+     * @example properties({ fillOpacity: 0.5, fillColor: 'red' })
+     * // { paint: { 'fill-opacity': 0.5, 'fill-color': 'red' } }
+     * */
     properties(props?: {} /*...*/): {} | null | undefined {
         if (!props) {
             return undefined;
@@ -1178,6 +1203,12 @@ class _MapGlUtils implements UtilsFuncs {
         return this.map.getStyle()?.layers?.find(l => l.id === layerId);
     }
 
+    /**
+     * Updates multiple properties for one or more layers.
+     * @param {string|Array<string>|RegExp|function} layers Layers to update.
+     * @param {object} props Properties to update.
+     * @example setLayerStyle('buildings-fill', { fillOpacity: 0.5, fillColor: 'red' });
+     */
     setLayerStyle: LayerRefFunc1<{}> = arrayify(function (
         this: MapGlUtils,
         layer: string | LayerSpecification,
@@ -1398,9 +1429,12 @@ class _MapGlUtils implements UtilsFuncs {
         this.setRootProperty('transition', val);
     }
 
-    /** Adds an image for use as a symbol layer, from a URL.
-  @example loadImage('marker', '/assets/marker-pin@2x.png', { pixelRatio: 2})
-  */
+    /** Adds an image for use in a symbol layer, from a URL.
+     * @param {string} id ID of the image.
+     * @param {string} url URL of the image.
+     * @param {StyleImageMetadata} [options] Options for the image.
+     * @example loadImage('marker', '/assets/marker-pin@2x.png', { pixelRatio: 2})
+     */
     loadImage(id: string, url: string, options?: StyleImageMetadata): any {
         if (
             typeof url === 'string'
@@ -1421,7 +1455,9 @@ class _MapGlUtils implements UtilsFuncs {
             return this.map.addImage(id, url, options);
         }
     }
-    /** Forcibly prevents the map's pitch or bearing being changed by the user. */
+    /**
+     * Forcibly prevents the map's pitch or bearing being changed by the user.
+     * */
     lockOrientation(): void {
         const bearing = this.map.getBearing();
         const pitch = this.map.getPitch();
@@ -1433,8 +1469,10 @@ class _MapGlUtils implements UtilsFuncs {
         });
     }
 
-    /** Gets array of font names in use, determined by traversing style. Does not detect fonts in all possible situations.
-  @returns {Array[string]}  */
+    /**
+     * Gets array of font names in use, determined by traversing style. Does not detect fonts in all possible situations.
+     * @returns {Array[string]}
+     * */
     fontsInUse(): Array<string> {
         // TODO add tests
         // TODO: find fonts burried within ['format', ... { 'text-font': ... }] expressions
