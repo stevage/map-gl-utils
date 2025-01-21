@@ -1077,8 +1077,11 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /** Sets a paint or layout property on one or more layers.
-  @example setProperty(['buildings-fill', 'parks-fill'], 'fillOpacity', 0.5)
-  */
+     * @param {string|Array<string>|RegExp|function} layers Layers to update.
+     * @param {string|object} prop Property to update, or object of properties.
+     * @param {any} [value] Value to set property to.
+     * @example setProperty(['buildings-fill', 'parks-fill'], 'fillOpacity', 0.5)
+     */
     setProperty: LayerRefFunc2<string, PropValue | undefined> = arrayify(
         function (
             this: MapGlUtils,
@@ -1166,7 +1169,10 @@ class _MapGlUtils implements UtilsFuncs {
         return ret;
     }
 
-    /** Gets the layer definition for a given layer id, as per the style spec..
+    /**
+     * Gets the layer definition for a given layer id, as per the style spec.
+     * @param {string} layerId
+     * @returns {LayerSpecification} Layer definition object.
      */
     getLayerStyle(layerId: string): LayerSpecification | undefined {
         return this.map.getStyle()?.layers?.find(l => l.id === layerId);
@@ -1215,9 +1221,10 @@ class _MapGlUtils implements UtilsFuncs {
     });
 
     /** Replaces the current data for a GeoJSON layer.
-  @param sourceId Id of the source being updated.
-  @param {GeoJSON} [data] GeoJSON object to set. If not provided, defaults to an empty FeatureCollection.
-  */
+     * @param sourceId Id of the source being updated.
+     * @param {GeoJSON} [data] GeoJSON object to set. If not provided, defaults to an empty FeatureCollection.
+     * @example setData('trees', { type: 'FeatureCollection', features: [ ... ] });
+     */
     setData(
         sourceId: string,
         data: GeoJSON = {
@@ -1229,8 +1236,9 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /** Makes the given layers visible.
-  @param {string|Array<string>|RegExp|function} Layer to toggle.
-  */
+     * @param {string|Array<string>|RegExp|function} Layers to show.
+     * @example map.U.show(['buildings-fill', 'buildings-outline', 'buildings-label']);
+     */
     show: LayerRefFunc0 = arrayify(function (
         this: MapGlUtils,
         layer: LayerRef
@@ -1239,16 +1247,18 @@ class _MapGlUtils implements UtilsFuncs {
     });
 
     /** Makes the given layers hidden.
-  @param {string|Array<string>|RegExp|function} Layer to toggle.
-   */
+     * @param {string|Array<string>|RegExp|function} Layers to hide.
+     * @example map.U.hide(/^buildings-/);
+     */
     hide: LayerRefFunc0 = arrayify(function (this: MapGlUtils, layer) {
         this.setVisibility(layer, 'none');
     });
 
     /** Makes the given layers hidden or visible, depending on an argument.
-  @param {string|Array<string>|RegExp|function} Layer to toggle.
-  @param {boolean} state True for visible, false for hidden.
-  */
+     * @param {string|Array<string>|RegExp|function} Layer to toggle.
+     * @param {boolean} state True for visible, false for hidden.
+     * @example map.U.toggle(/^buildings-/, layers.showBuildings);
+     */
     toggle: LayerRefFunc1<boolean> = arrayify(function (
         this: UtilsFuncs,
         layer,
@@ -1257,7 +1267,11 @@ class _MapGlUtils implements UtilsFuncs {
         this.setVisibility(layer, state ? 'visible' : 'none');
     });
 
-    /** Makes all layers depending on a given source visible. */
+    /**
+     * Makes all layers depending on a given source visible.
+     * @param {string} sourceId Source[s] whose layers will be toggled.
+     * @example map.U.showSource('trees');
+     * */
     showSource: SourceRefFunc0 = arrayify(function (
         this: MapGlUtils & UtilsFuncs,
         source
@@ -1265,7 +1279,11 @@ class _MapGlUtils implements UtilsFuncs {
         this.setVisibility(this.layersBySource(source), 'visible');
     });
 
-    /** Makes all layers depending on a given source hidden. */
+    /**
+     * Makes all layers depending on a given source hidden.
+     * @param {string} sourceId Source[s] whose layers will be toggled.
+     * @example map.U.hideSource('trees');
+     * */
     hideSource: SourceRefFunc0 = arrayify(function (this: MapGlUtils, source) {
         this.setVisibility(this.layersBySource(source), 'none');
     });
@@ -1285,10 +1303,10 @@ class _MapGlUtils implements UtilsFuncs {
     });
 
     /** Replace the filter for one or more layers.
-  @param {string|Array<string>|RegExp|function} layers Layers to attach handler to.
-  @param {Array} filter New filter to set.
-  @example map.U.setFilter(['buildings-fill', 'buildings-outline', 'buildings-label'], ['==','level','0']]);
-  */
+     * @param {string|Array<string>|RegExp|function} layers Layers to update.
+     * @param {Array} filter New filter to set.
+     * @example map.U.setFilter(['buildings-fill', 'buildings-outline', 'buildings-label'], ['==','level','0']]);
+     */
     setFilter: LayerRefFunc1<FilterSpecification> = arrayify(function (
         this: MapGlUtils,
         layer,

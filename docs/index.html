@@ -6859,9 +6859,9 @@
   </div>
   
 
-  <p>Gets the layer definition for a given layer id, as per the style spec..</p>
+  <p>Gets the layer definition for a given layer id, as per the style spec.</p>
 
-    <div class='pre p1 fill-light mt0'>getLayerStyle(layerId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): (LayerSpecification | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</div>
+    <div class='pre p1 fill-light mt0'>getLayerStyle(layerId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): LayerSpecification</div>
   
   
 
@@ -6892,7 +6892,10 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>(LayerSpecification | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</code>
+      <code>LayerSpecification</code>:
+        Layer definition object.
+
+      
     
   
 
@@ -6946,8 +6949,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>Layer</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
-	    to toggle.
+            <span class='code bold'>Layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    to hide.
 
           </div>
           
@@ -6964,6 +6967,12 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>map.<span class="hljs-property">U</span>.<span class="hljs-title function_">hide</span>(<span class="hljs-regexp">/^buildings-/</span>);</pre>
+    
   
 
   
@@ -7005,7 +7014,19 @@
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    Source[s] whose layers will be toggled.
 
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -7014,6 +7035,14 @@
 
   
 
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>map.<span class="hljs-property">U</span>.<span class="hljs-title function_">hideSource</span>(<span class="hljs-string">&#x27;trees&#x27;</span>);</pre>
+    
   
 
   
@@ -7757,6 +7786,12 @@
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">setData</span>(<span class="hljs-string">&#x27;trees&#x27;</span>, { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;FeatureCollection&#x27;</span>, <span class="hljs-attr">features</span>: [ ... ] });</pre>
+    
+  
 
   
 
@@ -7803,7 +7838,7 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
-	    Layers to attach handler to.
+	    Layers to update.
 
           </div>
           
@@ -7963,6 +7998,38 @@
   
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layers to update.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>prop</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>))</code>
+	    Property to update, or object of properties.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any?)</code>
+	    Value to set property to.
+
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -8165,8 +8232,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>Layer</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
-	    to toggle.
+            <span class='code bold'>Layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    to show.
 
           </div>
           
@@ -8183,6 +8250,12 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>map.<span class="hljs-property">U</span>.<span class="hljs-title function_">show</span>([<span class="hljs-string">&#x27;buildings-fill&#x27;</span>, <span class="hljs-string">&#x27;buildings-outline&#x27;</span>, <span class="hljs-string">&#x27;buildings-label&#x27;</span>]);</pre>
+    
   
 
   
@@ -8224,7 +8297,19 @@
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    Source[s] whose layers will be toggled.
 
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -8233,6 +8318,14 @@
 
   
 
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>map.<span class="hljs-property">U</span>.<span class="hljs-title function_">showSource</span>(<span class="hljs-string">&#x27;trees&#x27;</span>);</pre>
+    
   
 
   
@@ -8306,6 +8399,12 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>map.<span class="hljs-property">U</span>.<span class="hljs-title function_">toggle</span>(<span class="hljs-regexp">/^buildings-/</span>, layers.<span class="hljs-property">showBuildings</span>);</pre>
+    
   
 
   
