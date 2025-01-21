@@ -448,7 +448,7 @@ describe('addLine()', () => {
         expect(map.getStyle().layers[0].type).toEqual('line');
     });
     test('addLine() respects "before" property', () => {
-        map.U.add('someotherlayer', 'things', 'line', {
+        map.U.addLine('someotherlayer', 'things', 'line', {
             lineColor: 'blue',
         });
         map.U.addLine(

@@ -345,6 +345,10 @@ class _MapGlUtils implements UtilsFuncs {
         return map;
     }
 
+    /**
+     * Generates an ["interpolate", ["linear"], input, lowest, ...stops] expression.
+     * @param stops Object of zoom: value pairs.
+     */
     static interpolateZoom(
         stops: number | { [s: string]: unknown } | ArrayLike<unknown>,
         ...moreStops: (number | undefined)[]
@@ -356,6 +360,10 @@ class _MapGlUtils implements UtilsFuncs {
 
     /**
      * Generates a ["step", input, lowest, ...steps] expression.
+     * @param expression Expression to use as input.
+     * @param lowest Default value.
+     * @param stops Object of zoom: value pairs.
+     * @example step('size, 2, { 8: 3, })
      */
     static step(
         expression: ExpressionSpecification,
@@ -383,6 +391,9 @@ class _MapGlUtils implements UtilsFuncs {
 
     /**
      * Generates a ["step", ["zoom"], lowest, ...steps] expression.
+     * @param lowest Default value.
+     * @param stops Object of zoom: value pairs.
+     *
      * @example stepZoom(2, { 8: 3, })
      */
     static stepZoom(
@@ -785,6 +796,17 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     // TODO deprecate/remove?
+    /**
+     * Adds a layer of any type.
+     * @param id ID of the new layer.
+     * @param source ID of the source to use.
+     * @param type Type of the layer.
+     * @param [props] Properties defining the layer, per the style spec. Keys can be in camelCase, and paint and layout keys freely mixed.
+     * @param [before] ID of the layer to insert before.
+     * @returns A SourceBoundUtils object for chaining.
+     * @example add('mylayer', 'mysource', 'line', { lineColor:'red' });
+     * @deprecated Use addLineLayer, addFillLayer, etc.
+     */
     add(
         id: string,
         source: SourceOrData,
@@ -1418,7 +1440,12 @@ class _MapGlUtils implements UtilsFuncs {
         }
     }
 
-    /** Set a property on the style's root, such as `light` or `transition`. */
+    /**
+     * Set a property on the style's root, such as `light` or `transition`.
+     * @param {string} propName Name of the property to set.
+     * @param {any} val Value to set the property to.
+     * @example setRootProperty('transition', { duration: 500, delay: 100 })
+     * */
     setRootProperty(
         propName: string,
         val: PropValue | TransitionSpecification
@@ -1431,8 +1458,9 @@ class _MapGlUtils implements UtilsFuncs {
     }
 
     /** Sets root transition property.
-  @example setTransition({ duration: 500, delay: 100 })
-  */
+     * @param {TransitionSpecification} val Transition object.
+     * @example setTransition({ duration: 500, delay: 100 })
+     */
     setTransition(val: TransitionSpecification) {
         this.setRootProperty('transition', val);
     }
@@ -1465,6 +1493,7 @@ class _MapGlUtils implements UtilsFuncs {
     }
     /**
      * Forcibly prevents the map's pitch or bearing being changed by the user.
+     * @example lockOrientation(
      * */
     lockOrientation(): void {
         const bearing = this.map.getBearing();
