@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>map-gl-utils 0.50.2 | Documentation</title>
+  <title>map-gl-utils 0.50.3 | Documentation</title>
   <meta name='description' content='Utility functions for Mapbox GL JS or Maplibre GL JS'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>map-gl-utils</h3>
-          <div class='mb1'><code>0.50.2</code></div>
+          <div class='mb1'><code>0.50.3</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -42,6 +42,486 @@
                   href='#changelog'
                   class="h5 bold black caps">
                   Changelog
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addcirclelayer'
+                  class="">
+                  addCircleLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addfillextrusionlayer'
+                  class="">
+                  addFillExtrusionLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addfilllayer'
+                  class="">
+                  addFillLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addgeojson'
+                  class="">
+                  addGeoJSON
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addgeojsonsource'
+                  class="">
+                  addGeoJSONSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addheatmaplayer'
+                  class="">
+                  addHeatmapLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addhillshadelayer'
+                  class="">
+                  addHillshadeLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addimagesource'
+                  class="">
+                  addImageSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addlayer'
+                  class="">
+                  addLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addlinelayer'
+                  class="">
+                  addLineLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addrasterdemsource'
+                  class="">
+                  addRasterDemSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addrasterlayer'
+                  class="">
+                  addRasterLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addrastersource'
+                  class="">
+                  addRasterSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addsymbollayer'
+                  class="">
+                  addSymbolLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addvectorsource'
+                  class="">
+                  addVectorSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addvideolayer'
+                  class="">
+                  addVideoLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addvideosource'
+                  class="">
+                  addVideoSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#clicklayer'
+                  class="">
+                  clickLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#clickonelayer'
+                  class="">
+                  clickOneLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#clickpopup'
+                  class="">
+                  clickPopup
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#fontsinuse'
+                  class="">
+                  fontsInUse
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getlayerstyle'
+                  class="">
+                  getLayerStyle
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#hide'
+                  class="">
+                  hide
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#hidesource'
+                  class="">
+                  hideSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#hoverfeaturestate'
+                  class="">
+                  hoverFeatureState
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#hoverlayer'
+                  class="">
+                  hoverLayer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#hoverpointer'
+                  class="">
+                  hoverPointer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#hoverpopup'
+                  class="">
+                  hoverPopup
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#loadimage'
+                  class="">
+                  loadImage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#lockorientation'
+                  class="">
+                  lockOrientation
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#onload'
+                  class="">
+                  onLoad
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#properties'
+                  class="">
+                  properties
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#removesource'
+                  class="">
+                  removeSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setdata'
+                  class="">
+                  setData
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setfilter'
+                  class="">
+                  setFilter
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setlayersource'
+                  class="">
+                  setLayerSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setproperty'
+                  class="">
+                  setProperty
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setrootproperty'
+                  class="">
+                  setRootProperty
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#settransition'
+                  class="">
+                  setTransition
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#show'
+                  class="">
+                  show
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#showsource'
+                  class="">
+                  showSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#toggle'
+                  class="">
+                  toggle
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#togglesource'
+                  class="">
+                  toggleSource
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#init'
+                  class="">
+                  init
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#interpolate'
+                  class="">
+                  interpolate
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#match'
+                  class="">
+                  match
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#step'
+                  class="">
+                  step
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#stepzoom'
+                  class="">
+                  stepZoom
                   
                 </a>
                 
@@ -4348,55 +4828,65 @@
 <p>Full documentation: <a href="https://stevage.github.io/map-gl-utils">https://stevage.github.io/map-gl-utils</a></p>
 <h2>Major features:</h2>
 <ul>
-<li>No need to distinguish between paint, layout and other properties.</li>
-<li>All properties can be expressed as camelCase rather than kebab-case.</li>
-<li>Layer operations can act on multiple layers (given by array, regex or filter function), not just one.</li>
-<li>Source types, layer types and property names are incorporated into function names: <code>addGeoJSON()</code>, <code>addCircleLayer()</code>, <code>setCircleRadius()</code>, <code>getTextFont()</code>...</li>
-<li>Adding layers and sources is idempotent: call <code>addLineLayer()</code> multiple times to create, then update the layer.</li>
-<li>Some other convenience functions: <code>show()</code>, <code>hide()</code>, <code>onLoad()</code>, <code>setData()</code>, <code>fontsInUse()</code></li>
-<li>Better click and hover functions: <code>hoverPointer()</code>, <code>hoverFeatureState()</code>, <code>hoverPopup()</code>, <code>clickLayer()</code></li>
-<li>Some functions behave better: <code>removeLayer()</code> (not an error if layer doesn't exist), <code>removeSource()</code> (removes attached layers automatically), <code>setFilter()</code> (works on multiple layers at once), <code>setData()</code> clears data if no GeoJSON provided.</li>
+<li>
+<p>No need to distinguish between paint, layout and other properties.</p>
+</li>
+<li>
+<p>All properties can be expressed as camelCase (<code>lineWidth</code>) rather than kebab-case (<code>line-width</code>).</p>
+</li>
+<li>
+<p>Layer operations can act on multiple layers (given by array, regex or filter function): <code>setLineColor(/road-*/, 'red')</code>.</p>
+</li>
+<li>
+<p>Source types, layer types and property names are incorporated into function names: <code>addGeoJSON()</code>, <code>addCircleLayer()</code>, <code>setCircleRadius()</code>, <code>getTextFont()</code>...</p>
+</li>
+<li>
+<p>Adding layers and sources is idempotent: call <code>addLineLayer()</code> multiple times to create, then update the layer.</p>
+</li>
+<li>
+<p>Some other convenience functions:</p>
+<ul>
+<li><code>show()</code>, <code>hide()</code>, <code>toggle(true/false)</code>: hide/show one or more layers</li>
+<li><code>onLoad()</code>: async function triggers after load, or immediately if map is already loaded</li>
+<li><code>setData()</code>: conveniently update a GeoJSON source</li>
+<li><code>fontsInUse()</code>: list of all fonts in the current style</li>
+<li><code>lockOrientation()</code>: disable rotation and tilting behaviour</li>
+<li><code>layerStyle(id)</code>: retrieve the layer definition for a layer</li>
+<li><code>setTransition()</code>: set the <code>transition</code> property of the style</li>
+</ul>
+</li>
+<li>
+<p>Better click and hover functions: <code>hoverPointer()</code>, <code>hoverFeatureState()</code>, <code>hoverPopup()</code>, <code>clickLayer()</code></p>
+</li>
+<li>
+<p>Some functions behave better:</p>
+<ul>
+<li><code>removeLayer()</code> (not an error if layer doesn't exist),</li>
+<li><code>removeSource()</code> (removes attached layers automatically),</li>
+<li><code>setFilter()</code> (works on multiple layers at once),</li>
+<li><code>setData()</code> clears data if no GeoJSON provided.</li>
+<li><code>loadImage()</code> loads and adds an image in one step.</li>
+</ul>
+</li>
+<li>
+<p>Expression syntactic sugar (called statically):</p>
+<ul>
+<li><code>U.stepZoom(2, { 8: 3 })</code> => <code>['step', ['zoom'], 2, 8, 3]</code></li>
+<li><code>U.interpolateZoom({ 14: 2, 16: 4 })</code> => <code>['interpolate', ['linear'], ['zoom'], 14, 2, 16, 4]</code></li>
+<li><code>U.interpolate('size', {2: 15, 4: 30 }')</code> => <code>['interpolate', ['get', 'size'], 2, 15, 4, 13]</code></li>
+<li><code>U.match('size', { small: 12, medium: 18, default: 24 })</code> => <code>['match', ['get', 'size'], 'small', 12, 'medium', 18, 24]</code></li>
+</ul>
+</li>
 </ul>
 <h2>Usage</h2>
 <p>To use without any build process:</p>
-<pre><code>&#x3C;script src="https://unpkg.com/map-gl-utils">&#x3C;/script>
-</code></pre>
 <p>then</p>
-<pre><code>U.init(map)
-</code></pre>
 <p>With Webpack etc:</p>
-<pre><code>const mapgl = require('maplibre-gl'); // or require('mapbox-gl');
-const map = new mapgl.Map({ ... });
-
-// or:
-import U from 'map-gl-utils';
-U.init(map);
-
-// if you need to explicitly import the ESM version:
-import U from 'map-gl-utils/dist/index.esm.js'
-U.init(map);
-
-
-
-
-// A small number of methods (eg hoverPopup) require access to the maplibre-gl/mapbox-gl library itself, in order to instantiate other objects.
-require('map-gl-utils').init(map, mapgl);
-</code></pre>
 <p>The default distribution is an ES2015 module with no transpiling. If you experience any syntax issues (such as using older JavaScript versions), use the UMD bundle instead:</p>
-<pre><code>// Adds U property to map, containing these methods.
-require('map-gl-utils/umd').init(map);
-</code></pre>
 <p>Typescript types are included in <code>dist/types/index.d.ts</code>.</p>
 <h3>Guide</h3>
 <h2>Working with layers</h2>
 <p>The <code>props</code> object passed when adding a layer can freely mix paint, layout and other properties. Property keys can be specified in camelCase or kebab-case:</p>
-<pre><code>map.U.addCircleLayer('trees-circle', 'trees', {
-    circleColor: 'green', // paint property
-    circleRadius: ['interpolate', ['zoom'], 12, 3, 15, 5], // paint property
-    circleSortKey: ['get', 'tree-sort-key'], // layout property
-    filter: ['!=', 'type', 'stump'], // other property
-});
-</code></pre>
 <p>Almost every method that works with existing layers (eg, <code>show()</code>) can work with multiple layers. There are four ways to specify the layer(s) you want to modify:</p>
 <ul>
 <li>string: <code>map.U.show('trees-label'); map.U.show('trees-circle');</code></li>
@@ -4406,228 +4896,12 @@ require('map-gl-utils/umd').init(map);
 </ul>
 <h2>Adding sources</h2>
 <p>Methods that add sources return an object ("SourceBoundUtils" in this documentation) that can be chained to allow layers to be added to it:</p>
-<pre><code>map.U.addGeoJSONSource('properties')
-.addCircleLayer('properties-line', { lineWidth: 3 })
-.addSymbolLayer('properties-fill', { fillColor: 'hsla(30,30%,60%,0.5)' })
-</code></pre>
 <h3>Adding and removing layers</h3>
-<pre><code>// Conveniently add a line feature, mixing paint, layout and other properties.
-// Notice you can use camelCase for all property names.
-map.U.addLineLayer('mylines', 'mysource', {
-    lineWidth: 3,
-    lineCap: 'round',
-    minzoom: 11
-});
-
-// Also addFillLayer, addFillExtrusionLayer, addRasterLayer, addVideoLayer, addSymbolLayer, addHillshadeLayer, addHeatmapLayer
-map.U.addCircleLayer('mycircles', 'mysource', { circleStrokeColor: 'red' });
-// if the layer already exists, calling add*Layer simply updates any of the properties
-map.U.addCircleLayer('mycircles', 'mysource', { circleStrokeColor: 'red', circleRadius: 4, filter: ['==', 'type', 'active'});
-
-
-// and of course add the layer "before" another layer if needed:
-map.U.addLineLayer('mylayer', 'mysource', { lineColor: 'red' }, 'toplayer');
-
-// removeLayer() doesn't throw errors if the layers don't exist
-map.U.removeLayer(['towns','town-labels']);
-
-</code></pre>
 <h3>Adding and removing sources</h3>
-<pre><code>// Simpler way to create GeoJSON source:
-map.U.addGeoJSON('mysource', geojson);
-
-// Or create a GeoJSON source with initially blank data. This is very convenient if you're loading
-// the data separately and will call .setData() later.
-map.U.addGeoJSON('mysource');
-
-// Simpler ways to create a vector tile source:
-map.U.addVector('mysource', 'mapbox://foo.blah');
-map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf');
-
-// Additional properties still work
-map.U.addVector('mysource', 'https://example.com/tiles/{z}/{x}/{y}.pbf', { maxzoom: 13 });
-
-// There's also addRaster(), addRasterDem(), addImage(), addVideo()
-// Calling any of the add* functions simply updates the source definition if it exists already.
-
-// Automatically removes any layers using these sources. Not an error if sources don't exist.
-map.U.removeSource(['buildings', 'roads']);
-
-// You can also use the returned object to add layers conveniently:
-map.U.addGeoJSON('buildings', 'data/buildings.geojson')
-    .addFillExtrusion('buildings-3d', {
-        fillExtrusionHeight: 100,
-        fillExtrusionColor: 'grey'
-    }).addLineLayer('buildings-footprint', {
-        lineColor: 'lightblue'
-    });
-
-// Replace the source on an existing layer. (Actually removes and re-adds it.)
-map.U.setLayerSource('buildings', 'newsource');
-map.U.setLayerSource(['buildings-3d', 'buildings-outline]', 'newsource', 'newsourcelayer');
-
-// To change the source layer, pass a third argument, or null to clear it (if switching from vector tiles to geojson)
-map.U.setLayerSource('buildings', 'mylocalbuildings', null);
-</code></pre>
 <h3>Setting properties and updating data</h3>
-<pre><code>// Every property has a setXxx() form:
-map.U.setTextSize('mylayer', 12);
-
-// And they all work on multiple layers at once:
-map.U.setLineWidth(['mylayer', 'mylayer-highlight'], 4);
-map.U.setLineOpacity(/^border-/, 0);
-map.U.setFillColor(layer => layer.source === 'farms', 'green');
-
-// There's also a more familiar setProperty() form.
-map.U.setProperty('mylayer', 'line-width', 3);
-// Existing properties aren't touched
-map.U.setProperty('mylayer', {
-    textSize: 12,
-    textColor: 'red'
-});
-
-// There's a `get...` version of every function, too.
-map.U.getFillColor('water')
-
-// Simpler way to update source data:
-map.U.setData('mysource', data);
-
-// you can leave out the data parameter to clear out a GeoJSON source:
-map.U.setData('mysource');
-
-// Easier to remember way to turn layers on and off:
-map.U.show('mylayer');
-map.U.hide('mylayer');
-map.U.toggle(['mylayer', 'myotherlayer'], isVisible);
-
-// To avoid name clashes such as with 'raster', you can use a longer form ending
-// with either ...Layer() or ...Source()
-
-map.U.addRasterSource('myrastersource', { type: 'raster', url: 'mapbox://mapbox.satellite', tileSize: 256 });
-map.U.addRasterLayer('myrasterlayer', 'myrastersource', { rasterSaturation: 0.5 });
-</code></pre>
 <h3>Hovering and clicking</h3>
-<pre><code>// Use the mouse 'finger' cursor when hovering over this layer.
-map.U.hoverPointer('mylayer');
-
-// If you pass several layers, it correctly handles moving from one layer to another
-// Use the mouse 'finger' cursor when hovering over this layer.
-map.U.hoverPointer(['regions-border', 'regions-fill']);
-
-// Sets a "hover" feature-state to be true or false as the mouse moves over features in this layer.
-// Requires that features have an `id`.
-map.U.hoverFeatureState('mylayer');
-
-// Want to apply the hover feature-state to a different source?
-// For instance, you hover over a label, but want to highlight the surrounding boundary.
-map.U.hoverFeatureState('town-labels', 'boundaries', 'town-boundaries');
-
-// You can also add additional event handlers:
-map.U.hoverFeatureState('mylayer', 'mysource', 'mysourcelayer',
-    e => console.log(`Entered ${e.features[0].id}`),
-    e => console.log(`Left ${e.oldFeatureid}`);
-
-// Shows a popup when a feature is hovered over or clicked.
-// The third argument is an options object, passed to the Popup constructor.
-// callback is called as: (feature, popup) => htmlString
-// Make sure you passed the mapboxgl library itself when initialising: U.init(map, mapboxgl).
-map.U.hoverPopup('mylayer', f => `&#x3C;h3>${f.properties.Name}&#x3C;/h3> ${f.properties.Description}`, { anchor: 'left' });
-map.U.clickPopup('mylayer', f => `&#x3C;h3>${f.properties.Name}&#x3C;/h3> ${f.properties.Description}`, { maxWidth: 500 });
-
-// clickLayer() is like .on('click)', but can take an array and adds a 'features' member
-// to the event, for what got clicked on.
-map.U.clickLayer(['towns', 'town-labels'], e => panel.selectedId = e.features[0].id);
-
-// clickOneLayer tests multiple layers in order, firing callback on the first one that
-// is hit. The callback is passed { feature, features, layer, event }.
-map.U.clickOneLayer(['town-labels', 'state-boundaries'], e => {
-    if (e.layer === 'town-labels') {
-        setView('town');
-        panel.selectedId = e.features[0].id;
-    } else if (e.layer === 'state-boundaries') {
-        setView('state');
-        panel.selectedId = e.features[0].id;
-    }
-});
-
-// Optionally pass in an extra callback which is fired for clicks that miss all layers:
-map.U.clickOneLayer(['town-labels', 'state-boundaries'], e => {...}, e => {
-    console.log('Missed everything');
-});
-
-// All these functions return an "undo" function that removes the handlers added:
-const remove = map.U.hoverPopup('mylayer', showPopupFunc);
-//...
-remove(); // no more hover popup
-</code></pre>
 <h3>Other functions</h3>
-<pre><code>// Like on('load') but fires immediately (and reliably) any time after map already loaded.
-map.U.onLoad(callback);
-// returns a promise if no callback:
-await map.U.onLoad();
-
-// Gets the layer definition. Mapbox's `getLayer()` has weird paint and layout properties.
-const layer = map.U.getLayerStyle('mylayer');
-
-// Resets all other properties to default first. Ignores non-paint, non-layout properties.
-map.setLayerStyle('mylayer', {
-    lineWidth: 3
-});
-
-// properties() converts an object to a layer object accepted by Mapbox-GL-JS
-map.addLayer(map.U.properties({
-    id: 'mylayer',
-    source: 'mysource',
-    type: 'line',
-    lineWidth: 3,
-    lineCap: 'round',
-    minzoom: 11,
-    filter: ['==', 'status', 'confirmed']
-}));
-
-// layerStyle() is flexible, pass as many or as few of id, source, and type (in that order) as you like:
-map.U.layerStyle('mylayer', 'mysource', 'line', { ... })
-map.U.layerStyle('mylayer', 'mysource', { ... })
-map.U.layerStyle('mylayer', { ... })
-map.U.layerStyle({ ... })
-
-
-// Hide/show/toggle all the layers attached to this source
-map.U.hideSource('buildings');
-map.U.showSource('buildings');
-map.U.toggleSource('buildings', true);
-
-// Update several filters at once.
-map.U.setFilter(['buildings-fill', 'buildings-outline', 'buildings-label'], [...]);
-
-// Conveniently load an image into the map in one step
-map.U.loadImage('marker', '/assets/marker-pin.png');
-map.U.loadImage('marker', '/assets/marker-pin@2x.png', { pixelRatio: 2}).then(/* ... */;
-
-
-// Update the map style's root "transition" property
-map.U.setTransition({ delay: 1000, delay: 0});
-
-// Get a list of fonts used in symbol layers with fontsUsed(). Useful for quickly getting some text displaying.
-const fonts = map.U.fontsInUse();
-map.U.addSymbolLayer('labels', 'mysource', { textFont: fonts[0], textField: '{label}' });
-</code></pre>
 <h3>Contrived example</h3>
-<pre><code>map.U.onload(() => {
-    map.U.addGeoJSON('towns');
-    map.U.addCircleLayer('small-towns', 'towns', { circleColor: 'green', filter: ['==', 'size', 'small']});
-    map.U.addCircleLayer('large-towns', 'towns', {
-        circleColor: 'red',
-        filter: ['==', 'size', ['large']],
-        circleStrokeWidth: ['case', ['to-boolean', ['feature-state', 'hover']], 5, 1]
-    );
-    map.U.setCircleRadius(['small-towns', 'large-towns'], 12);
-    map.U.hoverPointer(['small-towns', 'large-towns']);
-    map.U.hoverFeatureState('large-towns');
-    // update the source layer when data is available
-    d3.json('http://example.com/towns.json', data => map.U.setData('towns', data));
-});
-</code></pre>
 <h2>Credits</h2>
 <p>Map-GL-Utils was written by, and maintained, by Steve Bennett, a <a href="https://hire.stevebennett.me">freelance map developer</a>.</p>
 <p>Documentation built with <a href="https://github.com/documentationjs/documentation">documentation.js</a>.</p>
@@ -4716,6 +4990,3830 @@ map.U.addSymbolLayer('labels', 'mysource', { textFont: fonts[0], textField: '{la
 
   
 </section></div>
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addcirclelayer'>
+      addCircleLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>circle</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addCircleLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addfillextrusionlayer'>
+      addFillExtrusionLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>fill-extrusion</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addFillExtrusionLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addfilllayer'>
+      addFillLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>fill</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addFillLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addgeojson'>
+      addGeoJSON
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Create a GeoJSON source or update properties if already present.</p>
+
+    <div class='pre p1 fill-light mt0'>addGeoJSON(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, geojson: GeoJSON?, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>?): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new source.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>geojson</span> <code class='quiet'>(GeoJSON?)</code>
+	    Optional GeoJSON data.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>?)</code>
+	    Properties defining the source, per the style spec.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addgeojsonsource'>
+      addGeoJSONSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Create a GeoJSON source or update properties if already present.</p>
+
+    <div class='pre p1 fill-light mt0'>addGeoJSONSource(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, geojson: GeoJSON?, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>?): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new source.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>geojson</span> <code class='quiet'>(GeoJSON?)</code>
+	    Optional GeoJSON data.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>?)</code>
+	    Properties defining the source, per the style spec.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addheatmaplayer'>
+      addHeatmapLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>heatmap</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addHeatmapLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addhillshadelayer'>
+      addHillshadeLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>hillshade</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addHillshadeLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addimagesource'>
+      addImageSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds an <code>image</code> source</p>
+
+    <div class='pre p1 fill-light mt0'>addImageSource(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new source.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Properties defining the source, per the style spec.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addlayer'>
+      addLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer, given an id, source, type, and properties.</p>
+
+    <div class='pre p1 fill-light mt0'>addLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, type: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>type</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addlinelayer'>
+      addLineLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>line</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addLineLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addrasterdemsource'>
+      addRasterDemSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a <code>raster-dem</code> source</p>
+
+    <div class='pre p1 fill-light mt0'>addRasterDemSource(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new source.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Properties defining the source, per the style spec.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addrasterlayer'>
+      addRasterLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>raster</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addRasterLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addrastersource'>
+      addRasterSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a <code>raster</code> source</p>
+
+    <div class='pre p1 fill-light mt0'>addRasterSource(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new source.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Properties defining the source, per the style spec.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addsymbollayer'>
+      addSymbolLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>symbol</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addSymbolLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addvectorsource'>
+      addVectorSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a <code>vector</code> source</p>
+
+    <div class='pre p1 fill-light mt0'>addVectorSource(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, extraProps: {}, data: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new source.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Properties defining the source, per the style spec.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>extraProps</span> <code class='quiet'>({}
+            = <code>{}</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>data</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    Optional URL of source tiles (.../{z}/{x}/{y}...), mapbox:// URL or TileJSON endpoint.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">addVector</span>(<span class="hljs-string">&#x27;mysource&#x27;</span>, <span class="hljs-string">&#x27;http://example.com/tiles/{z}/{x}/{y}.pbf&#x27;</span>, { <span class="hljs-attr">maxzoom</span>: <span class="hljs-number">13</span> });</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addvideolayer'>
+      addVideoLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of type <code>video</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>addVideoLayer(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addvideosource'>
+      addVideoSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a <code>video</code> source</p>
+
+    <div class='pre p1 fill-light mt0'>addVideoSource(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): SourceBoundUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new source.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Properties defining the source, per the style spec.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>SourceBoundUtils</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='clicklayer'>
+      clickLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Fire a callback whenever a feature in these layers is clicked.</p>
+
+    <div class='pre p1 fill-light mt0'>clickLayer</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layers to attach handler to.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cb</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    Callback that receives event with .features property
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        A function that removes the handler.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='clickonelayer'>
+      clickOneLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Detects a click in the first of a series of layers given, and fires a callback.</p>
+
+    <div class='pre p1 fill-light mt0'>clickOneLayer(layerRef: LayerRef, cb: LayerCallback, noMatchCb: (LayerCallback | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>), layers: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)): OffHandler</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layerRef</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cb</span> <code class='quiet'>(LayerCallback)</code>
+	    Callback, receives 
+<code>{ event, layer, feature, features }</code>
+.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>noMatchCb</span> <code class='quiet'>((LayerCallback | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>))</code>
+	    Callback when a click happens that misses all these layers. Receives 
+<code>{ event }</code>
+.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layers to attach handler to.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>OffHandler</code>:
+        A function to remove the handler.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='clickpopup'>
+      clickPopup
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Show a popup whenever a feature in these layers is clicked.</p>
+
+    <div class='pre p1 fill-light mt0'>clickPopup(layers: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>), htmlFunc: function (arg0: {}): void, popupOptions: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;PopupOptions>): OffHandler</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layers to attach handler to.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>htmlFunc</span> <code class='quiet'>(function (arg0: {}): void)</code>
+	    Function that receives feature and popup, returns HTML.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>popupOptions</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;PopupOptions>
+            = <code>{}</code>)</code>
+	    Options passed to 
+<code>Popup()</code>
+ to customise popup.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>OffHandler</code>:
+        A function that removes the handler.
+
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">clickPopup</span>(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-function"><span class="hljs-params">f</span> =&gt;</span> <span class="hljs-string">`&lt;h3&gt;<span class="hljs-subst">${f.properties.Name}</span>&lt;/h3&gt; <span class="hljs-subst">${f.properties.Description}</span>`</span>, { <span class="hljs-attr">maxWidth</span>: <span class="hljs-number">500</span> });</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='fontsinuse'>
+      fontsInUse
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets array of font names in use, determined by traversing style. Does not detect fonts in all possible situations.</p>
+
+    <div class='pre p1 fill-light mt0'>fontsInUse(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>></code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getlayerstyle'>
+      getLayerStyle
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the layer definition for a given layer id, as per the style spec..</p>
+
+    <div class='pre p1 fill-light mt0'>getLayerStyle(layerId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): (LayerSpecification | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layerId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(LayerSpecification | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='hide'>
+      hide
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Makes the given layers hidden.</p>
+
+    <div class='pre p1 fill-light mt0'>hide</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>Layer</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    to toggle.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='hidesource'>
+      hideSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Makes all layers depending on a given source hidden.</p>
+
+    <div class='pre p1 fill-light mt0'>hideSource</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='hoverfeaturestate'>
+      hoverFeatureState
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Updates feature-state of features in the connected source[s] whenever hovering over a feature in these layers.</p>
+
+    <div class='pre p1 fill-light mt0'>hoverFeatureState</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layer</span> <code class='quiet'>(any)</code>
+	    Layer(s) to add handler to.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)?)</code>
+	    Source whose features will be updated. If not provided, use the source defined for the layer.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceLayer</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    Source layer (if using vector source)
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='hoverlayer'>
+      hoverLayer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Fires a callback when mouse hovers over a feature in these layers.</p>
+
+    <div class='pre p1 fill-light mt0'>hoverLayer</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layers to attach handler to.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        A function to remove the handler.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='hoverpointer'>
+      hoverPointer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets Map's cursor to 'pointer' whenever the mouse is over these layers.</p>
+
+    <div class='pre p1 fill-light mt0'>hoverPointer(layerOrLayers: LayerRef): function (): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layerOrLayers</span> <code class='quiet'>(LayerRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>function (): void</code>:
+        A function to remove the handler.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='hoverpopup'>
+      hoverPopup
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Show a popup whenever hovering over a feature in these layers.</p>
+
+    <div class='pre p1 fill-light mt0'>hoverPopup(layers: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>), htmlFunc: LayerCallback, popupOptions: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;PopupOptions>): OffHandler</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layers to attach handler to.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>htmlFunc</span> <code class='quiet'>(LayerCallback)</code>
+	    Function that receives feature and popup, returns HTML.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>popupOptions</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;PopupOptions>
+            = <code>{}</code>)</code>
+	    Options passed to 
+<code>Popup()</code>
+ to customise popup.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>OffHandler</code>
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">hoverPopup</span>(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-function"><span class="hljs-params">f</span> =&gt;</span> <span class="hljs-string">`&lt;h3&gt;<span class="hljs-subst">${f.properties.Name}</span>&lt;/h3&gt; <span class="hljs-subst">${f.properties.Description}</span>`</span>, { <span class="hljs-attr">anchor</span>: <span class="hljs-string">&#x27;left&#x27;</span> });</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='loadimage'>
+      loadImage
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds an image for use as a symbol layer, from a URL.</p>
+
+    <div class='pre p1 fill-light mt0'>loadImage(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, url: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, options: StyleImageMetadata?): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>url</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(StyleImageMetadata?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">loadImage</span>(<span class="hljs-string">&#x27;marker&#x27;</span>, <span class="hljs-string">&#x27;/assets/marker-pin@2x.png&#x27;</span>, { <span class="hljs-attr">pixelRatio</span>: <span class="hljs-number">2</span>})</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='lockorientation'>
+      lockOrientation
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Forcibly prevents the map's pitch or bearing being changed by the user.</p>
+
+    <div class='pre p1 fill-light mt0'>lockOrientation(): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='onload'>
+      onLoad
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Callback that fires when map loads, or immediately if map is already loaded.</p>
+
+    <div class='pre p1 fill-light mt0'>onLoad(cb: function (arg0: void): void?): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cb</span> <code class='quiet'>(function (arg0: void): void?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        Promise, if callback not provided.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='properties'>
+      properties
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Converts a set of properties in pascalCase or kebab-case into a layer objectwith layout and paint properties.</p>
+
+    <div class='pre p1 fill-light mt0'>properties(props: {}?): ({} | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({}?)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>({} | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</code>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='removesource'>
+      removeSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Removes one or more sources, first removing all layers that depend on them. Not an error if source doesn't exist.</p>
+
+    <div class='pre p1 fill-light mt0'>removeSource</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sources</span> <code class='quiet'>(SourceRef)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setdata'>
+      setData
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Replaces the current data for a GeoJSON layer.</p>
+
+    <div class='pre p1 fill-light mt0'>setData(sourceId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, data: GeoJSON?)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    Id of the source being updated.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>data</span> <code class='quiet'>(GeoJSON?
+            = <code>{type:&#39;FeatureCollection&#39;,features:[]}</code>)</code>
+	    GeoJSON object to set. If not provided, defaults to an empty FeatureCollection.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setfilter'>
+      setFilter
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Replace the filter for one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setFilter</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layers</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layers to attach handler to.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>filter</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    New filter to set.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>map.<span class="hljs-property">U</span>.<span class="hljs-title function_">setFilter</span>([<span class="hljs-string">&#x27;buildings-fill&#x27;</span>, <span class="hljs-string">&#x27;buildings-outline&#x27;</span>, <span class="hljs-string">&#x27;buildings-label&#x27;</span>], [<span class="hljs-string">&#x27;==&#x27;</span>,<span class="hljs-string">&#x27;level&#x27;</span>,<span class="hljs-string">&#x27;0&#x27;</span>]]);</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setlayersource'>
+      setLayerSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Changes the source of an existing layer, by removing and readding the source.</p>
+
+    <div class='pre p1 fill-light mt0'>setLayerSource</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layerId</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    Layer[s] whose source will be changed.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    New source ID to set.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceLayer</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    New source layer to set.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">setLayerSource</span>([<span class="hljs-string">&#x27;trees-circle&#x27;</span>, <span class="hljs-string">&#x27;trees-label&#x27;</span>], <span class="hljs-string">&#x27;allpoints&#x27;</span>, <span class="hljs-string">&#x27;trees&#x27;</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setproperty'>
+      setProperty
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets a paint or layout property on one or more layers.</p>
+
+    <div class='pre p1 fill-light mt0'>setProperty</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">setProperty</span>([<span class="hljs-string">&#x27;buildings-fill&#x27;</span>, <span class="hljs-string">&#x27;parks-fill&#x27;</span>], <span class="hljs-string">&#x27;fillOpacity&#x27;</span>, <span class="hljs-number">0.5</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setrootproperty'>
+      setRootProperty
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Set a property on the style's root, such as <code>light</code> or <code>transition</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>setRootProperty(propName: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, val: (PropValue | TransitionSpecification))</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>propName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>val</span> <code class='quiet'>((PropValue | TransitionSpecification))</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='settransition'>
+      setTransition
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets root transition property.</p>
+
+    <div class='pre p1 fill-light mt0'>setTransition(val: TransitionSpecification)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>val</span> <code class='quiet'>(TransitionSpecification)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">setTransition</span>({ <span class="hljs-attr">duration</span>: <span class="hljs-number">500</span>, <span class="hljs-attr">delay</span>: <span class="hljs-number">100</span> })</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='show'>
+      show
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Makes the given layers visible.</p>
+
+    <div class='pre p1 fill-light mt0'>show</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>Layer</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    to toggle.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='showsource'>
+      showSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Makes all layers depending on a given source visible.</p>
+
+    <div class='pre p1 fill-light mt0'>showSource</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='toggle'>
+      toggle
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Makes the given layers hidden or visible, depending on an argument.</p>
+
+    <div class='pre p1 fill-light mt0'>toggle</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>Layer</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>))</code>
+	    to toggle.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    True for visible, false for hidden.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='togglesource'>
+      toggleSource
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Makes the given layers connected to a given source hidden or visible, depending on an argument.</p>
+
+    <div class='pre p1 fill-light mt0'>toggleSource</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sourceId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    Source[s] whose layers will be toggled.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    True for visible, false for hidden.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='init'>
+      init
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Initialises Map-GL-Utils on existing map object.</p>
+
+    <div class='pre p1 fill-light mt0'>init(map: UtilsMap, mapgl: MapboxGlLib?): MapGlUtils</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>map</span> <code class='quiet'>(UtilsMap)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>mapgl</span> <code class='quiet'>(MapboxGlLib?)</code>
+	    Mapbox-GL-JS or Maplibre-GL-JS library. Only needed for later use by 
+<code>hoverPopup()</code>
+ etc.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>MapGlUtils</code>:
+        Initialised MapGlUtils object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='interpolate'>
+      interpolate
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Generates a ["interpolate", ["linear"], input, lowest, ...stops] expression.</p>
+
+    <div class='pre p1 fill-light mt0'>interpolate(expression: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | ExpressionSpecification), stops: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | {: any} | ArrayLike&#x3C;any>), moreStops: ...<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>expression</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | ExpressionSpecification))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>stops</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | {: any} | ArrayLike&#x3C;any>))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>moreStops</span> <code class='quiet'>(...<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">interpolate</span>(<span class="hljs-string">&#x27;size&#x27;</span>, { <span class="hljs-number">2</span>: <span class="hljs-number">15</span>, <span class="hljs-number">4</span>: <span class="hljs-number">30</span>, })</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='match'>
+      match
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Generates a ["match", input, output, default] expression.</p>
+
+    <div class='pre p1 fill-light mt0'>match(expression: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, cases: {: any, default: any?}, fallback: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>))</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>expression</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cases</span> <code class='quiet'>({: any, default: any?})</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fallback</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title class_">MapGlUtils</span>.<span class="hljs-title function_">match</span>(<span class="hljs-string">&#x27;type&#x27;</span>, { <span class="hljs-string">&#x27;house&#x27;</span>: <span class="hljs-string">&#x27;🏠&#x27;</span>, <span class="hljs-string">&#x27;tree&#x27;</span>: <span class="hljs-string">&#x27;🌲&#x27;</span> }, <span class="hljs-string">&#x27;❓&#x27;</span>)</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='step'>
+      step
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Generates a ["step", input, lowest, ...steps] expression.</p>
+
+    <div class='pre p1 fill-light mt0'>step(expression: ExpressionSpecification, lowest: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, stops: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, ExpressionSpecification]> | {number: ExpressionSpecification} | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>), moreStops: ...<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | ExpressionSpecification)>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>expression</span> <code class='quiet'>(ExpressionSpecification)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>lowest</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>stops</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, ExpressionSpecification]> | {number: ExpressionSpecification} | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>moreStops</span> <code class='quiet'>(...<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | ExpressionSpecification)>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='stepzoom'>
+      stepZoom
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Generates a ["step", ["zoom"], lowest, ...steps] expression.</p>
+
+    <div class='pre p1 fill-light mt0'>stepZoom(lowest: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, stops: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, ExpressionSpecification]> | {number: ExpressionSpecification} | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>), moreStops: ...<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | ExpressionSpecification)>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>lowest</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>stops</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, ExpressionSpecification]> | {number: ExpressionSpecification} | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>moreStops</span> <code class='quiet'>(...<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | ExpressionSpecification)>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">stepZoom</span>(<span class="hljs-number">2</span>, { <span class="hljs-number">8</span>: <span class="hljs-number">3</span>, })</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
           
         
           
