@@ -729,6 +729,9 @@ class _MapGlUtils implements UtilsFuncs {
         beforeLayerId: string | null | undefined
     ): void {
         if (beforeLayerId) {
+            if (!this.map.getLayer(beforeLayerId)) {
+                beforeLayerId = undefined;
+            }
             this.map.addLayer(layerDef, beforeLayerId);
         } else {
             this.map.addLayer(layerDef);
