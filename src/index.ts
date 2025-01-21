@@ -37,12 +37,12 @@ type StyleImageMetadata = {
     content?: [number, number, number, number];
 };
 
-type UtilsMap = MapboxGLMap & {
+export type UtilsMap = MapboxGLMap & {
     U: MapGlUtils | null | undefined;
 };
 type MapboxGlLib = {
     Map: Class<MapboxGLMap>;
-    Popup: Class<Popup>; // plugin flow-remove-types started choking on ... and 'function'. No idea why.
+    Popup: Class<Popup>;
 };
 
 import type { UtilsFuncs } from './utilsGenerated';
@@ -1532,6 +1532,6 @@ function initClass(U: _MapGlUtils) {
 
 export type MapGlUtils = _MapGlUtils & UtilsFuncs;
 
-const U = _MapGlUtils.prototype;
+const U = _MapGlUtils.prototype as MapGlUtils;
 initClass(U);
 export default _MapGlUtils;

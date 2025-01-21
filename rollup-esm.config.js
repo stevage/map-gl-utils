@@ -19,6 +19,10 @@ export default [
                 declarationDir: 'dist/types',
                 rootDir: 'src',
                 outDir: 'dist',
+                module: 'ESNext',
+                target: 'ESNext',
+                moduleResolution: 'Node',
+                esModuleInterop: true,
             }),
             json(),
             babel({
