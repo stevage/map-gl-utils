@@ -840,41 +840,88 @@ class _MapGlUtils implements UtilsFuncs {
     // The bodies of these functions are added later by `makeAddLayer`
 
     /** Adds a layer of type `line`.*/
-    addLineLayer(id: string, props: {}, before?: string): void {}
+    addLineLayer(
+        id: string,
+        source: string,
+        props: {},
+        before?: string
+    ): void {}
 
     /** Adds a layer of type `fill`.*/
-    addFillLayer(id: string, props: {}, before?: string): void {}
+    addFillLayer(
+        id: string,
+        source: string,
+        props: {},
+        before?: string
+    ): void {}
 
     /** Adds a layer of type `circle`.*/
-    addCircleLayer(id: string, props: {}, before?: string): void {}
+    addCircleLayer(
+        id: string,
+        source: string,
+        props: {},
+        before?: string
+    ): void {}
 
     /** Adds a layer of type `symbol`.*/
-    addSymbolLayer(id: string, props: {}, before?: string): void {}
+    addSymbolLayer(
+        id: string,
+        source: string,
+        props: {},
+        before?: string
+    ): void {}
 
     /** Adds a layer of type `video`.*/
-    addVideoLayer(id: string, props: {}, before?: string): void {}
+    addVideoLayer(
+        id: string,
+        source: string,
+        props: {},
+        before?: string
+    ): void {}
 
     /** Adds a layer of type `raster`.*/
-    addRasterLayer(id: string, props: {}, before?: string): void {}
+    addRasterLayer(
+        id: string,
+        source: string,
+        props: {},
+        before?: string
+    ): void {}
 
     /** Adds a layer of type `fill-extrusion`.*/
-    addFillExtrusionLayer(id: string, props: {}, before?: string): void {}
+    addFillExtrusionLayer(
+        id: string,
+        source: string,
+        props: {},
+        before?: string
+    ): void {}
 
     /** Adds a layer of type `heatmap`.*/
-    addHeatmapLayer(id: string, props: {}, before?: string): void {}
+    addHeatmapLayer(
+        id: string,
+        source: string,
+        props: {},
+        before?: string
+    ): void {}
 
     /** Adds a layer of type `hillshade`.*/
-    addHillshadeLayer(id: string, props: {}, before?: string): void {}
+    addHillshadeLayer(
+        id: string,
+        source: string,
+        props: {},
+        before?: string
+    ): void {}
 
     /** Create a GeoJSON layer. */
     addGeoJSONSource(
         id: string,
-        geojson: GeoJSON | null | undefined = {
-            type: 'FeatureCollection',
-            features: [],
-        },
-        props: GeoJSONSourceSpecification | null | undefined
+        geojson?: GeoJSON | null | undefined,
+        props?: GeoJSONSourceSpecification | null | undefined
     ): SourceBoundUtils {
+        if (!geojson)
+            geojson = {
+                type: 'FeatureCollection',
+                features: [],
+            };
         return this.addSource(id, {
             type: 'geojson',
             data: geojson ?? undefined,
@@ -884,11 +931,8 @@ class _MapGlUtils implements UtilsFuncs {
 
     addGeoJSON(
         id: string,
-        geojson: GeoJSON | null | undefined = {
-            type: 'FeatureCollection',
-            features: [],
-        },
-        props: GeoJSONSourceSpecification | null | undefined
+        geojson?: GeoJSON | null | undefined,
+        props?: GeoJSONSourceSpecification | null | undefined
     ): SourceBoundUtils {
         return this.addGeoJSONSource(id, geojson, props);
     }
