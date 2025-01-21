@@ -49,6 +49,16 @@
               
                 
                 <li><a
+                  href='#add'
+                  class="">
+                  add
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#addcirclelayer'
                   class="">
                   addCircleLayer
@@ -522,6 +532,16 @@
                   href='#interpolate'
                   class="">
                   interpolate
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#interpolatezoom'
+                  class="">
+                  interpolateZoom
                   
                 </a>
                 
@@ -5028,6 +5048,121 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='add'>
+      add
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds a layer of any type.</p>
+
+    <div class='pre p1 fill-light mt0'>add(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, source: SourceOrData, type: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, props: {}, before: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): (SourceBoundUtils | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</div>
+  
+  
+
+  <div>Deprecated: Use addLineLayer, addFillLayer, etc.
+</div>
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    ID of the new layer.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(SourceOrData)</code>
+	    ID of the source to use.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>type</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    Type of the layer.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>({})</code>
+	    Properties defining the layer, per the style spec. Keys can be in camelCase, and paint and layout keys freely mixed.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>before</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
+	    ID of the layer to insert before.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(SourceBoundUtils | null | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</code>:
+        A SourceBoundUtils object for chaining.
+
+      
+    
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;mylayer&#x27;</span>, <span class="hljs-string">&#x27;mysource&#x27;</span>, <span class="hljs-string">&#x27;line&#x27;</span>, { <span class="hljs-attr">lineColor</span>:<span class="hljs-string">&#x27;red&#x27;</span> });</pre>
+    
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='addcirclelayer'>
       addCircleLayer
     </h3>
@@ -7691,6 +7826,12 @@
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">lockOrientation</span>()</pre>
+    
+  
 
   
 
@@ -8424,7 +8565,7 @@
 
   <p>Set a property on the style's root, such as <code>light</code> or <code>transition</code>.</p>
 
-    <div class='pre p1 fill-light mt0'>setRootProperty(propName: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, val: (PropValue | TransitionSpecification))</div>
+    <div class='pre p1 fill-light mt0'>setRootProperty(propName: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, val: any)</div>
   
   
 
@@ -8442,15 +8583,17 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>propName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
+	    Name of the property to set.
+
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>val</span> <code class='quiet'>((PropValue | TransitionSpecification))</code>
-	    
+            <span class='code bold'>val</span> <code class='quiet'>(any)</code>
+	    Value to set the property to.
+
           </div>
           
         </div>
@@ -8466,6 +8609,12 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">setRootProperty</span>(<span class="hljs-string">&#x27;transition&#x27;</span>, { <span class="hljs-attr">duration</span>: <span class="hljs-number">500</span>, <span class="hljs-attr">delay</span>: <span class="hljs-number">100</span> })</pre>
+    
   
 
   
@@ -8513,7 +8662,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>val</span> <code class='quiet'>(TransitionSpecification)</code>
-	    
+	    Transition object.
+
           </div>
           
         </div>
@@ -9013,6 +9163,78 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='interpolatezoom'>
+      interpolateZoom
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Generates an ["interpolate", ["linear"], input, lowest, ...stops] expression.</p>
+
+    <div class='pre p1 fill-light mt0'>interpolateZoom(stops: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | {: any} | ArrayLike&#x3C;any>), moreStops: ...<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>stops</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | {: any} | ArrayLike&#x3C;any>))</code>
+	    Object of zoom: value pairs.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>moreStops</span> <code class='quiet'>(...<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='match'>
       match
     </h3>
@@ -9126,7 +9348,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>expression</span> <code class='quiet'>(ExpressionSpecification)</code>
-	    
+	    Expression to use as input.
+
           </div>
           
         </div>
@@ -9134,7 +9357,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>lowest</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    
+	    Default value.
+
           </div>
           
         </div>
@@ -9142,7 +9366,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>stops</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, ExpressionSpecification]> | {number: ExpressionSpecification} | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>))</code>
-	    
+	    Object of zoom: value pairs.
+
           </div>
           
         </div>
@@ -9166,6 +9391,12 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-title function_">step</span>(<span class="hljs-string">&#x27;size, 2, { 8: 3, })</span></pre>
+    
   
 
   
@@ -9213,7 +9444,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>lowest</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    
+	    Default value.
+
           </div>
           
         </div>
@@ -9221,7 +9453,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>stops</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;[<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, ExpressionSpecification]> | {number: ExpressionSpecification} | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>))</code>
-	    
+	    Object of zoom: value pairs.
+
           </div>
           
         </div>
