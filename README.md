@@ -1,6 +1,10 @@
 Map-GL-Utils (formerly Mapbox-GL-Utils) adds a number of utility functions and syntactic sugar to a Mapbox GL JS or Maplibre GL JS map instance. If you write a lot of interactive map code, you may appreciate the more concise form, and simpler API.
 
-Full documentation: https://stevage.github.io/map-gl-utils
+Docs: https://stevage.github.io/map-gl-utils
+
+Package: https://npmjs.com/package/map-gl-utils
+
+Code: https://github.com/stevage/map-gl-utils
 
 ## Major features:
 
