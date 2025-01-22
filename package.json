@@ -13,7 +13,7 @@
     "rollup": "node_modules/rollup/dist/bin/rollup -c rollup.config.js",
     "rollup-esm": "node_modules/rollup/dist/bin/rollup -c rollup-esm.config.js",
     "prepublish": "yarn run update-keys; yarn run rollup; yarn run rollup-esm; yarn run docs-only",
-    "predocs": "sed 's/^```(js|ts)$/```/' README.md > _readme.md",
+    "predocs": "sed 's/^```.s$/```/' README.md > _readme.md",
     "docs-only": "documentation build -f html -o docs --config documentation.yml src/index.ts src/utilsGenerated.js --sort-order alpha  ",
     "docs": "node updateKeys; yarn run docs-only",
     "docserve": "documentation serve --config documentation.yml --watch src/index.js src/utilsGenerated.js --sort-order=alpha "
